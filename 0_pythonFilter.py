@@ -97,4 +97,4 @@ for dockerfile in files:
         dataset_extract(dockerfile, output_html)
         generated['dataset'].add(dockerfile)
     except:
-        generated['skipped'].add(dockerfile)
+        skipped['dataset'].add(dockerfile)
