@@ -98,3 +98,6 @@ for dockerfile in files:
         generated['dataset'].add(dockerfile)
     except:
         skipped['dataset'].add(dockerfile)
+
+pickle.dump(skipped, open('skipped.pkl','wb'))
+pickle.dump(generated, open('generated.pkl','wb'))
