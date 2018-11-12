@@ -83,21 +83,33 @@ for dockerfile in files:
 ################################################################################
 
 from specifications.Dataset.extract import extract as dataset_extract
+from specifications.SoftwareSourceCode.extract import extract as ssc_extract
+
+#skipped = pickle.load(open('skipped.pkl','rb'))
+#generated = pickle.load(open('generated.pkl','rb'))
 
 files = recursive_find(root, "Dockerfile")
-generated = {'dataset': set()}
-skipped = {'dataset': set()}
+generated = {'dataset': set(), 'softwaresourcecode': set()}
+skipped = {'dataset': set(), 'softwaresourcecode': set()}
 
 for dockerfile in files:
     dirname = os.path.dirname(dockerfile)
-    output_html = os.path.join(dirname, 'dataset.html')
+
+    try:
+        output_html = os.path.join(dirname, 'ssc.html')
+        ssc_extract(dockerfile, output_html)
+        generated['softwaresourcecode'].add(dockerfile)
+    except:
+        skipped['softwaresourcecode'].add(dockerfile)
 
     # If spython can't parse, skip for now
     try:
+        output_html = os.path.join(dirname, 'dataset.html')
         dataset_extract(dockerfile, output_html)
         generated['dataset'].add(dockerfile)
     except:
         skipped['dataset'].add(dockerfile)
+
 
 pickle.dump(skipped, open('skipped.pkl','wb'))
 pickle.dump(generated, open('generated.pkl','wb'))
