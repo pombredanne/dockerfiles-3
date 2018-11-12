@@ -111,5 +111,22 @@ for dockerfile in files:
         skipped['dataset'].add(dockerfile)
 
 
+# Since ImageDefinition is larger, we will use sherlock
 pickle.dump(skipped, open('skipped.pkl','wb'))
 pickle.dump(generated, open('generated.pkl','wb'))
+
+################################################################################
+# Step 4. We will run container-diff (scaled) on sherlock
+################################################################################
+
+# This step is run locally to collect the image names
+
+files = recursive_find(root, "Dockerfile")
+names = set()
+
+for dockerfile in files:
+    name = '/'.join(os.path.dirname(dockerfile).split('/')[-2:])
+    names.add(name)
+    
+pickle.dump(names, open('names.pkl','wb'))
+# scp next to sherlock
