@@ -1,14 +1,11 @@
 # Specification base using to http://www.schema.org
 # Using Version 3.4
-# Found http://www.schema.org/Dataset
+# Found http://www.schema.org/DataCatalog
 # This is the simple listing of requirements for schemaorg python to 
-# read and for the user to provide to create a complete entry for 
-# a container recipe as a Dataset. No, a container is not a Dataset,
-# but this is important to show how we can index these with Google Search!
-# To properly do this, the search should be able to index ImageDefinition.
+# read and for the user to provide to create a DataCatalog entry
 
 ## A Dataset
-# Thing > Dataset
+# Thing > DataCatalog
 
 # Attributes not listed are accepted, but not required or recommended. If an
 # attribute is not included officially with a specification release it will
@@ -24,23 +21,9 @@
 
 version: 1
 schemas:
-  Dataset:
+  DataCatalog:
     recommended:
-      - softwareVersion: version
-      - citation
-      - identifier
-      - keywords
-      - license
       - url
-      - sameAs
-      - spatialCoverage
-      - temporalCoverage
-      - variableMeasured
-      - includedInDataCatalog
-    required:
       - description
       - name
-  Person|Organization:
-    required:
-      - description
-      - name
+      - about

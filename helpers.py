@@ -19,6 +19,16 @@ def read_file(filename, mode="r"):
         content = filey.read()
     return content
 
+def write_file(filename, content, mode="w"):
+    with open(filename,mode) as filey:
+        if isinstance(content, list):
+            for item in content:
+                filey.writelines(content)
+        else:
+            fliey.writelines(content)
+    return filename
+
+
 def has_python(dockerfile):
     '''determine if a Dockerfile has python, meaning mention of the term (python)
        or a command involving pip or conda. Return boolean to indicate yes/no!
@@ -41,4 +51,8 @@ def recursive_find(base, pattern=None):
     for root, dirnames, filenames in os.walk(base):
         for filename in fnmatch.filter(filenames, pattern):
             yield os.path.join(root, filename)
+
+def generate_catalog():
+    '''for the index page, generate a Dataset Catalog (or Collection) that
+       describes the entire set.'''
 

@@ -25,7 +25,7 @@ from spython.main.parse import DockerRecipe
 import os
 
 
-def extract(dockerfile, output_file):
+def extract(dockerfile, output_file, catalog = None):
     '''extract a dataset from a given dockerfile, write to html output file.
        Yes, the person is hardcoded as @vsoch the Dinosaur. This is my example
        and I can do that.
@@ -43,6 +43,7 @@ def extract(dockerfile, output_file):
     person = make_person(name="@vsoch",
                          description='research software engineer, dinosaur')
 
+
     # Step 3: Create Dataset
     parser = DockerRecipe(dockerfile)
     dataset = Schema("Dataset")
@@ -52,6 +53,10 @@ def extract(dockerfile, output_file):
     dataset.add_property('version', dataset.version)
     dataset.add_property('description', 'A Dockerfile build recipe')
     dataset.add_property('name', parser.fromHeader)
+
+    # Add dataCatalog
+    if catalog is not None:
+        dataset.add_property('includedInDataCatalog', catalog)
 
     # Fun properties :)
     dataset.add_property('thumbnailUrl', 'https://vsoch.github.io/datasets/assets/img/avocado.png')

@@ -4,7 +4,7 @@ import json
 import os
 import pickle
 
-from helpers import *
+from helpers import ( recursive_find, read_file, root )
 
 ################################################################################
 # Step 1. Measure delete operation
@@ -48,44 +48,52 @@ for dockerfile in files:
 
 from specifications.Dataset.extract import extract as dataset_extract
 from specifications.SoftwareSourceCode.extract import extract as ssc_extract
-from specifications.ImageDefinition.extract import extract as def_extract
+from specifications.DataCatalog.extract import extract as catalog_extract
 
-#generated = {'dataset': set(), 'softwaresourcecode': set(), 'imagedef': set()}
-#skipped = {'dataset': set(), 'softwaresourcecode': set(), 'imagedef': set()}
+generated = {'Dataset': set(), 
+             'SoftwareSourceCode': set(), 
+             'ImageDefinition': set()}
 
-skipped = pickle.load(open('skipped.pkl','rb'))
-generated = pickle.load(open('generated.pkl','rb'))
+skipped = {'Dataset': set(), 
+           'SoftwareSourceCode': set(), 
+           'ImageDefinition': set()}
+
+#skipped = pickle.load(open('skipped.pkl','rb'))
+#generated = pickle.load(open('generated.pkl','rb'))
 files = recursive_find(root, "Dockerfile")
+
+# Generate the DataCatalog
+catalog = catalog_extract()
 
 for dockerfile in files:
     dirname = os.path.dirname(dockerfile)
 
-    try:
-        output_html = os.path.join(dirname, 'ImageDefinition.html')
-        def_extract(dockerfile, output_html)
-        generated['imagedef'].add(dockerfile)
-    except:
-        skipped['imagedef'].add(dockerfile)
+    ssc = os.path.join(dirname, 'ssc.html')
+    ds = os.path.join(dirname, 'dataset.html')
+    for old in [ssc, ds]:
+        if os.path.exists(old):
+            os.remove(old)
 
     try:
-        output_html = os.path.join(dirname, 'ssc.html')
+        output_html = os.path.join(dirname, 'SoftwareSourceCode.html')
         ssc_extract(dockerfile, output_html)
-        generated['softwaresourcecode'].add(dockerfile)
+        generated['SoftwareSourceCode'].add(dockerfile)
     except:
-        skipped['softwaresourcecode'].add(dockerfile)
+        skipped['SoftwareSourceCode'].add(dockerfile)
 
     # If spython can't parse, skip for now
     try:
-        output_html = os.path.join(dirname, 'dataset.html')
-        dataset_extract(dockerfile, output_html)
-        generated['dataset'].add(dockerfile)
+        output_html = os.path.join(dirname, 'Dataset.html')
+        dataset_extract(dockerfile, output_html, catalog)
+        generated['Dataset'].add(dockerfile)
     except:
-        skipped['dataset'].add(dockerfile)
+        skipped['Dataset'].add(dockerfile)
 
 
 # Since ImageDefinition is larger, we will use sherlock
 pickle.dump(skipped, open('skipped.pkl','wb'))
 pickle.dump(generated, open('generated.pkl','wb'))
+
 
 ################################################################################
 # Step 4. We will run container-diff (scaled) on sherlock
@@ -103,7 +111,36 @@ for dockerfile in files:
 pickle.dump(names, open('names.pkl','wb'))
 # scp next to sherlock
 
+# Then need to update the generated and skipped data structures with result
+from specifications.ImageDefinition.extract import extract as def_extract
+
 # This didn't actually work, we need to do changes to container-diff to run
 # in a cluster environment
 # https://github.com/GoogleContainerTools/container-diff/pull/274
 # https://github.com/GoogleContainerTools/container-diff/issues/275
+
+
+################################################################################
+# Step 5. Generate Example Index (Table) for Dataset
+################################################################################
+
+from specifications.DataCatalog.extract import extract as catalog_extract
+catalog = catalog_extract()
+
+template = read_file('template.html')
+template = template.replace('{{ SCHEMAORG_TYPE }}', "Dataset")
+
+# Generate list of rows to plug into template
+rows = []
+for dataset in list(generated['Dataset']):
+    folder = os.path.dirname(dataset)
+    subfolder = folder.split('/')[-3:]
+    name = '/'.join(subfolder)
+    uri = '/'.join(subfolder[0:2])
+    row = '''<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/%s/Dataset.html">%s</a>
+             </td></tr>''' %(name, uri)
+    rows.append(row)
+
+template = template.replace('{{ CLUSTERIZE_TABLE }}', '\n'.join(rows))
+write_file('index.html', template)

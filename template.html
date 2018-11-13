@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/clusterize.js/0.18.0/clusterize.js"></script>
+</head>
+<body>
+<div class="clusterize">
+  <table>
+    <thead>
+      <tr>
+        <th>Dockerfiles as {{ SCHEMAORG_TYPE }}</th>
+      </tr>
+    </thead>
+  </table>
+  <div id="scrollArea" class="clusterize-scroll">
+    <table>
+      <tbody id="contentArea" class="clusterize-content">
+      {{ CLUSTERIZE_TABLE }}
+      </tbody>
+    </table>
+  </div>
+
+<script>
+// JavaScript
+var clusterize = new Clusterize({
+  scrollId: 'scrollArea',
+  contentId: 'contentArea'
+});
+</script>
+</div>
+</html>
+
