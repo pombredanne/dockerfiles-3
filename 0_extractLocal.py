@@ -3,50 +3,14 @@
 import json
 import os
 import pickle
-import shutil
-import fnmatch
-import re
 
-# Helper Functions
-
-def read_file(filename, mode="r"):
-    with open(filename,mode) as filey:
-        content = filey.read()
-    return content
-
-def has_python(dockerfile):
-    '''determine if a Dockerfile has python, meaning mention of the term (python)
-       or a command involving pip or conda. Return boolean to indicate yes/no!
-    '''
-    content = read_file(dockerfile)
-    return bool(re.search('(python|conda|pip)', content))
-
-def recursive_find(base, pattern=None):
-    '''recursively find files that match a pattern, in this case, we will use
-       to find Dockerfiles
-
-       Paramters
-       =========
-       base: the root directory to start the seartch
-       pattern: the pattern to search for using fnmatch
-    '''
-    if pattern is None:
-        pattern = "*"
-
-    for root, dirnames, filenames in os.walk(base):
-        for filename in fnmatch.filter(filenames, pattern):
-            yield os.path.join(root, filename)
-
+from helpers import *
 
 ################################################################################
 # Step 1. Measure delete operation
 ################################################################################
 
 # Read in list of prefixes
-
-here = os.path.abspath(os.path.dirname(__file__))
-
-root = os.path.join(here, "data")
 files = recursive_find(root, "Dockerfile")
 
 originalCount = 0
@@ -84,16 +48,24 @@ for dockerfile in files:
 
 from specifications.Dataset.extract import extract as dataset_extract
 from specifications.SoftwareSourceCode.extract import extract as ssc_extract
+from specifications.ImageDefinition.extract import extract as def_extract
 
-#skipped = pickle.load(open('skipped.pkl','rb'))
-#generated = pickle.load(open('generated.pkl','rb'))
+#generated = {'dataset': set(), 'softwaresourcecode': set(), 'imagedef': set()}
+#skipped = {'dataset': set(), 'softwaresourcecode': set(), 'imagedef': set()}
 
+skipped = pickle.load(open('skipped.pkl','rb'))
+generated = pickle.load(open('generated.pkl','rb'))
 files = recursive_find(root, "Dockerfile")
-generated = {'dataset': set(), 'softwaresourcecode': set()}
-skipped = {'dataset': set(), 'softwaresourcecode': set()}
 
 for dockerfile in files:
     dirname = os.path.dirname(dockerfile)
+
+    try:
+        output_html = os.path.join(dirname, 'ImageDefinition.html')
+        def_extract(dockerfile, output_html)
+        generated['imagedef'].add(dockerfile)
+    except:
+        skipped['imagedef'].add(dockerfile)
 
     try:
         output_html = os.path.join(dirname, 'ssc.html')
@@ -130,3 +102,8 @@ for dockerfile in files:
     
 pickle.dump(names, open('names.pkl','wb'))
 # scp next to sherlock
+
+# This didn't actually work, we need to do changes to container-diff to run
+# in a cluster environment
+# https://github.com/GoogleContainerTools/container-diff/pull/274
+# https://github.com/GoogleContainerTools/container-diff/issues/275
