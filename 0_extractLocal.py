@@ -153,10 +153,20 @@ if not os.path.exists('pages'):
 # Now write into html pages
 from schemaorg.templates.google import make_table
 
+table = []
+
 for letter, rows in letters.items():
+    content = '''<a href="https://openschemas.github.io/dockerfiles/pages/%s/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=%s" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=%s" 
+                class="m-p-g__thumbs-img"></img></a>''' %(letter, letter.upper(), letter.upper())
+    table.append(content)
     outdir = 'pages/%s' %letter
     if not os.path.exists(outdir):
         os.mkdir(outdir)
     make_table(catalog, rows,
                title = "Dataset: Dockerfile Letter %s" %letter,
                output_file="%s/index.html" %outdir)
+
+template = read_file('template.html')
+template = template.replace('{{ SCHEMAORG_TABLE }}', '\n'.join(table))
+write_file('index.html', template)

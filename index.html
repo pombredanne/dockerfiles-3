@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>Dockerfiles Schema.org Dataset Example</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,300' rel='stylesheet' type='text/css'>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+  <style>
+.m-p-g {
+  max-width: 100%;
+  margin: 0 auto;
+}
+.m-p-g__thumbs-img {
+  margin: 0;
+  float: left;
+  vertical-align: bottom;
+  cursor: pointer;
+  z-index: 1;
+  position: relative;
+  opacity: 0;
+  -webkit-filter: brightness(100%);
+          filter: brightness(100%);
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  will-change: opacity, transform;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.m-p-g__thumbs-img.active {
+  z-index: 50;
+}
+.m-p-g__thumbs-img.layout-completed {
+  opacity: 1;
+}
+.m-p-g__thumbs-img.hide {
+  opacity: 0;
+}
+.m-p-g__thumbs-img:hover {
+  -webkit-filter: brightness(110%);
+          filter: brightness(110%);
+}
+.m-p-g__fullscreen {
+  position: fixed;
+  z-index: 10;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0);
+  visibility: hidden;
+  transition: background 0.25s ease-out, visibility 0.01s 0.5s linear;
+  will-change: background, visibility;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+}
+.m-p-g__fullscreen.active {
+  transition: background .25s ease-out, visibility .01s 0s linear;
+  visibility: visible;
+  background: rgba(0, 0, 0, 0.95);
+}
+.m-p-g__fullscreen-img {
+  pointer-events: none;
+  position: absolute;
+  -webkit-transform-origin: left top;
+          transform-origin: left top;
+  top: 50%;
+  left: 50%;
+  max-height: 100vh;
+  max-width: 100%;
+  visibility: hidden;
+  will-change: visibility;
+  transition: opacity 0.5s ease-out;
+}
+.m-p-g__fullscreen-img.active {
+  visibility: visible;
+  opacity: 1 !important;
+  transition: opacity 0.5s ease-out, -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease-out;
+  transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1), opacity 0.5s ease-out, -webkit-transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.m-p-g__fullscreen-img.almost-active {
+  opacity: 0;
+  -webkit-transform: translate3d(0, 0, 0) !important;
+          transform: translate3d(0, 0, 0) !important;
+}
+.m-p-g__controls {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 200;
+  height: 20vh;
+  background: linear-gradient(to top, transparent 0%, rgba(0, 0, 0, 0.55) 100%);
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.m-p-g__controls.active {
+  opacity: 1;
+  visibility: visible;
+}
+.m-p-g__controls-close, .m-p-g__controls-arrow {
+  -webkit-appearance: none;
+     -moz-appearance: none;
+          appearance: none;
+  border: none;
+  background: none;
+}
+.m-p-g__controls-close:focus, .m-p-g__controls-arrow:focus {
+  outline: none;
+}
+.m-p-g__controls-arrow {
+  position: absolute;
+  z-index: 1;
+  top: 0;
+  width: 20%;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  opacity: 0;
+}
+.m-p-g__controls-arrow:hover {
+  opacity: 1;
+}
+.m-p-g__controls-arrow--prev {
+  left: 0;
+  padding-left: 3vw;
+  justify-content: flex-start;
+}
+.m-p-g__controls-arrow--next {
+  right: 0;
+  padding-right: 3vw;
+  justify-content: flex-end;
+}
+.m-p-g__controls-close {
+  position: absolute;
+  top: 3vh;
+  left: 3vw;
+  z-index: 5;
+  cursor: pointer;
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
+.m-p-g__btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.07);
+  transition: all .25s ease-out;
+}
+.m-p-g__btn:hover {
+  background: rgba(255, 255, 255, 0.15);
+}
+.m-p-g__alertBox {
+  position: fixed;
+  z-index: 999;
+  max-width: 700px;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%, -50%);
+          transform: translate(-50%, -50%);
+  background: white;
+  padding: 25px;
+  border-radius: 3px;
+  text-align: center;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.23), 0 10px 40px rgba(0, 0, 0, 0.19);
+  color: grey;
+}
+.m-p-g__alertBox h2 {
+  color: red;
+}
+
+
+body {
+  background: #fefefe;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-family: 'Roboto Mono';
+}
+
+h2 {
+  font-weight: 300;
+  margin: 4vh 4vw;
+  letter-spacing: 3px;
+  color: grey;
+  text-transform: uppercase;
+}
+
+.demo-btn {
+  display: inline-block;
+  margin: 0 2.5px 4vh 2.5px;
+  text-decoration: none;
+  color: grey;
+  padding: 15px;
+  line-height: 1;
+  min-width: 140px;
+  background: rgba(0, 0, 0, 0.07);
+  border-radius: 6px;
+}
+
+.demo-btn:hover {
+  background: rgba(0, 0, 0, 0.12);
+}
+
+@media (max-width: 640px) {
+  .demo-btn {
+    min-width: 0;
+    font-size: 14px;
+  }
+}
+
+</style>
+</head>
+<body>
+
+<div class="m-p-g">
+
+        <h2>Dockerfile Dinosaur Datasets</h2>
+        <p style="padding:10px"><quote style="font-style:italic;color:#666;">Which letter to explore?</quote></p>
+        <p><a href="https://www.github.com/openschemas/dockerfiles">Github</a> |
+           <a href="https://vsoch.github.io/datasets/">Dinosaur Datasets</a>
+        </p>
+        <div style="padding-top:20px; color:#666"></div><br><hr>
+	<div class="m-p-g__thumbs" data-google-image-layout data-max-height="250">
+            <a href="https://openschemas.github.io/dockerfiles/pages/j/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=J" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=J" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/o/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=O" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=O" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/t/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=T" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=T" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/g/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=G" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=G" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/m/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=M" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=M" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/k/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=K" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=K" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/a/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=A" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=A" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/n/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=N" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=N" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/e/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=E" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=E" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/c/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=C" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=C" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/h/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=H" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=H" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/s/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=S" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=S" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/v/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=V" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=V" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/w/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=W" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=W" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/u/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=U" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=U" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/p/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=P" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=P" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/r/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=R" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=R" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/d/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=D" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=D" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/x/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=X" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=X" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/b/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=B" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=B" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/l/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=L" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=L" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/f/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=F" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=F" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/z/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=Z" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=Z" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/1/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=1" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=1" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/0/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=0" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=0" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/i/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=I" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=I" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/3/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=3" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=3" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/y/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=Y" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=Y" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/9/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=9" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=9" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/q/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=Q" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=Q" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/6/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=6" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=6" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/4/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=4" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=4" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/2/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=2" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=2" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/8/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=8" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=8" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/5/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=5" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=5" 
+                class="m-p-g__thumbs-img"></img></a>
+<a href="https://openschemas.github.io/dockerfiles/pages/7/">
+        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=7" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=7" 
+                class="m-p-g__thumbs-img"></img></a>
+	</div>
+	<div class="m-p-g__fullscreen"></div>
+</div>
+
+<script>
+	var elem = document.querySelector('.m-p-g');
+	document.addEventListener('DOMContentLoaded', function() {
+		var gallery = new MaterialPhotoGallery(elem);
+	});
+</script>
+  <script src='https://s3-us-west-2.amazonaws.com/s.cdpn.io/45226/material-photo-gallery.min.js'></script>
+</body>
+
+</html>
+
