@@ -11,7 +11,8 @@ For generation of the Dockerfiles, see the [dockerfiles](https://www.github.com/
 
 ## Generation
 
-The following steps are covered in the [generate.py](generate.py) script provided here. The script does the following:
+The following steps are covered in the [generate.py](https://github.com/openschemas/dockerfiles/blob/master/0_extractLocal.py) script provided here. The script does the following:
 
  1. We are interested in a subset of the data, so we choose "python applications" and thus recursively walk through the original dataset folders and remove those that don't have pip, conda, or python in the build recipe.
- 3. We use the [schemaorg example](https://github.com/openbases/extract-dockerfile) to generate an ImageDefinition, Dataset, and SoftwareSourceCode example, one for each, along with generating a datastructure with links to each (that we can use later to create some search interface).
+ 2. We use the [schemaorg example](https://github.com/openbases/extract-dockerfile) to generate an ImageDefinition, Dataset, and SoftwareSourceCode example, one for each, along with generating a datastructure with links to each (that we can use later to create some search interface).
+ 3. To start, the Dataset example is shown on [Github pages](https://openschemas.github.io/dockerfiles/), with each table page corresponing to a catalog of images.
