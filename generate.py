@@ -157,7 +157,7 @@ table = []
 
 for letter, rows in letters.items():
     content = '''<a href="https://openschemas.github.io/dockerfiles/pages/%s/">
-        <img src="https://via.placeholder.com/150/0000FF/FFFFFF/?text=%s" data-full="https://via.placeholder.com/350/0000FF/FFFFFF/?text=%s" 
+        <img src="https://via.placeholder.com/150/e16a3f/FFFFFF/?text=%s" data-full="https://via.placeholder.com/350/e16a3f/FFFFFF/?text=%s" 
                 class="m-p-g__thumbs-img"></img></a>''' %(letter, letter.upper(), letter.upper())
     table.append(content)
     outdir = 'pages/%s' %letter
