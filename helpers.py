@@ -20,12 +20,12 @@ def read_file(filename, mode="r"):
     return content
 
 def write_file(filename, content, mode="w"):
-    with open(filename,mode) as filey:
+    with open(filename, mode) as filey:
         if isinstance(content, list):
             for item in content:
                 filey.writelines(content)
         else:
-            fliey.writelines(content)
+            filey.writelines(content)
     return filename
 
 

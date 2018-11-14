@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css" rel="stylesheet">
+<style>
+body {
+  background: #fefefe;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-family: 'Roboto Mono';
+}
+h1, h2, h3 {
+  color: #999 !important;
+  font-variant: all-small-caps !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center !important;
+  font-family: 'Roboto Mono' !important;
+}
+</style>
+</head>
+<body>
+<h1>Dataset: Dockerfile Letter 0</h1>
+<table id="catalog" class="mdl-data-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Dockerfile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/backup-create/Dataset.html">007backups/backup-create</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0atman/todoist-text/Dataset.html">0atman/todoist-text</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0polar/zeroshift/Dataset.html">0polar/zeroshift</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/base/Dataset.html">007backups/base</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0006mathew/flashcards13/Dataset.html">0006mathew/flashcards13</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0x4445565a/docker-steamos/Dataset.html">0x4445565a/docker-steamos</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/backup-fetch-files/Dataset.html">007backups/backup-fetch-files</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0780221/software-delivery/Dataset.html">0780221/software-delivery</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0asa/polyglot-docker/Dataset.html">0asa/polyglot-docker</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0e8bee02/bitcoin-unlimited/Dataset.html">0e8bee02/bitcoin-unlimited</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/01walid/alfanous/Dataset.html">01walid/alfanous</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0xkalle/node-hapi-docker-boiler/Dataset.html">0xkalle/node-hapi-docker-boiler</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0xff/particle/Dataset.html">0xff/particle</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0atman/docker-invoke/Dataset.html">0atman/docker-invoke</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/04101990/configurationsystem/Dataset.html">04101990/configurationsystem</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/replication-backblaze-b2/Dataset.html">007backups/replication-backblaze-b2</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/borgbackup/Dataset.html">007backups/borgbackup</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/0atman/scripting/Dataset.html">0atman/scripting</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/backup-fetch-mariadb/Dataset.html">007backups/backup-fetch-mariadb</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/0/007backups/backup-fetch-postgres/Dataset.html">007backups/backup-fetch-postgres</a>
+             </td></tr>
+    </tfoot>
+</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#catalog').DataTable( {
+        columnDefs: [
+            {
+                targets: [ 0 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    } );
+} );
+</script>
+<script type="application/ld+json">
+{
+    "url": "https://openschemas.github.io/dockerfiles",
+    "name": "Dinosaur Dataset: Dockerfiles (python subset)",
+    "description": "A small (30K) example database of Dockerfile build recipes",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "about": "This is a small dataset of Dockerfiles provided by the Dinosaur Dataset collection.",
+    "@context": "http://www.schema.org",
+    "@type": "DataCatalog"
+}
+</script>
+</div>
+</html>

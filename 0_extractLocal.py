@@ -58,8 +58,6 @@ skipped = {'Dataset': set(),
            'SoftwareSourceCode': set(), 
            'ImageDefinition': set()}
 
-#skipped = pickle.load(open('skipped.pkl','rb'))
-#generated = pickle.load(open('generated.pkl','rb'))
 files = recursive_find(root, "Dockerfile")
 
 # Generate the DataCatalog
@@ -127,20 +125,38 @@ from specifications.ImageDefinition.extract import extract as def_extract
 from specifications.DataCatalog.extract import extract as catalog_extract
 catalog = catalog_extract()
 
-template = read_file('template.html')
-template = template.replace('{{ SCHEMAORG_TYPE }}', "Dataset")
+skipped = pickle.load(open('skipped.pkl','rb'))
+generated = pickle.load(open('generated.pkl','rb'))
 
-# Generate list of rows to plug into template
-rows = []
+# Oraganize containers by first letter
+letters = dict()
 for dataset in list(generated['Dataset']):
     folder = os.path.dirname(dataset)
     subfolder = folder.split('/')[-3:]
+    letter = subfolder[0]
+    if letter not in letters:
+        letters[letter] = []
     name = '/'.join(subfolder)
-    uri = '/'.join(subfolder[0:2])
+    uri = '/'.join(subfolder[1:3])
     row = '''<tr><td>
                  <a href="https://openschemas.github.io/dockerfiles/data/%s/Dataset.html">%s</a>
              </td></tr>''' %(name, uri)
-    rows.append(row)
+    letters[letter].append(row)
 
-template = template.replace('{{ CLUSTERIZE_TABLE }}', '\n'.join(rows))
-write_file('index.html', template)
+pickle.dump(letters, open('letters.pkl','wb'))
+letters = pickle.load(open('letters.pkl', 'rb'))
+
+# put into output directory
+if not os.path.exists('pages'):
+    os.mkdir('pages')
+
+# Now write into html pages
+from schemaorg.templates.google import make_table
+
+for letter, rows in letters.items():
+    outdir = 'pages/%s' %letter
+    if not os.path.exists(outdir):
+        os.mkdir(outdir)
+    make_table(catalog, rows,
+               title = "Dataset: Dockerfile Letter %s" %letter,
+               output_file="%s/index.html" %outdir)

@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link href='https://fonts.googleapis.com/css?family=Roboto+Mono:400,300' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css" rel="stylesheet">
+<link href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css" rel="stylesheet">
+<style>
+body {
+  background: #fefefe;
+  color: white;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center;
+  font-family: 'Roboto Mono';
+}
+h1, h2, h3 {
+  color: #999 !important;
+  font-variant: all-small-caps !important;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-align: center !important;
+  font-family: 'Roboto Mono' !important;
+}
+</style>
+</head>
+<body>
+<h1>Dataset: Dockerfile Letter 7</h1>
+<table id="catalog" class="mdl-data-table" style="width:100%">
+    <thead>
+        <tr>
+            <th>Dockerfile</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/7/7kbird/fastai/Dataset.html">7kbird/fastai</a>
+             </td></tr>
+<tr><td>
+                 <a href="https://openschemas.github.io/dockerfiles/data/7/74mbit/openkm-community/Dataset.html">74mbit/openkm-community</a>
+             </td></tr>
+    </tfoot>
+</table>
+</body>
+<script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js"></script>
+<script>
+$(document).ready(function() {
+    $('#catalog').DataTable( {
+        columnDefs: [
+            {
+                targets: [ 0 ],
+                className: 'mdl-data-table__cell--non-numeric'
+            }
+        ]
+    } );
+} );
+</script>
+<script type="application/ld+json">
+{
+    "url": "https://openschemas.github.io/dockerfiles",
+    "name": "Dinosaur Dataset: Dockerfiles (python subset)",
+    "description": "A small (30K) example database of Dockerfile build recipes",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "about": "This is a small dataset of Dockerfiles provided by the Dinosaur Dataset collection.",
+    "@context": "http://www.schema.org",
+    "@type": "DataCatalog"
+}
+</script>
+</div>
+</html>
