@@ -169,4 +169,5 @@ for letter, rows in letters.items():
 
 template = read_file('template.html')
 template = template.replace('{{ SCHEMAORG_TABLE }}', '\n'.join(table))
+template = template.replace('{{ SCHEMAORG_JSON }}', catalog.dump_json())
 write_file('index.html', template)
