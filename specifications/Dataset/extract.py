@@ -25,31 +25,26 @@ from spython.main.parse import DockerRecipe
 import os
 
 
-def extract(dockerfile, output_file, catalog = None):
+def extract(dockerfile, output_file, catalog=None, contact=None):
     '''extract a dataset from a given dockerfile, write to html output file.
        Yes, the person is hardcoded as @vsoch the Dinosaur. This is my example
        and I can do that.
     '''
 
-    # Step 0. Define absolute paths to our Dockerfile, recipe, output
+    # Step 1. Define absolute paths to our Dockerfile, recipe, output
     here = os.path.abspath(os.path.dirname(__file__))
     recipe_yml = os.path.join(here, "recipe.yml")
     
 
-    # Step 1: Show required and recommended fields from recipe
+    # Step 2: Show required and recommended fields from recipe
     recipe = RecipeParser(recipe_yml)
     
-    # Step 2: Generate a Person (these are Google Helper functions)
-    person = make_person(name="@vsoch",
-                         description='research software engineer, dinosaur')
-
-
     # Step 3: Create Dataset
     parser = DockerRecipe(dockerfile)
     dataset = Schema("Dataset")
 
     # dataset.properties
-    dataset.add_property('creator', person)
+    dataset.add_property('creator', contact)
     dataset.add_property('version', dataset.version)
     dataset.add_property('description', 'A Dockerfile build recipe')
     dataset.add_property('name', parser.fromHeader)

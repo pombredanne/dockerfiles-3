@@ -32,7 +32,7 @@ def extract(output_file=None):
     # datacatalog.properties
     catalog.add_property('url', "https://openschemas.github.io/dockerfiles")
     catalog.add_property('name', "Dinosaur Dataset: Dockerfiles (python subset)")
-    catalog.add_property('description', 'A small (30K) example database of Dockerfile build recipes')
+    catalog.add_property('description', 'A small (60K) example database of Dockerfile build recipes')
     catalog.add_property('thumbnailUrl', 'https://vsoch.github.io/datasets/assets/img/avocado.png')
     catalog.add_property('about', 'This is a small dataset of Dockerfiles provided by the Dinosaur Dataset collection.')
 

@@ -49,6 +49,7 @@ for dockerfile in files:
 from specifications.Dataset.extract import extract as dataset_extract
 from specifications.SoftwareSourceCode.extract import extract as ssc_extract
 from specifications.DataCatalog.extract import extract as catalog_extract
+from specifications.Organization.extract import extract as org_extract
 
 generated = {'Dataset': set(), 
              'SoftwareSourceCode': set(), 
@@ -60,17 +61,12 @@ skipped = {'Dataset': set(),
 
 files = recursive_find(root, "Dockerfile")
 
-# Generate the DataCatalog
+# Generate the DataCatalog and organization
 catalog = catalog_extract()
+contact = org_extract()
 
 for dockerfile in files:
     dirname = os.path.dirname(dockerfile)
-
-    ssc = os.path.join(dirname, 'ssc.html')
-    ds = os.path.join(dirname, 'dataset.html')
-    for old in [ssc, ds]:
-        if os.path.exists(old):
-            os.remove(old)
 
     try:
         output_html = os.path.join(dirname, 'SoftwareSourceCode.html')
@@ -82,7 +78,7 @@ for dockerfile in files:
     # If spython can't parse, skip for now
     try:
         output_html = os.path.join(dirname, 'Dataset.html')
-        dataset_extract(dockerfile, output_html, catalog)
+        dataset_extract(dockerfile, output_html, catalog, contact)
         generated['Dataset'].add(dockerfile)
     except:
         skipped['Dataset'].add(dockerfile)
