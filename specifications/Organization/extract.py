@@ -24,7 +24,7 @@ def extract(output_file=None):
     
     # Step 2: Create Contact Point
     contact = Schema("ContactPoint")
-    contact.add_property('ContactType', 'research support')
+    contact.add_property('contactType', 'customer support')
     contact.add_property('telephone', "+1-650.721.4040")
     contact.add_property('email', 'research-computing-support@stanford.edu')
 
