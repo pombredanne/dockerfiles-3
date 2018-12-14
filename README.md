@@ -9,6 +9,34 @@ with Google Search.
 
 For generation of the Dockerfiles, see the [dockerfiles](https://www.github.com/vsoch/dockerfiles) Github repository.
 
+## Sherlock (Cluster) Run
+
+To run on the Sherlock cluster, see the scripts [1_run_extractSherlock.py](1_run_extractSherlock) and [1_extractSherlock.py](1_extractSherlock.py). At the time of this running, @vsoch did two pull requests (merged into master) to add the ability to customize the cache and save output to a file. The release isn't yet done for this version, so in the meantime we need to install container-diff from master like so:
+
+```
+export GOPATH=/scratch/users/vsochat/SOFTWARE/GOROOT
+cd /scratch/users/vsochat/SOFTWARE/GOROOT/src/github.com/GoogleContainerTools
+git clone https://github.com/GoogleContainerTools/container-diff
+cd container-diff
+go get
+make
+```
+
+And then the executable is located here.
+```
+/scratch/users/vsochat/SOFTWARE/GOROOT/src/github.com/GoogleContainerTools/container-diff/out/container-diff
+```
+
+Note that when there is a release, you can curl the binary and add to your path (without needing the above).
+I wound up moving the (self compiled) executable into my own ~/bin
+
+```
+cp /scratch/users/vsochat/SOFTWARE/GOROOT/src/github.com/GoogleContainerTools/container-diff/out/container-diff ~/bin
+```
+
+amd then I could use the scripts to submit jobs.
+
+
 ## Generation
 
 The following steps are covered in the [generate.py](https://github.com/openschemas/dockerfiles/blob/master/0_extractLocal.py) script provided here. The script does the following:
