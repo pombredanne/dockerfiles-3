@@ -53,7 +53,9 @@ for name in names:
                 filey.writelines("#SBATCH --mem=8000\n")
                 filey.writelines('module load python/3.6.1\n')
                 filey.writelines("/bin/bash 1_extractSherlock.sh %s %s %s\n" % (output_json, name, cache_dir))
-                filey.writelines("rm .job/%s.job\n" % os.path.abspath(filename))
+                filey.writelines("rm .job/%s.job\n" % filename)
+                filey.writelines("rm .out/%s.out" % filename)
+                filey.writelines("rm .out/%s.err" % filename)
 
             os.system("sbatch -p owners .job/%s.job" %filename)
         else:
