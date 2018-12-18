@@ -4,143 +4,53 @@ import json
 import os
 import pickle
 
-from helpers import ( recursive_find, read_file, root )
+from helpers import ( recursive_find, read_file, write_file, root )
 
 ################################################################################
-# Step 1. Measure delete operation
+# Step 1. Index the files generated with container-diff on Sherlock
+#         The json files should be in the container-diff folder locally
 ################################################################################
 
-# Read in list of prefixes
-files = recursive_find(root, "Dockerfile")
-
-originalCount = 0
-finalCount = 0
-
-# Do a check before deleting anything (delted won't be represented in repo)
-
-for dockerfile in files:
-    originalCount += 1
-    if has_python(dockerfile):
-        finalCount +=1
-
-print('Found %s original files, %s of which have python.' %(originalCount, finalCount))
-percentage = round(finalCount / originalCount * 100, 2)
-print('This represents %s' % (percentage) + '% of files')
-# Found 129519 original files, 33325 of which hae python.
-# This represents 25.73% of files
-
-
-################################################################################
-# Step 2. Perform delete operation
-################################################################################
-
-files = recursive_find(root, "Dockerfile")
-
-for dockerfile in files:
-    if not has_python(dockerfile):
-        dirname = os.path.dirname(dockerfile)
-        shutil.rmtree(dirname)
-
-
-################################################################################
-# Step 3. Generate Metadata Pages, First for Dataset
-################################################################################
-
-from specifications.Dataset.extract import extract as dataset_extract
-from specifications.SoftwareSourceCode.extract import extract as ssc_extract
-from specifications.DataCatalog.extract import extract as catalog_extract
-from specifications.Organization.extract import extract as org_extract
-
-generated = {'Dataset': set(), 
-             'SoftwareSourceCode': set(), 
-             'ImageDefinition': set()}
-
-skipped = {'Dataset': set(), 
-           'SoftwareSourceCode': set(), 
-           'ImageDefinition': set()}
-
-files = recursive_find(root, "Dockerfile")
-
-# Generate the DataCatalog and organization
-catalog = catalog_extract()
-contact = org_extract()
-
-for dockerfile in files:
-    dirname = os.path.dirname(dockerfile)
-
+diffs = recursive_find('container-diff', '*.json')
+diff_names = []
+for diff in diffs:
     try:
-        output_html = os.path.join(dirname, 'SoftwareSourceCode.html')
-        ssc_extract(dockerfile, output_html)
-        generated['SoftwareSourceCode'].add(dockerfile)
+        d = json.load(open(diff,'r'))
+        diff_names.append(d[0]['Image'])
     except:
-        skipped['SoftwareSourceCode'].add(dockerfile)
+        print('Problem parsing %s' % diff)
+        pass
 
-    # If spython can't parse, skip for now
-    try:
-        output_html = os.path.join(dirname, 'Dataset.html')
-        dataset_extract(dockerfile, output_html, catalog, contact)
-        generated['Dataset'].add(dockerfile)
-    except:
-        skipped['Dataset'].add(dockerfile)
+# Just one problem parsing!
+# Problem parsing container-diff/jimwhite-bllip-parser-python.json
 
-
-# Since ImageDefinition is larger, we will use sherlock
-pickle.dump(skipped, open('skipped.pkl','wb'))
-pickle.dump(generated, open('generated.pkl','wb'))
-
+# How many do we have total?
+# 54592
+len(diff_names)
+pickle.dump(diff_names, open('container-diff-names.pkl','wb'))
 
 ################################################################################
-# Step 4. We will run container-diff (scaled) on sherlock
-################################################################################
-
-# This step is run locally to collect the image names
-
-files = recursive_find(root, "Dockerfile")
-names = set()
-
-for dockerfile in files:
-    name = '/'.join(os.path.dirname(dockerfile).split('/')[-2:])
-    names.add(name)
-    
-pickle.dump(names, open('names.pkl','wb'))
-# scp next to sherlock
-
-# Then need to update the generated and skipped data structures with result
-from specifications.ImageDefinition.extract import extract as def_extract
-
-# This didn't actually work, we need to do changes to container-diff to run
-# in a cluster environment
-# https://github.com/GoogleContainerTools/container-diff/pull/274
-# https://github.com/GoogleContainerTools/container-diff/issues/275
-
-
-################################################################################
-# Step 5. Generate Example Index (Table) for Dataset
+# Step 2. Generate subfolders with pages, each is a subset according to
+#         the first letter
 ################################################################################
 
 from specifications.DataCatalog.extract import extract as catalog_extract
 catalog = catalog_extract()
-
-skipped = pickle.load(open('skipped.pkl','rb'))
-generated = pickle.load(open('generated.pkl','rb'))
 
 # Oraganize containers by first letter
 letters = dict()
-for dataset in list(generated['Dataset']):
-    folder = os.path.dirname(dataset)
-    subfolder = folder.split('/')[-3:]
-    letter = subfolder[0]
+for dataset in diff_names:
+    letter = dataset[0]
     if letter not in letters:
         letters[letter] = []
-    name = '/'.join(subfolder)
-    uri = '/'.join(subfolder[1:3])
     row = '''<tr><td>
-                 <a href="https://openschemas.github.io/dockerfiles/data/%s/Dataset.html">%s</a>
-             </td></tr>''' %(name, uri)
+                 <a href="https://openschemas.github.io/dockerfiles/data/%s/%s/ImageDefinition.html">%s</a>
+             </td></tr>''' %(letter, dataset, dataset)
     letters[letter].append(row)
 
-pickle.dump(letters, open('letters.pkl','wb'))
-letters = pickle.load(open('letters.pkl', 'rb'))
+pickle.dump(letters, open('container-diff-letters.pkl','wb'))
+letters = pickle.load(open('container-diff-letters.pkl', 'rb'))
+diff_names = pickle.load(open('container-diff-names.pkl', 'rb'))
 
 # put into output directory
 if not os.path.exists('pages'):
@@ -167,3 +77,42 @@ template = read_file('template.html')
 template = template.replace('{{ SCHEMAORG_TABLE }}', '\n'.join(table))
 template = template.replace('{{ SCHEMAORG_JSON }}', catalog.dump_json())
 write_file('index.html', template)
+
+
+################################################################################
+# Step 3. Generate the ImageDefinition files for each container-diff
+################################################################################
+
+# Then need to update the generated and skipped data structures with result
+from specifications.ImageDefinition.extract import extract as def_extract
+from specifications.DataCatalog.extract import extract as catalog_extract
+from specifications.Organization.extract import extract as org_extract
+
+# This originally didn't work, we needed to do changes to container-diff to run
+# in a cluster environment
+# https://github.com/GoogleContainerTools/container-diff/pull/274
+# https://github.com/GoogleContainerTools/container-diff/issues/275
+# https://github.com/GoogleContainerTools/container-diff/pull/279
+
+# Generate the DataCatalog and organization
+catalog = catalog_extract()
+contact = org_extract()
+
+for diff in diff_names:
+    
+    letter = diff[0]
+    dirname = os.path.abspath('data/%s/%s' %(letter, diff))
+
+    # Find the container-diff
+    file_name = diff.replace('/','-')
+    container_diff_file = os.path.join('container-diff', '%s.json' % file_name)
+
+    try:
+        dockerfile = os.path.join(dirname, 'Dockerfile')
+        output_html = os.path.join(dirname, 'ImageDefinition.html')
+        if not os.path.exists(output_html):
+            res = def_extract(dockerfile, diff, output_html, container_diff_file)
+    except:
+        pass
+
+# Done!

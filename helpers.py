@@ -51,8 +51,3 @@ def recursive_find(base, pattern=None):
     for root, dirnames, filenames in os.walk(base):
         for filename in fnmatch.filter(filenames, pattern):
             yield os.path.join(root, filename)
-
-def generate_catalog():
-    '''for the index page, generate a Dataset Catalog (or Collection) that
-       describes the entire set.'''
-

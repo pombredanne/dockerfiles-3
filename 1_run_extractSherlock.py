@@ -36,6 +36,8 @@ job_limit = 1000
 
 count = count_queue()
 
+# There are a total of X names, 
+
 # For each container, run a container-diff job
 for name in names:
     print("Processing %s" % name)
