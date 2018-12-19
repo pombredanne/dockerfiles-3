@@ -1,0 +1,1356 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "environment": [
+        "DOCKER_BUCKET=\"download.docker.com\"",
+        "DOCKER_VERSION=\"17.09.0-ce\"",
+        "DOCKER_CHANNEL=\"stable\"",
+        "DOCKER_SHA256=\"a9e90a73c3cdfbf238f148e1ec0eaff5eb181f92f35bdd938fd7dab18e1c4647\"",
+        "JAVA_HOME=/usr/lib/jvm/java-8-oracle",
+        "CHROME_BIN=/usr/bin/google-chrome",
+        "CHROME_PATH=/usr/bin/google-chrome",
+        "CHROME_DRIVER_VERSION=2.37",
+        "NODE_VERSION='8.11.2'"
+    ],
+    "entrypoint": [
+        "[\"dockerd-entrypoint.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "ubuntu:14.04.5",
+    "name": "coorpacademy/codebuild",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.113 nmu3ubuntu3",
+        "Apt > apt==1.0.1ubuntu2.17",
+        "Apt > apt-utils==1.0.1ubuntu2.17",
+        "Apt > autoconf==2.69-6",
+        "Apt > automake==1:1.14.1-2ubuntu1",
+        "Apt > autotools-dev==20130810.1",
+        "Apt > base-files==7.2ubuntu5.5",
+        "Apt > base-passwd==3.5.33",
+        "Apt > bash==4.3-7ubuntu1.7",
+        "Apt > binutils==2.24-5ubuntu14.2",
+        "Apt > bsdutils==1:2.20.1-5.1ubuntu20.9",
+        "Apt > busybox-initramfs==1:1.21.0-1ubuntu1",
+        "Apt > bzip2==1.0.6-5",
+        "Apt > ca-certificates==20170717~14.04.1",
+        "Apt > comerr-dev==2.1-1.42.9-3ubuntu1.3",
+        "Apt > console-setup==1.70ubuntu8",
+        "Apt > coreutils==8.21-1ubuntu5.4",
+        "Apt > cpio==2.11 dfsg-1ubuntu1.2",
+        "Apt > cpp==4:4.8.2-1ubuntu6",
+        "Apt > cpp-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > cron==3.0pl1-124ubuntu2",
+        "Apt > curl==7.35.0-1ubuntu2.16",
+        "Apt > dash==0.5.7-4ubuntu1",
+        "Apt > debconf==1.5.51ubuntu2",
+        "Apt > debconf-i18n==1.5.51ubuntu2",
+        "Apt > debianutils==4.4",
+        "Apt > dh-python==1.20140128-1ubuntu8.2",
+        "Apt > diffutils==1:3.3-1",
+        "Apt > dmsetup==2:1.02.77-6ubuntu2",
+        "Apt > dpkg==1.17.5ubuntu5.7",
+        "Apt > e2fslibs==1.42.9-3ubuntu1.3",
+        "Apt > e2fsprogs==1.42.9-3ubuntu1.3",
+        "Apt > eject==2.1.5 deb1+cvs20081104-13.1ubuntu0.14.04.1",
+        "Apt > fakeroot==1.20-3ubuntu2",
+        "Apt > file==1:5.14-2ubuntu3.4",
+        "Apt > findutils==4.4.2-7",
+        "Apt > fontconfig==2.11.0-0ubuntu4.2",
+        "Apt > fontconfig-config==2.11.0-0ubuntu4.2",
+        "Apt > fonts-dejavu-core==2.34-1ubuntu1",
+        "Apt > g++==4:4.8.2-1ubuntu6",
+        "Apt > g++-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc==4:4.8.2-1ubuntu6",
+        "Apt > gcc-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc-4.8-base==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc-4.9-base==4.9.3-0ubuntu4",
+        "Apt > geoip-bin==1.6.0-1",
+        "Apt > gir1.2-freedesktop==1.40.0-1ubuntu0.2",
+        "Apt > gir1.2-gdkpixbuf-2.0==2.30.7-0ubuntu1.8",
+        "Apt > gir1.2-glib-2.0==1.40.0-1ubuntu0.2",
+        "Apt > gir1.2-rsvg-2.0==2.40.2-1",
+        "Apt > git==1:2.18.0-0ppa1~ubuntu14.04.1",
+        "Apt > git-man==1:2.18.0-0ppa1~ubuntu14.04.1",
+        "Apt > gnupg==1.4.16-1ubuntu2.4",
+        "Apt > gpgv==1.4.16-1ubuntu2.4",
+        "Apt > grep==2.16-1",
+        "Apt > groff==1.22.2-5",
+        "Apt > groff-base==1.22.2-5",
+        "Apt > gzip==1.6-3ubuntu1",
+        "Apt > hicolor-icon-theme==0.13-1",
+        "Apt > hostname==3.15ubuntu1",
+        "Apt > ifupdown==0.7.47.2ubuntu4.4",
+        "Apt > imagemagick==8:6.7.7.10-6ubuntu3.11",
+        "Apt > imagemagick-common==8:6.7.7.10-6ubuntu3.11",
+        "Apt > init-system-helpers==1.14ubuntu1",
+        "Apt > initramfs-tools==0.103ubuntu4.7",
+        "Apt > initramfs-tools-bin==0.103ubuntu4.7",
+        "Apt > initscripts==2.88dsf-41ubuntu6.3",
+        "Apt > insserv==1.14.0-5ubuntu2",
+        "Apt > iproute2==3.12.0-2ubuntu1",
+        "Apt > iptables==1.4.21-1ubuntu1",
+        "Apt > iputils-ping==3:20121221-4ubuntu1.1",
+        "Apt > isc-dhcp-client==4.2.4-7ubuntu12.10",
+        "Apt > isc-dhcp-common==4.2.4-7ubuntu12.10",
+        "Apt > iso-codes==3.52-1",
+        "Apt > kbd==1.15.5-1ubuntu1",
+        "Apt > keyboard-configuration==1.70ubuntu8",
+        "Apt > klibc-utils==2.0.3-0ubuntu1.14.04.2",
+        "Apt > kmod==15-0ubuntu6",
+        "Apt > krb5-multidev==1.12 dfsg-2ubuntu5.3",
+        "Apt > less==458-2",
+        "Apt > libacl1==2.2.52-1",
+        "Apt > libapt-inst1.5==1.0.1ubuntu2.17",
+        "Apt > libapt-pkg4.12==1.0.1ubuntu2.17",
+        "Apt > libarchive-extract-perl==0.70-1",
+        "Apt > libasan0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libasn1-8-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libatk1.0-0==2.10.0-2ubuntu2",
+        "Apt > libatk1.0-data==2.10.0-2ubuntu2",
+        "Apt > libatomic1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libattr1==1:2.4.47-1ubuntu1",
+        "Apt > libaudit-common==1:2.3.2-2ubuntu1",
+        "Apt > libaudit1==1:2.3.2-2ubuntu1",
+        "Apt > libavahi-client3==0.6.31-4ubuntu1.2",
+        "Apt > libavahi-common-data==0.6.31-4ubuntu1.2",
+        "Apt > libavahi-common3==0.6.31-4ubuntu1.2",
+        "Apt > libblkid1==2.20.1-5.1ubuntu20.9",
+        "Apt > libbsd0==0.6.0-2ubuntu1",
+        "Apt > libbz2-1.0==1.0.6-5",
+        "Apt > libbz2-dev==1.0.6-5",
+        "Apt > libc-bin==2.19-0ubuntu6.11",
+        "Apt > libc-dev-bin==2.19-0ubuntu6.14",
+        "Apt > libc6==2.19-0ubuntu6.14",
+        "Apt > libc6-dev==2.19-0ubuntu6.14",
+        "Apt > libcairo-gobject2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo-script-interpreter2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo2-dev==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcap2==1:2.24-0ubuntu2",
+        "Apt > libcap2-bin==1:2.24-0ubuntu2",
+        "Apt > libcdt5==2.36.0-0ubuntu3.2",
+        "Apt > libcgmanager0==0.24-0ubuntu7.5",
+        "Apt > libcgraph6==2.36.0-0ubuntu3.2",
+        "Apt > libcloog-isl4==0.18.2-1",
+        "Apt > libcomerr2==1.42.9-3ubuntu1.3",
+        "Apt > libcroco3==0.6.8-2ubuntu1",
+        "Apt > libcups2==1.7.2-0ubuntu1.9",
+        "Apt > libcurl3==7.35.0-1ubuntu2.16",
+        "Apt > libcurl3-gnutls==7.35.0-1ubuntu2.16",
+        "Apt > libcurl4-openssl-dev==7.35.0-1ubuntu2.16",
+        "Apt > libdatrie1==0.2.8-1",
+        "Apt > libdb-dev==1:5.3.21~exp1ubuntu1",
+        "Apt > libdb5.3==5.3.28-3ubuntu3.1",
+        "Apt > libdb5.3-dev==5.3.28-3ubuntu3.1",
+        "Apt > libdbus-1-3==1.6.18-0ubuntu4.5",
+        "Apt > libdbus-glib-1-2==0.100.2-1",
+        "Apt > libdebconfclient0==0.187ubuntu1",
+        "Apt > libdevmapper1.02.1==2:1.02.77-6ubuntu2",
+        "Apt > libdjvulibre-dev==3.5.25.4-3",
+        "Apt > libdjvulibre-text==3.5.25.4-3",
+        "Apt > libdjvulibre21==3.5.25.4-3",
+        "Apt > libdrm2==2.4.67-1ubuntu0.14.04.1",
+        "Apt > libelfg0==0.8.13-5",
+        "Apt > liberror-perl==0.17-1.1",
+        "Apt > libestr0==0.1.9-0ubuntu2",
+        "Apt > libevent-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-core-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-dev==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-extra-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-openssl-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-pthreads-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libexif-dev==0.6.21-1ubuntu1",
+        "Apt > libexif12==0.6.21-1ubuntu1",
+        "Apt > libexpat1==2.1.0-4ubuntu1.4",
+        "Apt > libexpat1-dev==2.1.0-4ubuntu1.4",
+        "Apt > libfakeroot==1.20-3ubuntu2",
+        "Apt > libffi-dev==3.1~rc1 r3.0.13-12ubuntu0.2",
+        "Apt > libffi6==3.1~rc1 r3.0.13-12ubuntu0.2",
+        "Apt > libfftw3-double3==3.3.3-7ubuntu3",
+        "Apt > libfontconfig1==2.11.0-0ubuntu4.2",
+        "Apt > libfontconfig1-dev==2.11.0-0ubuntu4.2",
+        "Apt > libfreetype6==2.5.2-1ubuntu2.8",
+        "Apt > libfreetype6-dev==2.5.2-1ubuntu2.8",
+        "Apt > libfribidi0==0.19.6-1",
+        "Apt > libgcc-4.8-dev==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libgcc1==1:4.9.3-0ubuntu4",
+        "Apt > libgcrypt11==1.5.3-2ubuntu4.6",
+        "Apt > libgcrypt11-dev==1.5.3-2ubuntu4.6",
+        "Apt > libgd3==2.1.0-3ubuntu0.8",
+        "Apt > libgdbm3==1.8.3-12build1",
+        "Apt > libgdk-pixbuf2.0-0==2.30.7-0ubuntu1.8",
+        "Apt > libgdk-pixbuf2.0-common==2.30.7-0ubuntu1.8",
+        "Apt > libgdk-pixbuf2.0-dev==2.30.7-0ubuntu1.8",
+        "Apt > libgeoip-dev==1.6.0-1",
+        "Apt > libgeoip1==1.6.0-1",
+        "Apt > libgirepository-1.0-1==1.40.0-1ubuntu0.2",
+        "Apt > libglib2.0-0==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-bin==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-data==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-dev==2.40.2-0ubuntu1",
+        "Apt > libgmp10==2:5.1.3 dfsg-1ubuntu1",
+        "Apt > libgnutls-dev==2.12.23-12ubuntu2.8",
+        "Apt > libgnutls-openssl27==2.12.23-12ubuntu2.8",
+        "Apt > libgnutls26==2.12.23-12ubuntu2.8",
+        "Apt > libgnutlsxx27==2.12.23-12ubuntu2.8",
+        "Apt > libgomp1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libgpg-error-dev==1.12-0.2ubuntu1",
+        "Apt > libgpg-error0==1.12-0.2ubuntu1",
+        "Apt > libgraphite2-3==1.3.10-0ubuntu0.14.04.1",
+        "Apt > libgraphviz-dev==2.36.0-0ubuntu3.2",
+        "Apt > libgssapi-krb5-2==1.12 dfsg-2ubuntu5.3",
+        "Apt > libgssapi3-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libgssrpc4==1.12 dfsg-2ubuntu5.3",
+        "Apt > libgtk2.0-0==2.24.23-0ubuntu1.4",
+        "Apt > libgtk2.0-common==2.24.23-0ubuntu1.4",
+        "Apt > libgvc6==2.36.0-0ubuntu3.2",
+        "Apt > libgvc6-plugins-gtk==2.36.0-0ubuntu3.2",
+        "Apt > libgvpr2==2.36.0-0ubuntu3.2",
+        "Apt > libharfbuzz0b==0.9.27-1ubuntu1.1",
+        "Apt > libhcrypto4-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libheimbase1-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libheimntlm0-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libhx509-5-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libice-dev==2:1.0.8-2",
+        "Apt > libice6==2:1.0.8-2",
+        "Apt > libidn11==1.28-1ubuntu2.2",
+        "Apt > libidn11-dev==1.28-1ubuntu2.2",
+        "Apt > libilmbase-dev==1.0.1-6ubuntu1",
+        "Apt > libilmbase6==1.0.1-6ubuntu1",
+        "Apt > libisl10==0.12.2-1",
+        "Apt > libitm1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libjasper-dev==1.900.1-14ubuntu3.4",
+        "Apt > libjasper1==1.900.1-14ubuntu3.4",
+        "Apt > libjbig-dev==2.0-2ubuntu4.1",
+        "Apt > libjbig0==2.0-2ubuntu4.1",
+        "Apt > libjpeg-dev==8c-2ubuntu8",
+        "Apt > libjpeg-turbo8==1.3.0-0ubuntu2",
+        "Apt > libjpeg-turbo8-dev==1.3.0-0ubuntu2",
+        "Apt > libjpeg8==8c-2ubuntu8",
+        "Apt > libjpeg8-dev==8c-2ubuntu8",
+        "Apt > libjs-jquery==1.7.2 dfsg-2ubuntu1",
+        "Apt > libjson-c2==0.11-3ubuntu1.2",
+        "Apt > libjson0==0.11-3ubuntu1.2",
+        "Apt > libk5crypto3==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkadm5clnt-mit9==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkadm5srv-mit9==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkdb5-7==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkeyutils1==1.5.6-1",
+        "Apt > libklibc==2.0.3-0ubuntu1.14.04.2",
+        "Apt > libkmod2==15-0ubuntu6",
+        "Apt > libkrb5-26-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libkrb5-3==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkrb5-dev==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkrb5support0==1.12 dfsg-2ubuntu5.3",
+        "Apt > liblcms2-2==2.5-0ubuntu4.1",
+        "Apt > liblcms2-dev==2.5-0ubuntu4.1",
+        "Apt > libldap-2.4-2==2.4.31-1 nmu2ubuntu8.4",
+        "Apt > libldap2-dev==2.4.31-1 nmu2ubuntu8.4",
+        "Apt > liblocale-gettext-perl==1.05-7build3",
+        "Apt > liblockfile-bin==1.09-6ubuntu1",
+        "Apt > liblockfile1==1.09-6ubuntu1",
+        "Apt > liblog-message-simple-perl==0.10-1",
+        "Apt > liblqr-1-0==0.4.1-2ubuntu1",
+        "Apt > liblqr-1-0-dev==0.4.1-2ubuntu1",
+        "Apt > libltdl-dev==2.4.2-1.7ubuntu1",
+        "Apt > libltdl7==2.4.2-1.7ubuntu1",
+        "Apt > liblzma-dev==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > liblzma5==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > liblzo2-2==2.06-1.2ubuntu1.1",
+        "Apt > libmagic1==1:5.14-2ubuntu3.4",
+        "Apt > libmagickcore-dev==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickcore5==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickcore5-extra==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickwand-dev==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickwand5==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmodule-pluggable-perl==5.1-1",
+        "Apt > libmono-corlib4.5-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-csharp4.0c-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-microsoft-csharp4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-posix4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-security4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-configuration4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-core4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-security4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-xml4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmount1==2.20.1-5.1ubuntu20.9",
+        "Apt > libmpc3==1.0.1-1ubuntu1",
+        "Apt > libmpdec2==2.4.0-6",
+        "Apt > libmpfr4==3.1.2-1",
+        "Apt > libmysqlclient-dev==5.5.60-0ubuntu0.14.04.1",
+        "Apt > libmysqlclient18==5.5.60-0ubuntu0.14.04.1",
+        "Apt > libncurses5==5.9 20140118-1ubuntu1",
+        "Apt > libncurses5-dev==5.9 20140118-1ubuntu1",
+        "Apt > libncursesw5==5.9 20140118-1ubuntu1",
+        "Apt > libnewt0.52==0.52.15-2ubuntu5",
+        "Apt > libnfnetlink0==1.0.1-2",
+        "Apt > libnih-dbus1==1.0.3-4ubuntu25",
+        "Apt > libnih1==1.0.3-4ubuntu25",
+        "Apt > libopenexr-dev==1.6.1-7ubuntu1",
+        "Apt > libopenexr6==1.6.1-7ubuntu1",
+        "Apt > libp11-kit-dev==0.20.2-2ubuntu2",
+        "Apt > libp11-kit0==0.20.2-2ubuntu2",
+        "Apt > libpam-cap==1:2.24-0ubuntu2",
+        "Apt > libpam-modules==1.1.8-1ubuntu2.2",
+        "Apt > libpam-modules-bin==1.1.8-1ubuntu2.2",
+        "Apt > libpam-runtime==1.1.8-1ubuntu2.2",
+        "Apt > libpam0g==1.1.8-1ubuntu2.2",
+        "Apt > libpango-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpangocairo-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpangoft2-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpathplan4==2.36.0-0ubuntu3.2",
+        "Apt > libpcre3==1:8.31-2ubuntu2.3",
+        "Apt > libpcre3-dev==1:8.31-2ubuntu2.3",
+        "Apt > libpcrecpp0==1:8.31-2ubuntu2.3",
+        "Apt > libpixman-1-0==0.30.2-2ubuntu1.1",
+        "Apt > libpixman-1-dev==0.30.2-2ubuntu1.1",
+        "Apt > libplymouth2==0.8.8-0ubuntu17.1",
+        "Apt > libpng12-0==1.2.50-1ubuntu2.14.04.2",
+        "Apt > libpng12-dev==1.2.50-1ubuntu2.14.04.2",
+        "Apt > libpod-latex-perl==0.61-1",
+        "Apt > libpopt0==1.16-8ubuntu1",
+        "Apt > libpq-dev==9.3.23-0ubuntu0.14.04",
+        "Apt > libpq5==9.3.23-0ubuntu0.14.04",
+        "Apt > libprocps3==1:3.3.9-1ubuntu2.2",
+        "Apt > libpthread-stubs0-dev==0.3-4",
+        "Apt > libpython-stdlib==2.7.5-5ubuntu3",
+        "Apt > libpython2.7==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-dev==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-minimal==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-stdlib==2.7.6-8ubuntu0.4",
+        "Apt > libpython3-stdlib==3.4.0-0ubuntu2",
+        "Apt > libpython3.4-minimal==3.4.3-1ubuntu1~14.04.5",
+        "Apt > libpython3.4-stdlib==3.4.3-1ubuntu1~14.04.5",
+        "Apt > libquadmath0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libreadline-dev==6.3-4ubuntu2",
+        "Apt > libreadline5==5.2 dfsg-2",
+        "Apt > libreadline6==6.3-4ubuntu2",
+        "Apt > libreadline6-dev==6.3-4ubuntu2",
+        "Apt > libroken18-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > librsvg2-2==2.40.2-1",
+        "Apt > librsvg2-common==2.40.2-1",
+        "Apt > librsvg2-dev==2.40.2-1",
+        "Apt > librtmp-dev==2.4 20121230.gitdf6c518-1ubuntu0.1",
+        "Apt > librtmp0==2.4 20121230.gitdf6c518-1ubuntu0.1",
+        "Apt > libsasl2-2==2.1.25.dfsg1-17build1",
+        "Apt > libsasl2-modules-db==2.1.25.dfsg1-17build1",
+        "Apt > libselinux1==2.2.2-1ubuntu0.1",
+        "Apt > libsemanage-common==2.2-1",
+        "Apt > libsemanage1==2.2-1",
+        "Apt > libsepol1==2.2-1ubuntu0.1",
+        "Apt > libsigsegv2==2.10-2",
+        "Apt > libslang2==2.2.4-15ubuntu1",
+        "Apt > libsm-dev==2:1.2.1-2",
+        "Apt > libsm6==2:1.2.1-2",
+        "Apt > libsqlite3-0==3.8.2-1ubuntu2.1",
+        "Apt > libsqlite3-dev==3.8.2-1ubuntu2.1",
+        "Apt > libss2==1.42.9-3ubuntu1.3",
+        "Apt > libssl-dev==1.0.1f-1ubuntu2.26",
+        "Apt > libssl1.0.0==1.0.1f-1ubuntu2.26",
+        "Apt > libstdc++-4.8-dev==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libstdc++6==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libtasn1-6==3.4-3ubuntu0.6",
+        "Apt > libtasn1-6-dev==3.4-3ubuntu0.6",
+        "Apt > libterm-ui-perl==0.42-1",
+        "Apt > libtext-charwidth-perl==0.04-7build3",
+        "Apt > libtext-iconv-perl==1.7-5build2",
+        "Apt > libtext-soundex-perl==3.4-1build1",
+        "Apt > libtext-wrapi18n-perl==0.06-7",
+        "Apt > libthai-data==0.1.20-3",
+        "Apt > libthai0==0.1.20-3",
+        "Apt > libtiff5==4.0.3-7ubuntu0.9",
+        "Apt > libtiff5-dev==4.0.3-7ubuntu0.9",
+        "Apt > libtiffxx5==4.0.3-7ubuntu0.9",
+        "Apt > libtinfo-dev==5.9 20140118-1ubuntu1",
+        "Apt > libtinfo5==5.9 20140118-1ubuntu1",
+        "Apt > libtool==2.4.2-1.7ubuntu1",
+        "Apt > libtsan0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libudev1==204-5ubuntu20.24",
+        "Apt > libusb-0.1-4==2:0.1.12-23.3ubuntu1",
+        "Apt > libustr-1.0-1==1.0.4-3ubuntu2",
+        "Apt > libuuid1==2.20.1-5.1ubuntu20.9",
+        "Apt > libvpx1==1.3.0-2",
+        "Apt > libwebp-dev==0.4.0-4",
+        "Apt > libwebp5==0.4.0-4",
+        "Apt > libwebpdemux1==0.4.0-4",
+        "Apt > libwebpmux1==0.4.0-4",
+        "Apt > libwind0-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libwmf-dev==0.2.8.4-10.3ubuntu1.14.04.1",
+        "Apt > libwmf0.2-7==0.2.8.4-10.3ubuntu1.14.04.1",
+        "Apt > libx11-6==2:1.6.2-1ubuntu2",
+        "Apt > libx11-data==2:1.6.2-1ubuntu2",
+        "Apt > libx11-dev==2:1.6.2-1ubuntu2",
+        "Apt > libxau-dev==1:1.0.8-1",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxaw7==2:1.0.12-1",
+        "Apt > libxcb-render0==1.10-2ubuntu1",
+        "Apt > libxcb-render0-dev==1.10-2ubuntu1",
+        "Apt > libxcb-shm0==1.10-2ubuntu1",
+        "Apt > libxcb-shm0-dev==1.10-2ubuntu1",
+        "Apt > libxcb1==1.10-2ubuntu1",
+        "Apt > libxcb1-dev==1.10-2ubuntu1",
+        "Apt > libxcomposite1==1:0.4.4-1",
+        "Apt > libxcursor1==1:1.1.14-1ubuntu0.14.04.1",
+        "Apt > libxdamage1==1:1.1.4-1ubuntu1",
+        "Apt > libxdmcp-dev==1:1.1.1-1",
+        "Apt > libxdmcp6==1:1.1.1-1",
+        "Apt > libxdot4==2.36.0-0ubuntu3.2",
+        "Apt > libxext-dev==2:1.3.2-1ubuntu0.0.14.04.1",
+        "Apt > libxext6==2:1.3.2-1ubuntu0.0.14.04.1",
+        "Apt > libxfixes3==1:5.0.1-1ubuntu1.1",
+        "Apt > libxi6==2:1.7.1.901-1ubuntu1.1",
+        "Apt > libxinerama1==2:1.1.3-1",
+        "Apt > libxml2==2.9.1 dfsg1-3ubuntu4.12",
+        "Apt > libxml2-dev==2.9.1 dfsg1-3ubuntu4.12",
+        "Apt > libxmu6==2:1.1.1-1",
+        "Apt > libxpm4==1:3.5.10-1ubuntu0.1",
+        "Apt > libxrandr2==2:1.5.0-1~trusty1",
+        "Apt > libxrender-dev==1:0.9.8-1build0.14.04.1",
+        "Apt > libxrender1==1:0.9.8-1build0.14.04.1",
+        "Apt > libxslt1-dev==1.1.28-2ubuntu0.1",
+        "Apt > libxslt1.1==1.1.28-2ubuntu0.1",
+        "Apt > libxt-dev==1:1.1.4-1",
+        "Apt > libxt6==1:1.1.4-1",
+        "Apt > libxtables10==1.4.21-1ubuntu1",
+        "Apt > libyaml-0-2==0.1.4-3ubuntu3.1",
+        "Apt > libyaml-dev==0.1.4-3ubuntu3.1",
+        "Apt > linux-libc-dev==3.13.0-151.201",
+        "Apt > locales==2.13 git20120306-12.1",
+        "Apt > lockfile-progs==0.1.17",
+        "Apt > login==1:4.1.5.1-1ubuntu9.5",
+        "Apt > logrotate==3.8.7-1ubuntu1",
+        "Apt > lsb-base==4.1 Debian11ubuntu6.2",
+        "Apt > lsb-release==4.1 Debian11ubuntu6.2",
+        "Apt > m4==1.4.17-2ubuntu1",
+        "Apt > make==3.81-8.2ubuntu3",
+        "Apt > makedev==2.3.1-93ubuntu2~ubuntu14.04.1",
+        "Apt > mawk==1.3.3-17ubuntu2",
+        "Apt > mime-support==3.54ubuntu1.1",
+        "Apt > module-init-tools==15-0ubuntu6",
+        "Apt > mono-4.0-gac==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-gac==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-mcs==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime-common==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime-sgen==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mount==2.20.1-5.1ubuntu20.9",
+        "Apt > mountall==2.53",
+        "Apt > multiarch-support==2.19-0ubuntu6.11",
+        "Apt > mysql-common==5.5.60-0ubuntu0.14.04.1",
+        "Apt > ncurses-base==5.9 20140118-1ubuntu1",
+        "Apt > ncurses-bin==5.9 20140118-1ubuntu1",
+        "Apt > net-tools==1.60-25ubuntu2.1",
+        "Apt > netbase==5.2",
+        "Apt > netcat-openbsd==1.105-7ubuntu1",
+        "Apt > ntpdate==1:4.2.6.p5 dfsg-3ubuntu2.14.04.10",
+        "Apt > openssl==1.0.1f-1ubuntu2.26",
+        "Apt > passwd==1:4.1.5.1-1ubuntu9.5",
+        "Apt > patch==2.7.1-4ubuntu2.4",
+        "Apt > perl==5.18.2-2ubuntu1.1",
+        "Apt > perl-base==5.18.2-2ubuntu1.1",
+        "Apt > perl-modules==5.18.2-2ubuntu1.1",
+        "Apt > pkg-config==0.26-1ubuntu4",
+        "Apt > plymouth==0.8.8-0ubuntu17.1",
+        "Apt > procps==1:3.3.9-1ubuntu2.2",
+        "Apt > python==2.7.5-5ubuntu3",
+        "Apt > python-apt-common==0.9.3.5ubuntu2",
+        "Apt > python-minimal==2.7.5-5ubuntu3",
+        "Apt > python2.7==2.7.6-8ubuntu0.4",
+        "Apt > python2.7-dev==2.7.6-8ubuntu0.4",
+        "Apt > python2.7-minimal==2.7.6-8ubuntu0.4",
+        "Apt > python3==3.4.0-0ubuntu2",
+        "Apt > python3-apt==0.9.3.5ubuntu2",
+        "Apt > python3-dbus==1.2.0-2build2",
+        "Apt > python3-gi==3.12.0-1ubuntu1",
+        "Apt > python3-minimal==3.4.0-0ubuntu2",
+        "Apt > python3-pycurl==7.19.3-0ubuntu3",
+        "Apt > python3-software-properties==0.92.37.8",
+        "Apt > python3.4==3.4.3-1ubuntu1~14.04.5",
+        "Apt > python3.4-minimal==3.4.3-1ubuntu1~14.04.5",
+        "Apt > readline-common==6.3-4ubuntu2",
+        "Apt > resolvconf==1.69ubuntu1.1",
+        "Apt > rsyslog==7.4.4-1ubuntu2.6",
+        "Apt > sed==4.2.2-4ubuntu1",
+        "Apt > sensible-utils==0.0.9",
+        "Apt > shared-mime-info==1.2-0ubuntu3",
+        "Apt > software-properties-common==0.92.37.8",
+        "Apt > sudo==1.8.9p5-1ubuntu1.4",
+        "Apt > sysv-rc==2.88dsf-41ubuntu6.3",
+        "Apt > sysvinit-utils==2.88dsf-41ubuntu6.3",
+        "Apt > tar==1.27.1-1ubuntu0.1",
+        "Apt > tzdata==2016j-0ubuntu0.14.04",
+        "Apt > ubuntu-keyring==2012.05.19",
+        "Apt > ubuntu-minimal==1.325",
+        "Apt > ucf==3.0027 nmu1",
+        "Apt > udev==204-5ubuntu20.24",
+        "Apt > unattended-upgrades==0.82.1ubuntu2.5",
+        "Apt > unzip==6.0-9ubuntu1.5",
+        "Apt > upstart==1.12.1-0ubuntu4.2",
+        "Apt > ureadahead==0.100.0-16",
+        "Apt > util-linux==2.20.1-5.1ubuntu20.9",
+        "Apt > vim-common==2:7.4.052-1ubuntu3.1",
+        "Apt > vim-tiny==2:7.4.052-1ubuntu3.1",
+        "Apt > wget==1.15-1ubuntu1.14.04.4",
+        "Apt > whiptail==0.52.15-2ubuntu5",
+        "Apt > x11-common==1:7.7 1ubuntu8.1",
+        "Apt > x11proto-core-dev==7.0.26-1~ubuntu2",
+        "Apt > x11proto-input-dev==2.3-1",
+        "Apt > x11proto-kb-dev==1.0.6-2",
+        "Apt > x11proto-render-dev==2:0.11.1-2",
+        "Apt > x11proto-xext-dev==7.3.0-1",
+        "Apt > xfsprogs==3.1.9ubuntu2.1",
+        "Apt > xkb-data==2.10.1-1ubuntu1",
+        "Apt > xorg-sgml-doctools==1:1.11-1",
+        "Apt > xtrans-dev==1.3.5-1~ubuntu14.04.2",
+        "Apt > xz-utils==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > zip==3.0-8",
+        "Apt > zlib1g==1:1.2.8.dfsg-1ubuntu1",
+        "Apt > zlib1g-dev==1:1.2.8.dfsg-1ubuntu1",
+        "Pip > awscli==1.15.46",
+        "Pip > botocore==1.10.46",
+        "Pip > colorama==0.3.9",
+        "Pip > docutils==0.14",
+        "Pip > jmespath==0.9.3",
+        "Pip > pip==9.0.3",
+        "Pip > pyasn1==0.4.3",
+        "Pip > rsa==3.4.2",
+        "Pip > s3transfer==0.1.13",
+        "Pip > setuptools==36.8.0",
+        "Pip > six==1.11.0",
+        "Pip > wheel==0.29.0"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "environment": [
+        "DOCKER_BUCKET=\"download.docker.com\"",
+        "DOCKER_VERSION=\"17.09.0-ce\"",
+        "DOCKER_CHANNEL=\"stable\"",
+        "DOCKER_SHA256=\"a9e90a73c3cdfbf238f148e1ec0eaff5eb181f92f35bdd938fd7dab18e1c4647\"",
+        "JAVA_HOME=/usr/lib/jvm/java-8-oracle",
+        "CHROME_BIN=/usr/bin/google-chrome",
+        "CHROME_PATH=/usr/bin/google-chrome",
+        "CHROME_DRIVER_VERSION=2.37",
+        "NODE_VERSION='8.11.2'"
+    ],
+    "entrypoint": [
+        "[\"dockerd-entrypoint.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "ubuntu:14.04.5",
+    "name": "coorpacademy/codebuild",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.113 nmu3ubuntu3",
+        "Apt > apt==1.0.1ubuntu2.17",
+        "Apt > apt-utils==1.0.1ubuntu2.17",
+        "Apt > autoconf==2.69-6",
+        "Apt > automake==1:1.14.1-2ubuntu1",
+        "Apt > autotools-dev==20130810.1",
+        "Apt > base-files==7.2ubuntu5.5",
+        "Apt > base-passwd==3.5.33",
+        "Apt > bash==4.3-7ubuntu1.7",
+        "Apt > binutils==2.24-5ubuntu14.2",
+        "Apt > bsdutils==1:2.20.1-5.1ubuntu20.9",
+        "Apt > busybox-initramfs==1:1.21.0-1ubuntu1",
+        "Apt > bzip2==1.0.6-5",
+        "Apt > ca-certificates==20170717~14.04.1",
+        "Apt > comerr-dev==2.1-1.42.9-3ubuntu1.3",
+        "Apt > console-setup==1.70ubuntu8",
+        "Apt > coreutils==8.21-1ubuntu5.4",
+        "Apt > cpio==2.11 dfsg-1ubuntu1.2",
+        "Apt > cpp==4:4.8.2-1ubuntu6",
+        "Apt > cpp-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > cron==3.0pl1-124ubuntu2",
+        "Apt > curl==7.35.0-1ubuntu2.16",
+        "Apt > dash==0.5.7-4ubuntu1",
+        "Apt > debconf==1.5.51ubuntu2",
+        "Apt > debconf-i18n==1.5.51ubuntu2",
+        "Apt > debianutils==4.4",
+        "Apt > dh-python==1.20140128-1ubuntu8.2",
+        "Apt > diffutils==1:3.3-1",
+        "Apt > dmsetup==2:1.02.77-6ubuntu2",
+        "Apt > dpkg==1.17.5ubuntu5.7",
+        "Apt > e2fslibs==1.42.9-3ubuntu1.3",
+        "Apt > e2fsprogs==1.42.9-3ubuntu1.3",
+        "Apt > eject==2.1.5 deb1+cvs20081104-13.1ubuntu0.14.04.1",
+        "Apt > fakeroot==1.20-3ubuntu2",
+        "Apt > file==1:5.14-2ubuntu3.4",
+        "Apt > findutils==4.4.2-7",
+        "Apt > fontconfig==2.11.0-0ubuntu4.2",
+        "Apt > fontconfig-config==2.11.0-0ubuntu4.2",
+        "Apt > fonts-dejavu-core==2.34-1ubuntu1",
+        "Apt > g++==4:4.8.2-1ubuntu6",
+        "Apt > g++-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc==4:4.8.2-1ubuntu6",
+        "Apt > gcc-4.8==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc-4.8-base==4.8.4-2ubuntu1~14.04.4",
+        "Apt > gcc-4.9-base==4.9.3-0ubuntu4",
+        "Apt > geoip-bin==1.6.0-1",
+        "Apt > gir1.2-freedesktop==1.40.0-1ubuntu0.2",
+        "Apt > gir1.2-gdkpixbuf-2.0==2.30.7-0ubuntu1.8",
+        "Apt > gir1.2-glib-2.0==1.40.0-1ubuntu0.2",
+        "Apt > gir1.2-rsvg-2.0==2.40.2-1",
+        "Apt > git==1:2.18.0-0ppa1~ubuntu14.04.1",
+        "Apt > git-man==1:2.18.0-0ppa1~ubuntu14.04.1",
+        "Apt > gnupg==1.4.16-1ubuntu2.4",
+        "Apt > gpgv==1.4.16-1ubuntu2.4",
+        "Apt > grep==2.16-1",
+        "Apt > groff==1.22.2-5",
+        "Apt > groff-base==1.22.2-5",
+        "Apt > gzip==1.6-3ubuntu1",
+        "Apt > hicolor-icon-theme==0.13-1",
+        "Apt > hostname==3.15ubuntu1",
+        "Apt > ifupdown==0.7.47.2ubuntu4.4",
+        "Apt > imagemagick==8:6.7.7.10-6ubuntu3.11",
+        "Apt > imagemagick-common==8:6.7.7.10-6ubuntu3.11",
+        "Apt > init-system-helpers==1.14ubuntu1",
+        "Apt > initramfs-tools==0.103ubuntu4.7",
+        "Apt > initramfs-tools-bin==0.103ubuntu4.7",
+        "Apt > initscripts==2.88dsf-41ubuntu6.3",
+        "Apt > insserv==1.14.0-5ubuntu2",
+        "Apt > iproute2==3.12.0-2ubuntu1",
+        "Apt > iptables==1.4.21-1ubuntu1",
+        "Apt > iputils-ping==3:20121221-4ubuntu1.1",
+        "Apt > isc-dhcp-client==4.2.4-7ubuntu12.10",
+        "Apt > isc-dhcp-common==4.2.4-7ubuntu12.10",
+        "Apt > iso-codes==3.52-1",
+        "Apt > kbd==1.15.5-1ubuntu1",
+        "Apt > keyboard-configuration==1.70ubuntu8",
+        "Apt > klibc-utils==2.0.3-0ubuntu1.14.04.2",
+        "Apt > kmod==15-0ubuntu6",
+        "Apt > krb5-multidev==1.12 dfsg-2ubuntu5.3",
+        "Apt > less==458-2",
+        "Apt > libacl1==2.2.52-1",
+        "Apt > libapt-inst1.5==1.0.1ubuntu2.17",
+        "Apt > libapt-pkg4.12==1.0.1ubuntu2.17",
+        "Apt > libarchive-extract-perl==0.70-1",
+        "Apt > libasan0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libasn1-8-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libatk1.0-0==2.10.0-2ubuntu2",
+        "Apt > libatk1.0-data==2.10.0-2ubuntu2",
+        "Apt > libatomic1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libattr1==1:2.4.47-1ubuntu1",
+        "Apt > libaudit-common==1:2.3.2-2ubuntu1",
+        "Apt > libaudit1==1:2.3.2-2ubuntu1",
+        "Apt > libavahi-client3==0.6.31-4ubuntu1.2",
+        "Apt > libavahi-common-data==0.6.31-4ubuntu1.2",
+        "Apt > libavahi-common3==0.6.31-4ubuntu1.2",
+        "Apt > libblkid1==2.20.1-5.1ubuntu20.9",
+        "Apt > libbsd0==0.6.0-2ubuntu1",
+        "Apt > libbz2-1.0==1.0.6-5",
+        "Apt > libbz2-dev==1.0.6-5",
+        "Apt > libc-bin==2.19-0ubuntu6.11",
+        "Apt > libc-dev-bin==2.19-0ubuntu6.14",
+        "Apt > libc6==2.19-0ubuntu6.14",
+        "Apt > libc6-dev==2.19-0ubuntu6.14",
+        "Apt > libcairo-gobject2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo-script-interpreter2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo2==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcairo2-dev==1.13.0~20140204-0ubuntu1.1",
+        "Apt > libcap2==1:2.24-0ubuntu2",
+        "Apt > libcap2-bin==1:2.24-0ubuntu2",
+        "Apt > libcdt5==2.36.0-0ubuntu3.2",
+        "Apt > libcgmanager0==0.24-0ubuntu7.5",
+        "Apt > libcgraph6==2.36.0-0ubuntu3.2",
+        "Apt > libcloog-isl4==0.18.2-1",
+        "Apt > libcomerr2==1.42.9-3ubuntu1.3",
+        "Apt > libcroco3==0.6.8-2ubuntu1",
+        "Apt > libcups2==1.7.2-0ubuntu1.9",
+        "Apt > libcurl3==7.35.0-1ubuntu2.16",
+        "Apt > libcurl3-gnutls==7.35.0-1ubuntu2.16",
+        "Apt > libcurl4-openssl-dev==7.35.0-1ubuntu2.16",
+        "Apt > libdatrie1==0.2.8-1",
+        "Apt > libdb-dev==1:5.3.21~exp1ubuntu1",
+        "Apt > libdb5.3==5.3.28-3ubuntu3.1",
+        "Apt > libdb5.3-dev==5.3.28-3ubuntu3.1",
+        "Apt > libdbus-1-3==1.6.18-0ubuntu4.5",
+        "Apt > libdbus-glib-1-2==0.100.2-1",
+        "Apt > libdebconfclient0==0.187ubuntu1",
+        "Apt > libdevmapper1.02.1==2:1.02.77-6ubuntu2",
+        "Apt > libdjvulibre-dev==3.5.25.4-3",
+        "Apt > libdjvulibre-text==3.5.25.4-3",
+        "Apt > libdjvulibre21==3.5.25.4-3",
+        "Apt > libdrm2==2.4.67-1ubuntu0.14.04.1",
+        "Apt > libelfg0==0.8.13-5",
+        "Apt > liberror-perl==0.17-1.1",
+        "Apt > libestr0==0.1.9-0ubuntu2",
+        "Apt > libevent-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-core-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-dev==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-extra-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-openssl-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libevent-pthreads-2.0-5==2.0.21-stable-1ubuntu1.14.04.2",
+        "Apt > libexif-dev==0.6.21-1ubuntu1",
+        "Apt > libexif12==0.6.21-1ubuntu1",
+        "Apt > libexpat1==2.1.0-4ubuntu1.4",
+        "Apt > libexpat1-dev==2.1.0-4ubuntu1.4",
+        "Apt > libfakeroot==1.20-3ubuntu2",
+        "Apt > libffi-dev==3.1~rc1 r3.0.13-12ubuntu0.2",
+        "Apt > libffi6==3.1~rc1 r3.0.13-12ubuntu0.2",
+        "Apt > libfftw3-double3==3.3.3-7ubuntu3",
+        "Apt > libfontconfig1==2.11.0-0ubuntu4.2",
+        "Apt > libfontconfig1-dev==2.11.0-0ubuntu4.2",
+        "Apt > libfreetype6==2.5.2-1ubuntu2.8",
+        "Apt > libfreetype6-dev==2.5.2-1ubuntu2.8",
+        "Apt > libfribidi0==0.19.6-1",
+        "Apt > libgcc-4.8-dev==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libgcc1==1:4.9.3-0ubuntu4",
+        "Apt > libgcrypt11==1.5.3-2ubuntu4.6",
+        "Apt > libgcrypt11-dev==1.5.3-2ubuntu4.6",
+        "Apt > libgd3==2.1.0-3ubuntu0.8",
+        "Apt > libgdbm3==1.8.3-12build1",
+        "Apt > libgdk-pixbuf2.0-0==2.30.7-0ubuntu1.8",
+        "Apt > libgdk-pixbuf2.0-common==2.30.7-0ubuntu1.8",
+        "Apt > libgdk-pixbuf2.0-dev==2.30.7-0ubuntu1.8",
+        "Apt > libgeoip-dev==1.6.0-1",
+        "Apt > libgeoip1==1.6.0-1",
+        "Apt > libgirepository-1.0-1==1.40.0-1ubuntu0.2",
+        "Apt > libglib2.0-0==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-bin==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-data==2.40.2-0ubuntu1",
+        "Apt > libglib2.0-dev==2.40.2-0ubuntu1",
+        "Apt > libgmp10==2:5.1.3 dfsg-1ubuntu1",
+        "Apt > libgnutls-dev==2.12.23-12ubuntu2.8",
+        "Apt > libgnutls-openssl27==2.12.23-12ubuntu2.8",
+        "Apt > libgnutls26==2.12.23-12ubuntu2.8",
+        "Apt > libgnutlsxx27==2.12.23-12ubuntu2.8",
+        "Apt > libgomp1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libgpg-error-dev==1.12-0.2ubuntu1",
+        "Apt > libgpg-error0==1.12-0.2ubuntu1",
+        "Apt > libgraphite2-3==1.3.10-0ubuntu0.14.04.1",
+        "Apt > libgraphviz-dev==2.36.0-0ubuntu3.2",
+        "Apt > libgssapi-krb5-2==1.12 dfsg-2ubuntu5.3",
+        "Apt > libgssapi3-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libgssrpc4==1.12 dfsg-2ubuntu5.3",
+        "Apt > libgtk2.0-0==2.24.23-0ubuntu1.4",
+        "Apt > libgtk2.0-common==2.24.23-0ubuntu1.4",
+        "Apt > libgvc6==2.36.0-0ubuntu3.2",
+        "Apt > libgvc6-plugins-gtk==2.36.0-0ubuntu3.2",
+        "Apt > libgvpr2==2.36.0-0ubuntu3.2",
+        "Apt > libharfbuzz0b==0.9.27-1ubuntu1.1",
+        "Apt > libhcrypto4-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libheimbase1-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libheimntlm0-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libhx509-5-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libice-dev==2:1.0.8-2",
+        "Apt > libice6==2:1.0.8-2",
+        "Apt > libidn11==1.28-1ubuntu2.2",
+        "Apt > libidn11-dev==1.28-1ubuntu2.2",
+        "Apt > libilmbase-dev==1.0.1-6ubuntu1",
+        "Apt > libilmbase6==1.0.1-6ubuntu1",
+        "Apt > libisl10==0.12.2-1",
+        "Apt > libitm1==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libjasper-dev==1.900.1-14ubuntu3.4",
+        "Apt > libjasper1==1.900.1-14ubuntu3.4",
+        "Apt > libjbig-dev==2.0-2ubuntu4.1",
+        "Apt > libjbig0==2.0-2ubuntu4.1",
+        "Apt > libjpeg-dev==8c-2ubuntu8",
+        "Apt > libjpeg-turbo8==1.3.0-0ubuntu2",
+        "Apt > libjpeg-turbo8-dev==1.3.0-0ubuntu2",
+        "Apt > libjpeg8==8c-2ubuntu8",
+        "Apt > libjpeg8-dev==8c-2ubuntu8",
+        "Apt > libjs-jquery==1.7.2 dfsg-2ubuntu1",
+        "Apt > libjson-c2==0.11-3ubuntu1.2",
+        "Apt > libjson0==0.11-3ubuntu1.2",
+        "Apt > libk5crypto3==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkadm5clnt-mit9==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkadm5srv-mit9==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkdb5-7==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkeyutils1==1.5.6-1",
+        "Apt > libklibc==2.0.3-0ubuntu1.14.04.2",
+        "Apt > libkmod2==15-0ubuntu6",
+        "Apt > libkrb5-26-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libkrb5-3==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkrb5-dev==1.12 dfsg-2ubuntu5.3",
+        "Apt > libkrb5support0==1.12 dfsg-2ubuntu5.3",
+        "Apt > liblcms2-2==2.5-0ubuntu4.1",
+        "Apt > liblcms2-dev==2.5-0ubuntu4.1",
+        "Apt > libldap-2.4-2==2.4.31-1 nmu2ubuntu8.4",
+        "Apt > libldap2-dev==2.4.31-1 nmu2ubuntu8.4",
+        "Apt > liblocale-gettext-perl==1.05-7build3",
+        "Apt > liblockfile-bin==1.09-6ubuntu1",
+        "Apt > liblockfile1==1.09-6ubuntu1",
+        "Apt > liblog-message-simple-perl==0.10-1",
+        "Apt > liblqr-1-0==0.4.1-2ubuntu1",
+        "Apt > liblqr-1-0-dev==0.4.1-2ubuntu1",
+        "Apt > libltdl-dev==2.4.2-1.7ubuntu1",
+        "Apt > libltdl7==2.4.2-1.7ubuntu1",
+        "Apt > liblzma-dev==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > liblzma5==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > liblzo2-2==2.06-1.2ubuntu1.1",
+        "Apt > libmagic1==1:5.14-2ubuntu3.4",
+        "Apt > libmagickcore-dev==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickcore5==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickcore5-extra==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickwand-dev==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmagickwand5==8:6.7.7.10-6ubuntu3.11",
+        "Apt > libmodule-pluggable-perl==5.1-1",
+        "Apt > libmono-corlib4.5-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-csharp4.0c-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-microsoft-csharp4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-posix4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-security4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-configuration4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-core4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-security4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system-xml4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmono-system4.0-cil==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > libmount1==2.20.1-5.1ubuntu20.9",
+        "Apt > libmpc3==1.0.1-1ubuntu1",
+        "Apt > libmpdec2==2.4.0-6",
+        "Apt > libmpfr4==3.1.2-1",
+        "Apt > libmysqlclient-dev==5.5.60-0ubuntu0.14.04.1",
+        "Apt > libmysqlclient18==5.5.60-0ubuntu0.14.04.1",
+        "Apt > libncurses5==5.9 20140118-1ubuntu1",
+        "Apt > libncurses5-dev==5.9 20140118-1ubuntu1",
+        "Apt > libncursesw5==5.9 20140118-1ubuntu1",
+        "Apt > libnewt0.52==0.52.15-2ubuntu5",
+        "Apt > libnfnetlink0==1.0.1-2",
+        "Apt > libnih-dbus1==1.0.3-4ubuntu25",
+        "Apt > libnih1==1.0.3-4ubuntu25",
+        "Apt > libopenexr-dev==1.6.1-7ubuntu1",
+        "Apt > libopenexr6==1.6.1-7ubuntu1",
+        "Apt > libp11-kit-dev==0.20.2-2ubuntu2",
+        "Apt > libp11-kit0==0.20.2-2ubuntu2",
+        "Apt > libpam-cap==1:2.24-0ubuntu2",
+        "Apt > libpam-modules==1.1.8-1ubuntu2.2",
+        "Apt > libpam-modules-bin==1.1.8-1ubuntu2.2",
+        "Apt > libpam-runtime==1.1.8-1ubuntu2.2",
+        "Apt > libpam0g==1.1.8-1ubuntu2.2",
+        "Apt > libpango-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpangocairo-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpangoft2-1.0-0==1.36.3-1ubuntu1.1",
+        "Apt > libpathplan4==2.36.0-0ubuntu3.2",
+        "Apt > libpcre3==1:8.31-2ubuntu2.3",
+        "Apt > libpcre3-dev==1:8.31-2ubuntu2.3",
+        "Apt > libpcrecpp0==1:8.31-2ubuntu2.3",
+        "Apt > libpixman-1-0==0.30.2-2ubuntu1.1",
+        "Apt > libpixman-1-dev==0.30.2-2ubuntu1.1",
+        "Apt > libplymouth2==0.8.8-0ubuntu17.1",
+        "Apt > libpng12-0==1.2.50-1ubuntu2.14.04.2",
+        "Apt > libpng12-dev==1.2.50-1ubuntu2.14.04.2",
+        "Apt > libpod-latex-perl==0.61-1",
+        "Apt > libpopt0==1.16-8ubuntu1",
+        "Apt > libpq-dev==9.3.23-0ubuntu0.14.04",
+        "Apt > libpq5==9.3.23-0ubuntu0.14.04",
+        "Apt > libprocps3==1:3.3.9-1ubuntu2.2",
+        "Apt > libpthread-stubs0-dev==0.3-4",
+        "Apt > libpython-stdlib==2.7.5-5ubuntu3",
+        "Apt > libpython2.7==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-dev==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-minimal==2.7.6-8ubuntu0.4",
+        "Apt > libpython2.7-stdlib==2.7.6-8ubuntu0.4",
+        "Apt > libpython3-stdlib==3.4.0-0ubuntu2",
+        "Apt > libpython3.4-minimal==3.4.3-1ubuntu1~14.04.5",
+        "Apt > libpython3.4-stdlib==3.4.3-1ubuntu1~14.04.5",
+        "Apt > libquadmath0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libreadline-dev==6.3-4ubuntu2",
+        "Apt > libreadline5==5.2 dfsg-2",
+        "Apt > libreadline6==6.3-4ubuntu2",
+        "Apt > libreadline6-dev==6.3-4ubuntu2",
+        "Apt > libroken18-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > librsvg2-2==2.40.2-1",
+        "Apt > librsvg2-common==2.40.2-1",
+        "Apt > librsvg2-dev==2.40.2-1",
+        "Apt > librtmp-dev==2.4 20121230.gitdf6c518-1ubuntu0.1",
+        "Apt > librtmp0==2.4 20121230.gitdf6c518-1ubuntu0.1",
+        "Apt > libsasl2-2==2.1.25.dfsg1-17build1",
+        "Apt > libsasl2-modules-db==2.1.25.dfsg1-17build1",
+        "Apt > libselinux1==2.2.2-1ubuntu0.1",
+        "Apt > libsemanage-common==2.2-1",
+        "Apt > libsemanage1==2.2-1",
+        "Apt > libsepol1==2.2-1ubuntu0.1",
+        "Apt > libsigsegv2==2.10-2",
+        "Apt > libslang2==2.2.4-15ubuntu1",
+        "Apt > libsm-dev==2:1.2.1-2",
+        "Apt > libsm6==2:1.2.1-2",
+        "Apt > libsqlite3-0==3.8.2-1ubuntu2.1",
+        "Apt > libsqlite3-dev==3.8.2-1ubuntu2.1",
+        "Apt > libss2==1.42.9-3ubuntu1.3",
+        "Apt > libssl-dev==1.0.1f-1ubuntu2.26",
+        "Apt > libssl1.0.0==1.0.1f-1ubuntu2.26",
+        "Apt > libstdc++-4.8-dev==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libstdc++6==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libtasn1-6==3.4-3ubuntu0.6",
+        "Apt > libtasn1-6-dev==3.4-3ubuntu0.6",
+        "Apt > libterm-ui-perl==0.42-1",
+        "Apt > libtext-charwidth-perl==0.04-7build3",
+        "Apt > libtext-iconv-perl==1.7-5build2",
+        "Apt > libtext-soundex-perl==3.4-1build1",
+        "Apt > libtext-wrapi18n-perl==0.06-7",
+        "Apt > libthai-data==0.1.20-3",
+        "Apt > libthai0==0.1.20-3",
+        "Apt > libtiff5==4.0.3-7ubuntu0.9",
+        "Apt > libtiff5-dev==4.0.3-7ubuntu0.9",
+        "Apt > libtiffxx5==4.0.3-7ubuntu0.9",
+        "Apt > libtinfo-dev==5.9 20140118-1ubuntu1",
+        "Apt > libtinfo5==5.9 20140118-1ubuntu1",
+        "Apt > libtool==2.4.2-1.7ubuntu1",
+        "Apt > libtsan0==4.8.4-2ubuntu1~14.04.4",
+        "Apt > libudev1==204-5ubuntu20.24",
+        "Apt > libusb-0.1-4==2:0.1.12-23.3ubuntu1",
+        "Apt > libustr-1.0-1==1.0.4-3ubuntu2",
+        "Apt > libuuid1==2.20.1-5.1ubuntu20.9",
+        "Apt > libvpx1==1.3.0-2",
+        "Apt > libwebp-dev==0.4.0-4",
+        "Apt > libwebp5==0.4.0-4",
+        "Apt > libwebpdemux1==0.4.0-4",
+        "Apt > libwebpmux1==0.4.0-4",
+        "Apt > libwind0-heimdal==1.6~git20131207 dfsg-1ubuntu1.2",
+        "Apt > libwmf-dev==0.2.8.4-10.3ubuntu1.14.04.1",
+        "Apt > libwmf0.2-7==0.2.8.4-10.3ubuntu1.14.04.1",
+        "Apt > libx11-6==2:1.6.2-1ubuntu2",
+        "Apt > libx11-data==2:1.6.2-1ubuntu2",
+        "Apt > libx11-dev==2:1.6.2-1ubuntu2",
+        "Apt > libxau-dev==1:1.0.8-1",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxaw7==2:1.0.12-1",
+        "Apt > libxcb-render0==1.10-2ubuntu1",
+        "Apt > libxcb-render0-dev==1.10-2ubuntu1",
+        "Apt > libxcb-shm0==1.10-2ubuntu1",
+        "Apt > libxcb-shm0-dev==1.10-2ubuntu1",
+        "Apt > libxcb1==1.10-2ubuntu1",
+        "Apt > libxcb1-dev==1.10-2ubuntu1",
+        "Apt > libxcomposite1==1:0.4.4-1",
+        "Apt > libxcursor1==1:1.1.14-1ubuntu0.14.04.1",
+        "Apt > libxdamage1==1:1.1.4-1ubuntu1",
+        "Apt > libxdmcp-dev==1:1.1.1-1",
+        "Apt > libxdmcp6==1:1.1.1-1",
+        "Apt > libxdot4==2.36.0-0ubuntu3.2",
+        "Apt > libxext-dev==2:1.3.2-1ubuntu0.0.14.04.1",
+        "Apt > libxext6==2:1.3.2-1ubuntu0.0.14.04.1",
+        "Apt > libxfixes3==1:5.0.1-1ubuntu1.1",
+        "Apt > libxi6==2:1.7.1.901-1ubuntu1.1",
+        "Apt > libxinerama1==2:1.1.3-1",
+        "Apt > libxml2==2.9.1 dfsg1-3ubuntu4.12",
+        "Apt > libxml2-dev==2.9.1 dfsg1-3ubuntu4.12",
+        "Apt > libxmu6==2:1.1.1-1",
+        "Apt > libxpm4==1:3.5.10-1ubuntu0.1",
+        "Apt > libxrandr2==2:1.5.0-1~trusty1",
+        "Apt > libxrender-dev==1:0.9.8-1build0.14.04.1",
+        "Apt > libxrender1==1:0.9.8-1build0.14.04.1",
+        "Apt > libxslt1-dev==1.1.28-2ubuntu0.1",
+        "Apt > libxslt1.1==1.1.28-2ubuntu0.1",
+        "Apt > libxt-dev==1:1.1.4-1",
+        "Apt > libxt6==1:1.1.4-1",
+        "Apt > libxtables10==1.4.21-1ubuntu1",
+        "Apt > libyaml-0-2==0.1.4-3ubuntu3.1",
+        "Apt > libyaml-dev==0.1.4-3ubuntu3.1",
+        "Apt > linux-libc-dev==3.13.0-151.201",
+        "Apt > locales==2.13 git20120306-12.1",
+        "Apt > lockfile-progs==0.1.17",
+        "Apt > login==1:4.1.5.1-1ubuntu9.5",
+        "Apt > logrotate==3.8.7-1ubuntu1",
+        "Apt > lsb-base==4.1 Debian11ubuntu6.2",
+        "Apt > lsb-release==4.1 Debian11ubuntu6.2",
+        "Apt > m4==1.4.17-2ubuntu1",
+        "Apt > make==3.81-8.2ubuntu3",
+        "Apt > makedev==2.3.1-93ubuntu2~ubuntu14.04.1",
+        "Apt > mawk==1.3.3-17ubuntu2",
+        "Apt > mime-support==3.54ubuntu1.1",
+        "Apt > module-init-tools==15-0ubuntu6",
+        "Apt > mono-4.0-gac==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-gac==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-mcs==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime-common==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mono-runtime-sgen==3.2.8 dfsg-4ubuntu1.1",
+        "Apt > mount==2.20.1-5.1ubuntu20.9",
+        "Apt > mountall==2.53",
+        "Apt > multiarch-support==2.19-0ubuntu6.11",
+        "Apt > mysql-common==5.5.60-0ubuntu0.14.04.1",
+        "Apt > ncurses-base==5.9 20140118-1ubuntu1",
+        "Apt > ncurses-bin==5.9 20140118-1ubuntu1",
+        "Apt > net-tools==1.60-25ubuntu2.1",
+        "Apt > netbase==5.2",
+        "Apt > netcat-openbsd==1.105-7ubuntu1",
+        "Apt > ntpdate==1:4.2.6.p5 dfsg-3ubuntu2.14.04.10",
+        "Apt > openssl==1.0.1f-1ubuntu2.26",
+        "Apt > passwd==1:4.1.5.1-1ubuntu9.5",
+        "Apt > patch==2.7.1-4ubuntu2.4",
+        "Apt > perl==5.18.2-2ubuntu1.1",
+        "Apt > perl-base==5.18.2-2ubuntu1.1",
+        "Apt > perl-modules==5.18.2-2ubuntu1.1",
+        "Apt > pkg-config==0.26-1ubuntu4",
+        "Apt > plymouth==0.8.8-0ubuntu17.1",
+        "Apt > procps==1:3.3.9-1ubuntu2.2",
+        "Apt > python==2.7.5-5ubuntu3",
+        "Apt > python-apt-common==0.9.3.5ubuntu2",
+        "Apt > python-minimal==2.7.5-5ubuntu3",
+        "Apt > python2.7==2.7.6-8ubuntu0.4",
+        "Apt > python2.7-dev==2.7.6-8ubuntu0.4",
+        "Apt > python2.7-minimal==2.7.6-8ubuntu0.4",
+        "Apt > python3==3.4.0-0ubuntu2",
+        "Apt > python3-apt==0.9.3.5ubuntu2",
+        "Apt > python3-dbus==1.2.0-2build2",
+        "Apt > python3-gi==3.12.0-1ubuntu1",
+        "Apt > python3-minimal==3.4.0-0ubuntu2",
+        "Apt > python3-pycurl==7.19.3-0ubuntu3",
+        "Apt > python3-software-properties==0.92.37.8",
+        "Apt > python3.4==3.4.3-1ubuntu1~14.04.5",
+        "Apt > python3.4-minimal==3.4.3-1ubuntu1~14.04.5",
+        "Apt > readline-common==6.3-4ubuntu2",
+        "Apt > resolvconf==1.69ubuntu1.1",
+        "Apt > rsyslog==7.4.4-1ubuntu2.6",
+        "Apt > sed==4.2.2-4ubuntu1",
+        "Apt > sensible-utils==0.0.9",
+        "Apt > shared-mime-info==1.2-0ubuntu3",
+        "Apt > software-properties-common==0.92.37.8",
+        "Apt > sudo==1.8.9p5-1ubuntu1.4",
+        "Apt > sysv-rc==2.88dsf-41ubuntu6.3",
+        "Apt > sysvinit-utils==2.88dsf-41ubuntu6.3",
+        "Apt > tar==1.27.1-1ubuntu0.1",
+        "Apt > tzdata==2016j-0ubuntu0.14.04",
+        "Apt > ubuntu-keyring==2012.05.19",
+        "Apt > ubuntu-minimal==1.325",
+        "Apt > ucf==3.0027 nmu1",
+        "Apt > udev==204-5ubuntu20.24",
+        "Apt > unattended-upgrades==0.82.1ubuntu2.5",
+        "Apt > unzip==6.0-9ubuntu1.5",
+        "Apt > upstart==1.12.1-0ubuntu4.2",
+        "Apt > ureadahead==0.100.0-16",
+        "Apt > util-linux==2.20.1-5.1ubuntu20.9",
+        "Apt > vim-common==2:7.4.052-1ubuntu3.1",
+        "Apt > vim-tiny==2:7.4.052-1ubuntu3.1",
+        "Apt > wget==1.15-1ubuntu1.14.04.4",
+        "Apt > whiptail==0.52.15-2ubuntu5",
+        "Apt > x11-common==1:7.7 1ubuntu8.1",
+        "Apt > x11proto-core-dev==7.0.26-1~ubuntu2",
+        "Apt > x11proto-input-dev==2.3-1",
+        "Apt > x11proto-kb-dev==1.0.6-2",
+        "Apt > x11proto-render-dev==2:0.11.1-2",
+        "Apt > x11proto-xext-dev==7.3.0-1",
+        "Apt > xfsprogs==3.1.9ubuntu2.1",
+        "Apt > xkb-data==2.10.1-1ubuntu1",
+        "Apt > xorg-sgml-doctools==1:1.11-1",
+        "Apt > xtrans-dev==1.3.5-1~ubuntu14.04.2",
+        "Apt > xz-utils==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > zip==3.0-8",
+        "Apt > zlib1g==1:1.2.8.dfsg-1ubuntu1",
+        "Apt > zlib1g-dev==1:1.2.8.dfsg-1ubuntu1",
+        "Pip > awscli==1.15.46",
+        "Pip > botocore==1.10.46",
+        "Pip > colorama==0.3.9",
+        "Pip > docutils==0.14",
+        "Pip > jmespath==0.9.3",
+        "Pip > pip==9.0.3",
+        "Pip > pyasn1==0.4.3",
+        "Pip > rsa==3.4.2",
+        "Pip > s3transfer==0.1.13",
+        "Pip > setuptools==36.8.0",
+        "Pip > six==1.11.0",
+        "Pip > wheel==0.29.0"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

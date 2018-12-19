@@ -1,0 +1,686 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "wolf3d/palmos.sdk.4.0",
+    "name": "wolf3d/doctor-palmos4.0",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.102",
+        "Apt > alien==8.64",
+        "Apt > apt==0.6.46.4-0.1 etch1",
+        "Apt > apt-utils==0.6.46.4-0.1 etch1",
+        "Apt > aptitude==0.4.4-4",
+        "Apt > base-files==4",
+        "Apt > base-passwd==3.5.11",
+        "Apt > bash==3.1dfsg-8",
+        "Apt > binutils==2.17-3 etch1",
+        "Apt > bsdmainutils==6.1.6",
+        "Apt > bsdutils==1:2.12r-19etch1",
+        "Apt > build-essential==11.3",
+        "Apt > ca-certificates==20070303",
+        "Apt > cogito==0.18.2-1",
+        "Apt > coreutils==5.97-5.3",
+        "Apt > cpio==2.6-18.1 etch1",
+        "Apt > cpp==4:4.1.1-15",
+        "Apt > cpp-2.95==1:2.95.4-27",
+        "Apt > cpp-4.1==4.1.1-21",
+        "Apt > cron==3.0pl1-100",
+        "Apt > curl==7.15.5-1etch3",
+        "Apt > debconf==1.5.11etch2",
+        "Apt > debconf-i18n==1.5.11etch2",
+        "Apt > debhelper==5.0.42",
+        "Apt > debian-archive-keyring==2009.01.31",
+        "Apt > debianutils==2.17",
+        "Apt > dhcp3-client==3.0.4-13 etch2",
+        "Apt > dhcp3-common==3.0.4-13 etch2",
+        "Apt > diff==2.8.1-11",
+        "Apt > dmidecode==2.8-4",
+        "Apt > dpkg==1.13.26",
+        "Apt > dpkg-dev==1.13.26",
+        "Apt > dselect==1.13.26",
+        "Apt > e2fslibs==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > e2fsprogs==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > ed==0.2-20",
+        "Apt > file==4.17-5etch3",
+        "Apt > findutils==4.2.28-1etch1",
+        "Apt > g++==4:4.1.1-15",
+        "Apt > g++-2.95==1:2.95.4-27",
+        "Apt > g++-4.1==4.1.1-21",
+        "Apt > gcc==4:4.1.1-15",
+        "Apt > gcc-2.95==1:2.95.4-27",
+        "Apt > gcc-4.1==4.1.1-21",
+        "Apt > gcc-4.1-base==4.1.1-21",
+        "Apt > gettext==0.16.1-1",
+        "Apt > gettext-base==0.16.1-1",
+        "Apt > git-core==1:1.4.4.4-4 etch4",
+        "Apt > gnupg==1.4.6-2 etch1",
+        "Apt > gpgv==1.4.6-2 etch1",
+        "Apt > grep==2.5.1.ds2-6",
+        "Apt > groff-base==1.18.1.1-12",
+        "Apt > gzip==1.3.5-15 etch1",
+        "Apt > hostname==2.93",
+        "Apt > html2text==1.3.2a-3",
+        "Apt > ifupdown==0.6.8",
+        "Apt > info==4.8.dfsg.1-4",
+        "Apt > initscripts==2.86.ds1-38 etchnhalf.1",
+        "Apt > intltool-debian==0.35.0 20060710.1",
+        "Apt > iptables==1.3.6.0debian1-5",
+        "Apt > iputils-ping==3:20020927-6",
+        "Apt > klogd==1.4.1-18",
+        "Apt > laptop-detect==0.12.1",
+        "Apt > libacl1==2.2.41-1",
+        "Apt > libattr1==2.4.32-1",
+        "Apt > libbeecrypt6==4.1.2-6",
+        "Apt > libblkid1==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libbz2-1.0==1.0.3-6",
+        "Apt > libc6==2.3.6.ds1-13etch10 b1",
+        "Apt > libc6-dev==2.3.6.ds1-13etch10 b1",
+        "Apt > libcap1==1:1.10-14",
+        "Apt > libcomerr2==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libconsole==1:0.2.3dbs-65",
+        "Apt > libcurl3==7.15.5-1etch3",
+        "Apt > libcurl3-gnutls==7.15.5-1etch3",
+        "Apt > libdb4.2==4.2.52 dfsg-2",
+        "Apt > libdb4.3==4.3.29-8",
+        "Apt > libdb4.4==4.4.20-8",
+        "Apt > libdevmapper1.02==2:1.02.08-1",
+        "Apt > libdigest-sha1-perl==2.11-1",
+        "Apt > liberror-perl==0.15-8",
+        "Apt > libexpat1==1.95.8-3.4 etch3",
+        "Apt > libgcc1==1:4.1.1-21",
+        "Apt > libgcrypt11==1.2.3-2",
+        "Apt > libgdbm3==1.8.3-3",
+        "Apt > libgnutls13==1.4.4-3 etch5",
+        "Apt > libgpg-error0==1.4-1",
+        "Apt > libidn11==0.6.5-1",
+        "Apt > libkrb53==1.4.4-7etch8",
+        "Apt > libldap2==2.1.30-13.3",
+        "Apt > liblocale-gettext-perl==1.05-1",
+        "Apt > liblzo1==1.08-3",
+        "Apt > libmagic1==4.17-5etch3",
+        "Apt > libncurses5==5.5-5",
+        "Apt > libncursesw5==5.5-5",
+        "Apt > libneon25==0.25.5.dfsg-6",
+        "Apt > libnewt0.52==0.52.2-10 etch1",
+        "Apt > libopencdk8==0.5.9-2",
+        "Apt > libpam-modules==0.79-5 etch1",
+        "Apt > libpam-runtime==0.79-5 etch1",
+        "Apt > libpam0g==0.79-5 etch1",
+        "Apt > libpopt0==1.10-3",
+        "Apt > libreadline5==5.2-2",
+        "Apt > librpm4==4.4.1-13",
+        "Apt > libsasl2==2.1.22.dfsg1-8 etch1",
+        "Apt > libsasl2-2==2.1.22.dfsg1-8 etch1",
+        "Apt > libselinux1==1.32-3",
+        "Apt > libsepol1==1.14-2",
+        "Apt > libsigc++-2.0-0c2a==2.0.17-2",
+        "Apt > libslang2==2.0.6-4",
+        "Apt > libsqlite3-0==3.3.8-1.1",
+        "Apt > libss2==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libssl0.9.8==0.9.8c-4etch9",
+        "Apt > libssp0==4.1.1-21",
+        "Apt > libstdc++2.10-dev==1:2.95.4-27",
+        "Apt > libstdc++2.10-glibc2.2==1:2.95.4-27",
+        "Apt > libstdc++6==4.1.1-21",
+        "Apt > libstdc++6-4.1-dev==4.1.1-21",
+        "Apt > libtasn1-3==0.3.6-2",
+        "Apt > libtext-charwidth-perl==0.04-4",
+        "Apt > libtext-iconv-perl==1.4-3",
+        "Apt > libtext-wrapi18n-perl==0.06-5",
+        "Apt > libusb-0.1-4==2:0.1.12-5",
+        "Apt > libuuid1==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libwrap0==7.6.dbs-13",
+        "Apt > libxml2==2.6.27.dfsg-6 etch1",
+        "Apt > linux-kernel-headers==2.6.18-7",
+        "Apt > login==1:4.0.18.1-7 etch1",
+        "Apt > logrotate==3.7.1-3",
+        "Apt > lsb-base==3.1-23.2etch1",
+        "Apt > lynx==2.8.5-2sarge2.2",
+        "Apt > make==3.81-2",
+        "Apt > makedev==2.3.1-83",
+        "Apt > man-db==2.4.3-6",
+        "Apt > manpages==2.39-1",
+        "Apt > mawk==1.3.3-11",
+        "Apt > mktemp==1.5-2",
+        "Apt > module-init-tools==3.3-pre4-2",
+        "Apt > mount==2.12r-19etch1",
+        "Apt > nano==2.0.2-1etch1",
+        "Apt > ncurses-base==5.5-5",
+        "Apt > ncurses-bin==5.5-5",
+        "Apt > net-tools==1.60-17",
+        "Apt > netbase==4.29",
+        "Apt > netcat==1.10-32",
+        "Apt > openbsd-inetd==0.20050402-6",
+        "Apt > openssl==0.9.8c-4etch9",
+        "Apt > palmos-sdk==4.0-2",
+        "Apt > passwd==1:4.0.18.1-7 etch1",
+        "Apt > patch==2.5.9-4",
+        "Apt > perl==5.8.8-7etch6",
+        "Apt > perl-base==5.8.8-7etch6",
+        "Apt > perl-modules==5.8.8-7etch6",
+        "Apt > po-debconf==1.0.8",
+        "Apt > prc-tools==2.0.90-2",
+        "Apt > procps==1:3.2.7-3",
+        "Apt > rcs==5.7-18",
+        "Apt > readline-common==5.2-2",
+        "Apt > rpm==4.4.1-13",
+        "Apt > sed==4.1.5-1",
+        "Apt > sysklogd==1.4.1-18",
+        "Apt > sysv-rc==2.86.ds1-38 etchnhalf.1",
+        "Apt > sysvinit==2.86.ds1-38 etchnhalf.1",
+        "Apt > sysvinit-utils==2.86.ds1-38 etchnhalf.1",
+        "Apt > tar==1.16-2etch1",
+        "Apt > tasksel==2.66",
+        "Apt > tasksel-data==2.66",
+        "Apt > tcpd==7.6.dbs-13",
+        "Apt > traceroute==1.4a12-21",
+        "Apt > tzdata==2008e-1etch3",
+        "Apt > unzip==5.52-9etch1",
+        "Apt > update-inetd==4.27-0.5",
+        "Apt > util-linux==2.12r-19etch1",
+        "Apt > vim-common==1:7.0-122 1etch5",
+        "Apt > vim-tiny==1:7.0-122 1etch5",
+        "Apt > wget==1.10.2-2 etch1",
+        "Apt > whiptail==0.52.2-10 etch1",
+        "Apt > zlib1g==1:1.2.3-13"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "wolf3d/palmos.sdk.4.0",
+    "name": "wolf3d/doctor-palmos4.0",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.102",
+        "Apt > alien==8.64",
+        "Apt > apt==0.6.46.4-0.1 etch1",
+        "Apt > apt-utils==0.6.46.4-0.1 etch1",
+        "Apt > aptitude==0.4.4-4",
+        "Apt > base-files==4",
+        "Apt > base-passwd==3.5.11",
+        "Apt > bash==3.1dfsg-8",
+        "Apt > binutils==2.17-3 etch1",
+        "Apt > bsdmainutils==6.1.6",
+        "Apt > bsdutils==1:2.12r-19etch1",
+        "Apt > build-essential==11.3",
+        "Apt > ca-certificates==20070303",
+        "Apt > cogito==0.18.2-1",
+        "Apt > coreutils==5.97-5.3",
+        "Apt > cpio==2.6-18.1 etch1",
+        "Apt > cpp==4:4.1.1-15",
+        "Apt > cpp-2.95==1:2.95.4-27",
+        "Apt > cpp-4.1==4.1.1-21",
+        "Apt > cron==3.0pl1-100",
+        "Apt > curl==7.15.5-1etch3",
+        "Apt > debconf==1.5.11etch2",
+        "Apt > debconf-i18n==1.5.11etch2",
+        "Apt > debhelper==5.0.42",
+        "Apt > debian-archive-keyring==2009.01.31",
+        "Apt > debianutils==2.17",
+        "Apt > dhcp3-client==3.0.4-13 etch2",
+        "Apt > dhcp3-common==3.0.4-13 etch2",
+        "Apt > diff==2.8.1-11",
+        "Apt > dmidecode==2.8-4",
+        "Apt > dpkg==1.13.26",
+        "Apt > dpkg-dev==1.13.26",
+        "Apt > dselect==1.13.26",
+        "Apt > e2fslibs==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > e2fsprogs==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > ed==0.2-20",
+        "Apt > file==4.17-5etch3",
+        "Apt > findutils==4.2.28-1etch1",
+        "Apt > g++==4:4.1.1-15",
+        "Apt > g++-2.95==1:2.95.4-27",
+        "Apt > g++-4.1==4.1.1-21",
+        "Apt > gcc==4:4.1.1-15",
+        "Apt > gcc-2.95==1:2.95.4-27",
+        "Apt > gcc-4.1==4.1.1-21",
+        "Apt > gcc-4.1-base==4.1.1-21",
+        "Apt > gettext==0.16.1-1",
+        "Apt > gettext-base==0.16.1-1",
+        "Apt > git-core==1:1.4.4.4-4 etch4",
+        "Apt > gnupg==1.4.6-2 etch1",
+        "Apt > gpgv==1.4.6-2 etch1",
+        "Apt > grep==2.5.1.ds2-6",
+        "Apt > groff-base==1.18.1.1-12",
+        "Apt > gzip==1.3.5-15 etch1",
+        "Apt > hostname==2.93",
+        "Apt > html2text==1.3.2a-3",
+        "Apt > ifupdown==0.6.8",
+        "Apt > info==4.8.dfsg.1-4",
+        "Apt > initscripts==2.86.ds1-38 etchnhalf.1",
+        "Apt > intltool-debian==0.35.0 20060710.1",
+        "Apt > iptables==1.3.6.0debian1-5",
+        "Apt > iputils-ping==3:20020927-6",
+        "Apt > klogd==1.4.1-18",
+        "Apt > laptop-detect==0.12.1",
+        "Apt > libacl1==2.2.41-1",
+        "Apt > libattr1==2.4.32-1",
+        "Apt > libbeecrypt6==4.1.2-6",
+        "Apt > libblkid1==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libbz2-1.0==1.0.3-6",
+        "Apt > libc6==2.3.6.ds1-13etch10 b1",
+        "Apt > libc6-dev==2.3.6.ds1-13etch10 b1",
+        "Apt > libcap1==1:1.10-14",
+        "Apt > libcomerr2==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libconsole==1:0.2.3dbs-65",
+        "Apt > libcurl3==7.15.5-1etch3",
+        "Apt > libcurl3-gnutls==7.15.5-1etch3",
+        "Apt > libdb4.2==4.2.52 dfsg-2",
+        "Apt > libdb4.3==4.3.29-8",
+        "Apt > libdb4.4==4.4.20-8",
+        "Apt > libdevmapper1.02==2:1.02.08-1",
+        "Apt > libdigest-sha1-perl==2.11-1",
+        "Apt > liberror-perl==0.15-8",
+        "Apt > libexpat1==1.95.8-3.4 etch3",
+        "Apt > libgcc1==1:4.1.1-21",
+        "Apt > libgcrypt11==1.2.3-2",
+        "Apt > libgdbm3==1.8.3-3",
+        "Apt > libgnutls13==1.4.4-3 etch5",
+        "Apt > libgpg-error0==1.4-1",
+        "Apt > libidn11==0.6.5-1",
+        "Apt > libkrb53==1.4.4-7etch8",
+        "Apt > libldap2==2.1.30-13.3",
+        "Apt > liblocale-gettext-perl==1.05-1",
+        "Apt > liblzo1==1.08-3",
+        "Apt > libmagic1==4.17-5etch3",
+        "Apt > libncurses5==5.5-5",
+        "Apt > libncursesw5==5.5-5",
+        "Apt > libneon25==0.25.5.dfsg-6",
+        "Apt > libnewt0.52==0.52.2-10 etch1",
+        "Apt > libopencdk8==0.5.9-2",
+        "Apt > libpam-modules==0.79-5 etch1",
+        "Apt > libpam-runtime==0.79-5 etch1",
+        "Apt > libpam0g==0.79-5 etch1",
+        "Apt > libpopt0==1.10-3",
+        "Apt > libreadline5==5.2-2",
+        "Apt > librpm4==4.4.1-13",
+        "Apt > libsasl2==2.1.22.dfsg1-8 etch1",
+        "Apt > libsasl2-2==2.1.22.dfsg1-8 etch1",
+        "Apt > libselinux1==1.32-3",
+        "Apt > libsepol1==1.14-2",
+        "Apt > libsigc++-2.0-0c2a==2.0.17-2",
+        "Apt > libslang2==2.0.6-4",
+        "Apt > libsqlite3-0==3.3.8-1.1",
+        "Apt > libss2==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libssl0.9.8==0.9.8c-4etch9",
+        "Apt > libssp0==4.1.1-21",
+        "Apt > libstdc++2.10-dev==1:2.95.4-27",
+        "Apt > libstdc++2.10-glibc2.2==1:2.95.4-27",
+        "Apt > libstdc++6==4.1.1-21",
+        "Apt > libstdc++6-4.1-dev==4.1.1-21",
+        "Apt > libtasn1-3==0.3.6-2",
+        "Apt > libtext-charwidth-perl==0.04-4",
+        "Apt > libtext-iconv-perl==1.4-3",
+        "Apt > libtext-wrapi18n-perl==0.06-5",
+        "Apt > libusb-0.1-4==2:0.1.12-5",
+        "Apt > libuuid1==1.39 1.40-WIP-2006.11.14+dfsg-2etch1",
+        "Apt > libwrap0==7.6.dbs-13",
+        "Apt > libxml2==2.6.27.dfsg-6 etch1",
+        "Apt > linux-kernel-headers==2.6.18-7",
+        "Apt > login==1:4.0.18.1-7 etch1",
+        "Apt > logrotate==3.7.1-3",
+        "Apt > lsb-base==3.1-23.2etch1",
+        "Apt > lynx==2.8.5-2sarge2.2",
+        "Apt > make==3.81-2",
+        "Apt > makedev==2.3.1-83",
+        "Apt > man-db==2.4.3-6",
+        "Apt > manpages==2.39-1",
+        "Apt > mawk==1.3.3-11",
+        "Apt > mktemp==1.5-2",
+        "Apt > module-init-tools==3.3-pre4-2",
+        "Apt > mount==2.12r-19etch1",
+        "Apt > nano==2.0.2-1etch1",
+        "Apt > ncurses-base==5.5-5",
+        "Apt > ncurses-bin==5.5-5",
+        "Apt > net-tools==1.60-17",
+        "Apt > netbase==4.29",
+        "Apt > netcat==1.10-32",
+        "Apt > openbsd-inetd==0.20050402-6",
+        "Apt > openssl==0.9.8c-4etch9",
+        "Apt > palmos-sdk==4.0-2",
+        "Apt > passwd==1:4.0.18.1-7 etch1",
+        "Apt > patch==2.5.9-4",
+        "Apt > perl==5.8.8-7etch6",
+        "Apt > perl-base==5.8.8-7etch6",
+        "Apt > perl-modules==5.8.8-7etch6",
+        "Apt > po-debconf==1.0.8",
+        "Apt > prc-tools==2.0.90-2",
+        "Apt > procps==1:3.2.7-3",
+        "Apt > rcs==5.7-18",
+        "Apt > readline-common==5.2-2",
+        "Apt > rpm==4.4.1-13",
+        "Apt > sed==4.1.5-1",
+        "Apt > sysklogd==1.4.1-18",
+        "Apt > sysv-rc==2.86.ds1-38 etchnhalf.1",
+        "Apt > sysvinit==2.86.ds1-38 etchnhalf.1",
+        "Apt > sysvinit-utils==2.86.ds1-38 etchnhalf.1",
+        "Apt > tar==1.16-2etch1",
+        "Apt > tasksel==2.66",
+        "Apt > tasksel-data==2.66",
+        "Apt > tcpd==7.6.dbs-13",
+        "Apt > traceroute==1.4a12-21",
+        "Apt > tzdata==2008e-1etch3",
+        "Apt > unzip==5.52-9etch1",
+        "Apt > update-inetd==4.27-0.5",
+        "Apt > util-linux==2.12r-19etch1",
+        "Apt > vim-common==1:7.0-122 1etch5",
+        "Apt > vim-tiny==1:7.0-122 1etch5",
+        "Apt > wget==1.10.2-2 etch1",
+        "Apt > whiptail==0.52.2-10 etch1",
+        "Apt > zlib1g==1:1.2.3-13"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

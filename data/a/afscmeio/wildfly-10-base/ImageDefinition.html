@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "environment": [
+        "WILDFLY_VERSION=10.1.0.Final",
+        "WILDFLY_SHA1=9ee3c0255e2e6007d502223916cefad2a1a5e333",
+        "WILDFLY_UID=1000",
+        "WILDFLY_USER=jboss",
+        "WILDFLY_DEPLOY_BASE=/var/lib/jboss",
+        "MODULE_XML=module.xml",
+        "WILDFLY_FILE=wildfly-${WILDFLY_VERSION}.tar.gz",
+        "WILDFLY_USER_HOME=/opt/${WILDFLY_USER}\"",
+        "WILDFLY_HOME=${WILDFLY_USER_HOME}/wildfly",
+        "WILDFLY_MGMT_USER=admin",
+        "WILDFLY_MGMT_PSWD=wildfly",
+        "WILDFLY_MODULE_XML=/tmp/module.xml",
+        "WILDFLY_MODULE_BASE=modules/system/layers/base",
+        "JDBCLDAP_JAR_VER=2.1",
+        "JTDS_JAR_VER=1.3.1",
+        "MYSQL_JAR_VER=5.1.39",
+        "PGSQL_JAR_VER=9.4.1209",
+        "SQLITE_JAR_VER=3.8.11.2",
+        "JTDS_JAR_BASE=jtds",
+        "JTDS_JAR_PATH=net/sourceforge/jtds",
+        "JTDS_MODULE_PATH=net/sourceforge/jtds/jdbc/main",
+        "JTDS_MODULE_NAME=net.sourceforge.jtds.jdbc",
+        "JTDS_JAR_FILE=${JTDS_JAR_BASE}-${JTDS_JAR_VER}.jar",
+        "JTDS_JAR_ANON=${JTDS_JAR_BASE}.jar",
+        "JTDS_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${JTDS_MODULE_PATH}",
+        "MYSQL_JAR_BASE=mysql",
+        "MYSQL_JAR_PATH=mysql/mysql-connector-java",
+        "MYSQL_MODULE_PATH=com/mysql/jdbc/main",
+        "MYSQL_MODULE_NAME=com.mysql.jdbc",
+        "MYSQL_JAR_FILE=${MYSQL_JAR_BASE}-connector-java-${MYSQL_JAR_VER}.jar",
+        "MYSQL_JAR_ANON=${MYSQL_JAR_BASE}.jar",
+        "MYSQL_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${MYSQL_MODULE_PATH}",
+        "PGSQL_JAR_BASE=postgresql",
+        "PGSQL_JAR_PATH=org/postgresql",
+        "PGSQL_MODULE_PATH=org/postgresql/jdbc/main",
+        "PGSQL_MODULE_NAME=org.postgresql.jdbc",
+        "PGSQL_JAR_FILE=${PGSQL_JAR_BASE}-${PGSQL_JAR_VER}.jar",
+        "PGSQL_JAR_ANON=${PGSQL_JAR_BASE}.jar",
+        "PGSQL_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${PGSQL_MODULE_PATH}",
+        "SQLITE_JAR_BASE=sqlite",
+        "SQLITE_JAR_PATH=org/xerial/sqlite-jdbc",
+        "SQLITE_MODULE_PATH=org/sqlite/jdbc/main",
+        "SQLITE_MODULE_NAME=org.sqlite.jdbc",
+        "SQLITE_JAR_FILE=${SQLITE_JAR_BASE}-jdbc-${SQLITE_JAR_VER}.jar",
+        "SQLITE_JAR_ANON=${SQLITE_JAR_BASE}.jar",
+        "SQLITE_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${SQLITE_MODULE_PATH}",
+        "JDBCLDAP_JAR_BASE=jdbc-ldap",
+        "JDBCLDAP_JAR_PATH=jdbc%20ldap%20bridge",
+        "JDBCLDAP_JAR_ANON=jdbcLdap.jar",
+        "LDAP_JAR_ANON=ldap.jar",
+        "JDBCLDAP_MODULE_PATH=com/octetstring/jdbcLdap/main",
+        "JDBCLDAP_MODULE_NAME=com.octetstring.jdbcLdap",
+        "JDBCLDAP_JAR_TAG=${JDBCLDAP_JAR_BASE}-${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_JAR_FILE=jdbcLdap-${JDBCLDAP_JAR_VER}.jar",
+        "LDAP_JAR_TAG=ldap-${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_JAR_PATH_VER=${JDBCLDAP_JAR_PATH}%20${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${JDBCLDAP_MODULE_PATH}",
+        "JDBCLDAP_ARCHIVE=${JDBCLDAP_JAR_TAG}.tar.gz",
+        "LDAP_JAR_FILE=${LDAP_JAR_TAG}.jar",
+        "LAUNCH_JBOSS_IN_BACKGROUND=true"
+    ],
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "afscmeio/java-8-base:latest",
+    "name": "afscmeio/wildfly-10-base",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "environment": [
+        "WILDFLY_VERSION=10.1.0.Final",
+        "WILDFLY_SHA1=9ee3c0255e2e6007d502223916cefad2a1a5e333",
+        "WILDFLY_UID=1000",
+        "WILDFLY_USER=jboss",
+        "WILDFLY_DEPLOY_BASE=/var/lib/jboss",
+        "MODULE_XML=module.xml",
+        "WILDFLY_FILE=wildfly-${WILDFLY_VERSION}.tar.gz",
+        "WILDFLY_USER_HOME=/opt/${WILDFLY_USER}\"",
+        "WILDFLY_HOME=${WILDFLY_USER_HOME}/wildfly",
+        "WILDFLY_MGMT_USER=admin",
+        "WILDFLY_MGMT_PSWD=wildfly",
+        "WILDFLY_MODULE_XML=/tmp/module.xml",
+        "WILDFLY_MODULE_BASE=modules/system/layers/base",
+        "JDBCLDAP_JAR_VER=2.1",
+        "JTDS_JAR_VER=1.3.1",
+        "MYSQL_JAR_VER=5.1.39",
+        "PGSQL_JAR_VER=9.4.1209",
+        "SQLITE_JAR_VER=3.8.11.2",
+        "JTDS_JAR_BASE=jtds",
+        "JTDS_JAR_PATH=net/sourceforge/jtds",
+        "JTDS_MODULE_PATH=net/sourceforge/jtds/jdbc/main",
+        "JTDS_MODULE_NAME=net.sourceforge.jtds.jdbc",
+        "JTDS_JAR_FILE=${JTDS_JAR_BASE}-${JTDS_JAR_VER}.jar",
+        "JTDS_JAR_ANON=${JTDS_JAR_BASE}.jar",
+        "JTDS_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${JTDS_MODULE_PATH}",
+        "MYSQL_JAR_BASE=mysql",
+        "MYSQL_JAR_PATH=mysql/mysql-connector-java",
+        "MYSQL_MODULE_PATH=com/mysql/jdbc/main",
+        "MYSQL_MODULE_NAME=com.mysql.jdbc",
+        "MYSQL_JAR_FILE=${MYSQL_JAR_BASE}-connector-java-${MYSQL_JAR_VER}.jar",
+        "MYSQL_JAR_ANON=${MYSQL_JAR_BASE}.jar",
+        "MYSQL_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${MYSQL_MODULE_PATH}",
+        "PGSQL_JAR_BASE=postgresql",
+        "PGSQL_JAR_PATH=org/postgresql",
+        "PGSQL_MODULE_PATH=org/postgresql/jdbc/main",
+        "PGSQL_MODULE_NAME=org.postgresql.jdbc",
+        "PGSQL_JAR_FILE=${PGSQL_JAR_BASE}-${PGSQL_JAR_VER}.jar",
+        "PGSQL_JAR_ANON=${PGSQL_JAR_BASE}.jar",
+        "PGSQL_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${PGSQL_MODULE_PATH}",
+        "SQLITE_JAR_BASE=sqlite",
+        "SQLITE_JAR_PATH=org/xerial/sqlite-jdbc",
+        "SQLITE_MODULE_PATH=org/sqlite/jdbc/main",
+        "SQLITE_MODULE_NAME=org.sqlite.jdbc",
+        "SQLITE_JAR_FILE=${SQLITE_JAR_BASE}-jdbc-${SQLITE_JAR_VER}.jar",
+        "SQLITE_JAR_ANON=${SQLITE_JAR_BASE}.jar",
+        "SQLITE_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${SQLITE_MODULE_PATH}",
+        "JDBCLDAP_JAR_BASE=jdbc-ldap",
+        "JDBCLDAP_JAR_PATH=jdbc%20ldap%20bridge",
+        "JDBCLDAP_JAR_ANON=jdbcLdap.jar",
+        "LDAP_JAR_ANON=ldap.jar",
+        "JDBCLDAP_MODULE_PATH=com/octetstring/jdbcLdap/main",
+        "JDBCLDAP_MODULE_NAME=com.octetstring.jdbcLdap",
+        "JDBCLDAP_JAR_TAG=${JDBCLDAP_JAR_BASE}-${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_JAR_FILE=jdbcLdap-${JDBCLDAP_JAR_VER}.jar",
+        "LDAP_JAR_TAG=ldap-${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_JAR_PATH_VER=${JDBCLDAP_JAR_PATH}%20${JDBCLDAP_JAR_VER}",
+        "JDBCLDAP_MODULE_HOME=${WILDFLY_HOME}/${WILDFLY_MODULE_BASE}/${JDBCLDAP_MODULE_PATH}",
+        "JDBCLDAP_ARCHIVE=${JDBCLDAP_JAR_TAG}.tar.gz",
+        "LDAP_JAR_FILE=${LDAP_JAR_TAG}.jar",
+        "LAUNCH_JBOSS_IN_BACKGROUND=true"
+    ],
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "afscmeio/java-8-base:latest",
+    "name": "afscmeio/wildfly-10-base",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

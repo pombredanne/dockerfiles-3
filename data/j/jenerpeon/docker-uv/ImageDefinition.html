@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "environment": [
+        "DEBIAN_FRONTEND=noninteractive"
+    ],
+    "entrypoint": [
+        "[\"bash\",\"/etc/init.d/otc-start.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "univention/ucs-appbox-amd64:4.1-0",
+    "name": "jenerpeon/docker-uv",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > acl==2.2.51-8.58.201403111425",
+        "Apt > adduser==3.113 nmu3.17.201403111944",
+        "Apt > apt==0.9.7.9.70.201502041050",
+        "Apt > apt-transport-https==0.9.7.9.70.201502041050",
+        "Apt > apt-utils==0.9.7.9.70.201502041050",
+        "Apt > at==3.1.13-2.19.201410221141",
+        "Apt > base-files==7.1.35.201502021337",
+        "Apt > base-passwd==3.5.26.27.201410071148",
+        "Apt > bash==4.2 dfsg-0.1.50.201411010058",
+        "Apt > bash-completion==1:2.0-1.5.201403141236",
+        "Apt > bind9-host==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > binutils==2.22-8.30.201503161736",
+        "Apt > bridge-utils==1.5-6.8.201403151242",
+        "Apt > bsdutils==1:2.20.1-5.3.65.201409291741",
+        "Apt > bzip2==1.0.6-4.26.201403151802",
+        "Apt > ca-certificates==20141019.14.201503231550",
+        "Apt > console-common==0.7.87.17.201409242245",
+        "Apt > console-data==2:1.12-2.18.201403180533",
+        "Apt > coreutils==8.13-3.5.35.201403180900",
+        "Apt > cpio==2.11 dfsg-0.1.22.201502021357",
+        "Apt > cracklib-runtime==2.8.19-3.32.201403181307",
+        "Apt > cron==3.0pl1-124.16.201403181420",
+        "Apt > curl==7.26.0-1.63.201510202222",
+        "Apt > dash==0.5.7-3.12.201403190449",
+        "Apt > db-util==5.1.6.6.201403190545",
+        "Apt > db5.1-util==5.1.29-5.11.201403190530",
+        "Apt > debconf==1.5.49.35.201403191101",
+        "Apt > debianutils==4.3.2.12.201403191435",
+        "Apt > diffutils==1:3.2-6.13.201403200107",
+        "Apt > dnsutils==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > dpkg==1.16.16.95.201509011754",
+        "Apt > e2fslibs==1.42.5-1.1.43.201510151724",
+        "Apt > e2fsprogs==1.42.5-1.1.43.201510151724",
+        "Apt > file==5.11-2.36.201508290031",
+        "Apt > findutils==4.4.2-4.13.201403231411",
+        "Apt > gcc-4.4-base==4.4.7-2.8.201403121445",
+        "Apt > gcc-4.6-base==4.6.3-14.7.201403121553",
+        "Apt > gcc-4.7-base==4.7.2-5.9.201403121731",
+        "Apt > gnupg==1.4.12-7.66.201503191340",
+        "Apt > gpgv==1.4.12-7.66.201503191340",
+        "Apt > grep==2.12-2.52.201409252038",
+        "Apt > gzip==1.5-1.1.25.201403170751",
+        "Apt > heimdal-clients==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > heimdal-servers==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > hostname==3.11.12.201403191637",
+        "Apt > ifenslave-2.6==1.1.0-20.10.201403201157",
+        "Apt > ifplugd==0.28-19.18.201403201224",
+        "Apt > ifupdown==0.7.8.20.201411071853",
+        "Apt > initramfs-tools==0.115~bpo70 1.35.201410091545",
+        "Apt > initscripts==2.88dsf-41.43.201408220944",
+        "Apt > insserv==1.14.0-5.7.201408200914",
+        "Apt > iproute==20120521-3.12.201403210302",
+        "Apt > iputils-ping==3:20101006-1.14.201403210353",
+        "Apt > isc-dhcp-client==4.2.2.dfsg.1-5 deb70u6.30.201507161139",
+        "Apt > isc-dhcp-common==4.2.2.dfsg.1-5 deb70u6.30.201507161139",
+        "Apt > iso-codes==3.41-1.7.201403210643",
+        "Apt > java-common==0.47.24.201403211637",
+        "Apt > jq==1.4-1~bpo70 1.2.201509171836",
+        "Apt > kbd==1.15.3-9.6.201410171447",
+        "Apt > klibc-utils==2.0.1-3.1.13.201403231612",
+        "Apt > kmod==9-3.2.201403231734",
+        "Apt > krb5-config==2.3.10.201403231057",
+        "Apt > ldap-utils==2.4.42 dfsg-2.210.201511060842",
+        "Apt > less==444-4.11.201403241723",
+        "Apt > libacl1==2.2.51-8.58.201403111425",
+        "Apt > libapt-inst1.5==0.9.7.9.70.201502041050",
+        "Apt > libapt-pkg4.12==0.9.7.9.70.201502041050",
+        "Apt > libasn1-8-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libattr1==1:2.4.46-8.16.201403131837",
+        "Apt > libavahi-client3==0.6.31-2.53.201403140051",
+        "Apt > libavahi-common-data==0.6.31-2.53.201403140051",
+        "Apt > libavahi-common3==0.6.31-2.53.201403140051",
+        "Apt > libbind9-80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libblkid1==2.20.1-5.3.65.201409291741",
+        "Apt > libbsd0==0.4.2-1.6.201403111601",
+        "Apt > libbz2-1.0==1.0.6-4.26.201403151802",
+        "Apt > libc-bin==2.13-38.25.201508281630",
+        "Apt > libc6==2.13-38.25.201508281630",
+        "Apt > libcap2==1:2.22-1.2.12.201403111916",
+        "Apt > libclass-isa-perl==0.36-3.2.201403120816",
+        "Apt > libcomerr2==1.42.5-1.1.43.201510151724",
+        "Apt > libcrack2==2.8.19-3.32.201403181307",
+        "Apt > libcrypt-openssl-random-perl==0.04-1.5.201403122242",
+        "Apt > libcrypt-passwdmd5-perl==1.3-10.11.201403122247",
+        "Apt > libcups2==1.5.3-5.99.201510221331",
+        "Apt > libcurl3==7.26.0-1.63.201510202222",
+        "Apt > libcurl3-gnutls==7.26.0-1.63.201510202222",
+        "Apt > libdaemon0==0.14-2.15.201403130117",
+        "Apt > libdb3==3.2.9 dfsg-0.1.15.201408181608",
+        "Apt > libdb5.1==5.1.29-5.11.201403190530",
+        "Apt > libdbus-1-3==1.6.8-1.63.201502030801",
+        "Apt > libdns88==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libedit2==2.11-20080614-5.15.201403190206",
+        "Apt > libexpat1==2.1.0-1.23.201403221700",
+        "Apt > libfile-copy-recursive-perl==0.38-1.4.201403191200",
+        "Apt > libfreetype6==2.4.9-1.1.64.201505051823",
+        "Apt > libgcc1==1:4.7.2-5.9.201403121731",
+        "Apt > libgcrypt11==1.5.0-5.19.201509011656",
+        "Apt > libgdbm3==1.8.3-11.18.201403130142",
+        "Apt > libgeoip1==1.4.8 dfsg-3.7.201403131017",
+        "Apt > libgmp10==2:5.0.5 dfsg-2.16.201403141524",
+        "Apt > libgnutls26==2.12.20-8.29.201509111022",
+        "Apt > libgpg-error0==1.10-3.1.16.201403200930",
+        "Apt > libgpm2==1.20.4-6.17.201403160048",
+        "Apt > libgssapi-krb5-2==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libgssapi3-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhcrypto4-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhdb9-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libheimbase1-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libheimntlm0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhx509-5-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libicu48==4.8.1.1-12.25.201508281703",
+        "Apt > libidn11==1.25-2.18.201403210736",
+        "Apt > libisc84==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libisccc80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libisccfg82==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libjpeg8==8d-1.6.201407141822",
+        "Apt > libk5crypto3==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libkadm5clnt7-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkadm5srv8-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkafs0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkeyutils1==1.5.5-3.9.201410221649",
+        "Apt > libklibc==2.0.1-3.1.13.201403231612",
+        "Apt > libkmod2==9-3.2.201403231734",
+        "Apt > libkrb5-26-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkrb5-3==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libkrb5support0==1.10.1 dfsg-5.57.201503101742",
+        "Apt > liblcms1==1.19.dfsg-1.2.16.201403241427",
+        "Apt > libldap-2.4-2==2.4.42 dfsg-2.210.201511060842",
+        "Apt > libldb1==2:1.1.21-1.60.201508182112",
+        "Apt > liblocale-gettext-perl==1.05-7.13.201403221826",
+        "Apt > liblockfile-bin==1.09-5.23.201403221909",
+        "Apt > liblockfile1==1.09-5.23.201403221909",
+        "Apt > liblwres80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > liblzma5==5.1.1alpha 20120614-2.10.201403161502",
+        "Apt > libmagic1==5.11-2.36.201508290031",
+        "Apt > libmount1==2.20.1-5.3.65.201409291741",
+        "Apt > libncurses5==5.9-10.17.201403180024",
+        "Apt > libncursesw5==5.9-10.17.201403180024",
+        "Apt > libnih-dbus1==1.0.3-4.1.15.201403250726",
+        "Apt > libnih1==1.0.3-4.1.15.201403250726",
+        "Apt > libnss-extrausers==0.6-3.12.201409252135",
+        "Apt > libnss-ldap==264-2.5.55.201409262223",
+        "Apt > libntdb1==1.0-2~bpo70 1.2.201403182058",
+        "Apt > libotp0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libp11-kit0==0.12-3.4.201408201944",
+        "Apt > libpam-cracklib==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-heimdal==4.6-1.22.201403250545",
+        "Apt > libpam-ldap==184-8.6.23.201403250550",
+        "Apt > libpam-modules==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-modules-bin==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-runtime==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-univentionmailcyrus==7.0.1-1.37.201511032305",
+        "Apt > libpam0g==1.1.3-7.1.45.201411171506",
+        "Apt > libpcre3==1:8.30-5.32.201403250306",
+        "Apt > libperl4-corelibs-perl==0.003-1.3.201403251348",
+        "Apt > libpopt0==1.16-7.15.201403261929",
+        "Apt > libprocps0==1:3.3.3-3.27.201409262204",
+        "Apt > libpython2.7==2.7.3-6.5.201406301216",
+        "Apt > libreadline5==5.2 dfsg-2.17.201403160111",
+        "Apt > libreadline6==6.2 dfsg-0.1.7.201403160114",
+        "Apt > libroken18-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > librtmp0==2.4 20111222.git4e06e21-1.7.201403170006",
+        "Apt > libsasl2-2==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libsasl2-modules==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libsasl2-modules-gssapi-heimdal==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libselinux1==2.1.9-5.19.201403270606",
+        "Apt > libsemanage-common==2.1.6-6.7.201403270616",
+        "Apt > libsemanage1==2.1.6-6.7.201403270616",
+        "Apt > libsepol1==2.1.4-3.16.201403270646",
+        "Apt > libsl0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libslang2==2.2.4-15.15.201403200138",
+        "Apt > libsmbclient==2:4.3.1-1.797.201510201909",
+        "Apt > libsqlite3-0==3.7.13-1.23.201403202219",
+        "Apt > libss2==1.42.5-1.1.43.201510151724",
+        "Apt > libssh2-1==1.4.2-1.1.10.201509011748",
+        "Apt > libssl1.0.0==1.0.2d-1.104.201510141521",
+        "Apt > libstdc++6==4.7.2-5.9.201403121731",
+        "Apt > libswitch-perl==2.16-2.2.201403271552",
+        "Apt > libtalloc2==2.1.4-1.40.201510201856",
+        "Apt > libtasn1-3==2.13-2.19.201509111011",
+        "Apt > libtdb1==1.3.7-1.52.201508182050",
+        "Apt > libtevent0==0.9.25-1.31.201508182059",
+        "Apt > libtext-charwidth-perl==0.04-7.13.201403111256",
+        "Apt > libtext-iconv-perl==1.7-5.14.201403111344",
+        "Apt > libtext-wrapi18n-perl==0.06-7.13.201403111612",
+        "Apt > libtinfo5==5.9-10.17.201403180024",
+        "Apt > libudev0==175-7.2.46.201403112156",
+        "Apt > libunivention-config0==11.0.0-1.491.201509272107",
+        "Apt > libunivention-debug1==8.0.1-1.94.201511032313",
+        "Apt > libunivention-policy0==7.0.1-1.130.201511032334",
+        "Apt > libusb-0.1-4==2:0.1.12-20 nmu1.15.201403120102",
+        "Apt > libustr-1.0-1==1.0.4-3.7.201403121026",
+        "Apt > libuuid1==2.20.1-5.3.65.201409291741",
+        "Apt > libwbclient0==2:4.3.1-1.797.201510201909",
+        "Apt > libwind0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libwrap0==7.6.q-24.15.201403250736",
+        "Apt > libx11-6==2:1.5.0-1.40.201504151215",
+        "Apt > libx11-data==2:1.5.0-1.40.201504151215",
+        "Apt > libxau6==1:1.0.7-1.16.201403121135",
+        "Apt > libxcb1==1.8.1-2.31.201403121157",
+        "Apt > libxdmcp6==1:1.1.1-1.13.201403121219",
+        "Apt > libxext6==2:1.3.1-2.23.201504151335",
+        "Apt > libxi6==2:1.6.1-1.24.201504151346",
+        "Apt > libxml2==2.8.0 dfsg1-7.50.201504082023",
+        "Apt > libxmuu1==2:1.1.1-1.18.201403131221",
+        "Apt > libxrender1==1:0.9.7-1.24.201504151343",
+        "Apt > libxtst6==2:1.2.1-1.18.201403122157",
+        "Apt > locales==2.13-38.25.201508281630",
+        "Apt > lockfile-progs==0.1.17.15.201509161633",
+        "Apt > login==1:4.1.5.1-1.33.201403191045",
+        "Apt > logrotate==3.8.1-4.15.201403131723",
+        "Apt > lsb-base==4.1 Debian8.49.201410071206",
+        "Apt > lsb-release==4.1 Debian8.49.201410071206",
+        "Apt > lsof==4.86 dfsg-1.14.201403131951",
+        "Apt > makedev==2.3.1-92.20.201403141204",
+        "Apt > makepasswd==1.10-8.12.201403141216",
+        "Apt > mawk==1.3.3-17.15.201403150332",
+        "Apt > mime-support==3.52-1.16.201502021407",
+        "Apt > mount==2.20.1-5.3.65.201409291741",
+        "Apt > mountall==2.46.4.201403161604",
+        "Apt > multiarch-support==2.13-38.25.201508281630",
+        "Apt > ncurses-base==5.9-10.17.201403180024",
+        "Apt > ncurses-bin==5.9-10.17.201403180024",
+        "Apt > net-tools==1.60-24.2.15.201403180257",
+        "Apt > netbase==5.0.16.201411071848",
+        "Apt > netcat-openbsd==1.105-7.6.201403180345",
+        "Apt > netcat-traditional==1.10-40.16.201403180343",
+        "Apt > nscd==2.13-38.25.201508281630",
+        "Apt > openbsd-inetd==0.20091229-2.10.201403200731",
+        "Apt > openssh-blacklist==0.4.2.14.201403211015",
+        "Apt > openssh-client==1:6.0p1-4.51.201510261316",
+        "Apt > openssl==1.0.2d-1.104.201510141521",
+        "Apt > openssl-blacklist==0.5-3.19.201403211036",
+        "Apt > oracle-java8-installer==8u92 8u91arm-2~really8u91~webupd8~0",
+        "Apt > oracle-java8-set-default==8u92 8u91arm-2~really8u91~webupd8~0",
+        "Apt > pam-runasroot==7.0.1-1.607.201511032304",
+        "Apt > passwd==1:4.1.5.1-1.33.201403191045",
+        "Apt > perl==5.14.2-21.75.201410222020",
+        "Apt > perl-base==5.14.2-21.75.201410222020",
+        "Apt > perl-modules==5.14.2-21.75.201410222020",
+        "Apt > plymouth==0.8.5.1-5.15.201410201741",
+        "Apt > postfix==2.9.6-2.48.201403262056",
+        "Apt > postfix-ldap==2.9.6-2.48.201403262056",
+        "Apt > procps==1:3.3.3-3.27.201409262204",
+        "Apt > psmisc==22.19-1.16.201403111431",
+        "Apt > pwgen==2.06-1.8.201403111848",
+        "Apt > python==2.7.3-4.24.201403122023",
+        "Apt > python-apt==0.8.8.2.39.201403121500",
+        "Apt > python-apt-common==0.8.8.2.39.201403121500",
+        "Apt > python-chardet==2.0.1-2.5.201403161550",
+        "Apt > python-cracklib==2.8.19-3.32.201403181307",
+        "Apt > python-crypto==2.6-4.14.201403131039",
+        "Apt > python-debian==0.1.21.10.201403122009",
+        "Apt > python-dns==2.3.6-1.23.201403122252",
+        "Apt > python-imaging==1.1.7-4.14.201411010827",
+        "Apt > python-ipaddr==2.1.10-1.5.201403130439",
+        "Apt > python-ldap==2.4.16-0.1.35.201409101437",
+        "Apt > python-ldb==2:1.1.21-1.60.201508182112",
+        "Apt > python-m2crypto==0.21.1-2.15.201403140705",
+        "Apt > python-magic==5.11-2.36.201508290031",
+        "Apt > python-minimal==2.7.3-4.24.201403122023",
+        "Apt > python-netifaces==0.8-1.7.201403180450",
+        "Apt > python-ntdb==1.0-2~bpo70 1.2.201403182058",
+        "Apt > python-samba==2:4.3.1-1.797.201510201909",
+        "Apt > python-smbpasswd==1.0.1-1.2.4.201403131919",
+        "Apt > python-support==1.0.15.18.201403132013",
+        "Apt > python-talloc==2.1.4-1.40.201510201856",
+        "Apt > python-tdb==1.3.7-1.52.201508182050",
+        "Apt > python-univention==9.0.1-1.158.201511032337",
+        "Apt > python-univention-appcenter==5.0.17-7.61.201511102356",
+        "Apt > python-univention-config-registry==11.0.0-1.491.201509272107",
+        "Apt > python-univention-debug==8.0.1-1.94.201511032313",
+        "Apt > python-univention-directory-manager==11.0.2-4.1351.201510211938",
+        "Apt > python-univention-directory-manager-cli==11.0.2-4.1351.201510211938",
+        "Apt > python-univention-heimdal==6.0.1-1.55.201511032338",
+        "Apt > python-univention-lib==5.0.0-12.318.201510231647",
+        "Apt > python2.7==2.7.3-6.5.201406301216",
+        "Apt > python2.7-minimal==2.7.3-6.5.201406301216",
+        "Apt > readline-common==6.2 dfsg-0.1.7.201403160114",
+        "Apt > rsync==3.0.9-4.51.201410071143",
+        "Apt > rsyslog==5.8.11-3.15.201411010833",
+        "Apt > runit==2.1.1-6.2.24.201408181752",
+        "Apt > samba-common==2:4.3.1-1.797.201510201909",
+        "Apt > samba-common-bin==2:4.3.1-1.797.201510201909",
+        "Apt > samba-libs==2:4.3.1-1.797.201510201909",
+        "Apt > sasl2-bin==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > sed==4.2.1-10.21.201403190453",
+        "Apt > sensible-utils==0.0.7.6.201403190628",
+        "Apt > shell-univention-lib==5.0.0-12.318.201510231647",
+        "Apt > smbclient==2:4.3.1-1.797.201510201909",
+        "Apt > ssl-cert==1.0.32.17.201403210311",
+        "Apt > sysv-rc==2.88dsf-41.43.201408220944",
+        "Apt > sysvinit==2.88dsf-41.43.201408220944",
+        "Apt > sysvinit-utils==2.88dsf-41.43.201408220944",
+        "Apt > tar==1.26 dfsg-0.1.37.201403250428",
+        "Apt > tcpd==7.6.q-24.15.201403250736",
+        "Apt > tofrodos==1.7.9.debian.1-1.12.201403260657",
+        "Apt > tzdata==2015d-0.36.201506170934",
+        "Apt > ucf==3.0025 nmu3.17.201403112040",
+        "Apt > udev==175-7.2.46.201403112156",
+        "Apt > univention-appcenter==5.0.17-7.61.201511102356",
+        "Apt > univention-archive-key==6.0.1-1.16.201511032308",
+        "Apt > univention-base-files==5.0.0-8.205.201510081706",
+        "Apt > univention-base-packages==5.0.0-8.205.201510081706",
+        "Apt > univention-config==11.0.0-1.491.201509272107",
+        "Apt > univention-config-registry==11.0.0-1.491.201509272107",
+        "Apt > univention-container-role-common==11.0.1-8.230.201510141128",
+        "Apt > univention-container-role-server-common==11.0.1-8.230.201510141128",
+        "Apt > univention-directory-listener==10.0.0-2.282.201509231400",
+        "Apt > univention-directory-manager-tools==11.0.2-4.1351.201510211938",
+        "Apt > univention-directory-policy==7.0.1-1.56.201511032354",
+        "Apt > univention-docker-container-mode==1.0.11-1.55.201511051213",
+        "Apt > univention-errata-level==4.0.0-1.974.201509110656",
+        "Apt > univention-heimdal-common==9.0.1-1.158.201511032320",
+        "Apt > univention-heimdal-member==9.0.1-1.158.201511032320",
+        "Apt > univention-ifplugd==8.0.1-1.112.201511032329",
+        "Apt > univention-ipcalc==7.0.1-1.32.201511032324",
+        "Apt > univention-join==8.0.1-1.510.201510171628",
+        "Apt > univention-ldap-client==12.1.4-1.784.201511111517",
+        "Apt > univention-mail-postfix==10.0.0-6.270.201511051213",
+        "Apt > univention-network-common==8.0.1-1.112.201511032329",
+        "Apt > univention-pam==9.0.0-1.263.201511031418",
+        "Apt > univention-policy-tools==7.0.1-1.130.201511032334",
+        "Apt > univention-runit==7.0.1-1.41.201511032341",
+        "Apt > univention-server-member==11.0.1-8.230.201510141128",
+        "Apt > univention-skel==8.0.1-1.41.201511032342",
+        "Apt > univention-ssh==7.0.0-2.49.201508301610",
+        "Apt > univention-ssl==10.0.0-9.166.201510081709",
+        "Apt > univention-system-setup==9.0.2-8.923.201510211224",
+        "Apt > univention-updater==11.0.4-5.1425.201511111401",
+        "Apt > update-inetd==4.43.13.201403120624",
+        "Apt > util-linux==2.20.1-5.3.65.201409291741",
+        "Apt > vim==2:7.3.547-7.56.201403122145",
+        "Apt > vim-common==2:7.3.547-7.56.201403122145",
+        "Apt > vim-runtime==2:7.3.547-7.56.201403122145",
+        "Apt > vlan==1.9-3.6.201403130236",
+        "Apt > wamerican==7.1-1.17.201403182304",
+        "Apt > wget==1.13.4-3.25.201502021513",
+        "Apt > whois==5.1.1.12.201403132234",
+        "Apt > x11-common==1:7.7 3.60.201409251322",
+        "Apt > xauth==1:1.0.7-1.8.201403142323",
+        "Apt > xfsprogs==3.1.7.21.201403151732",
+        "Apt > xz-utils==5.1.1alpha 20120614-2.10.201403161502",
+        "Apt > zlib1g==1:1.2.7.dfsg-13.37.201403170601",
+        "Pip > M2Crypto==0.21.1",
+        "Pip > M2Crypto==0.21.1",
+        "Pip > chardet==2.0.1",
+        "Pip > chardet==2.0.1",
+        "Pip > cracklib==2.8.19",
+        "Pip > cracklib==2.8.19",
+        "Pip > ipaddr==2.1.10",
+        "Pip > ipaddr==2.1.10"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "environment": [
+        "DEBIAN_FRONTEND=noninteractive"
+    ],
+    "entrypoint": [
+        "[\"bash\",\"/etc/init.d/otc-start.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "univention/ucs-appbox-amd64:4.1-0",
+    "name": "jenerpeon/docker-uv",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > acl==2.2.51-8.58.201403111425",
+        "Apt > adduser==3.113 nmu3.17.201403111944",
+        "Apt > apt==0.9.7.9.70.201502041050",
+        "Apt > apt-transport-https==0.9.7.9.70.201502041050",
+        "Apt > apt-utils==0.9.7.9.70.201502041050",
+        "Apt > at==3.1.13-2.19.201410221141",
+        "Apt > base-files==7.1.35.201502021337",
+        "Apt > base-passwd==3.5.26.27.201410071148",
+        "Apt > bash==4.2 dfsg-0.1.50.201411010058",
+        "Apt > bash-completion==1:2.0-1.5.201403141236",
+        "Apt > bind9-host==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > binutils==2.22-8.30.201503161736",
+        "Apt > bridge-utils==1.5-6.8.201403151242",
+        "Apt > bsdutils==1:2.20.1-5.3.65.201409291741",
+        "Apt > bzip2==1.0.6-4.26.201403151802",
+        "Apt > ca-certificates==20141019.14.201503231550",
+        "Apt > console-common==0.7.87.17.201409242245",
+        "Apt > console-data==2:1.12-2.18.201403180533",
+        "Apt > coreutils==8.13-3.5.35.201403180900",
+        "Apt > cpio==2.11 dfsg-0.1.22.201502021357",
+        "Apt > cracklib-runtime==2.8.19-3.32.201403181307",
+        "Apt > cron==3.0pl1-124.16.201403181420",
+        "Apt > curl==7.26.0-1.63.201510202222",
+        "Apt > dash==0.5.7-3.12.201403190449",
+        "Apt > db-util==5.1.6.6.201403190545",
+        "Apt > db5.1-util==5.1.29-5.11.201403190530",
+        "Apt > debconf==1.5.49.35.201403191101",
+        "Apt > debianutils==4.3.2.12.201403191435",
+        "Apt > diffutils==1:3.2-6.13.201403200107",
+        "Apt > dnsutils==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > dpkg==1.16.16.95.201509011754",
+        "Apt > e2fslibs==1.42.5-1.1.43.201510151724",
+        "Apt > e2fsprogs==1.42.5-1.1.43.201510151724",
+        "Apt > file==5.11-2.36.201508290031",
+        "Apt > findutils==4.4.2-4.13.201403231411",
+        "Apt > gcc-4.4-base==4.4.7-2.8.201403121445",
+        "Apt > gcc-4.6-base==4.6.3-14.7.201403121553",
+        "Apt > gcc-4.7-base==4.7.2-5.9.201403121731",
+        "Apt > gnupg==1.4.12-7.66.201503191340",
+        "Apt > gpgv==1.4.12-7.66.201503191340",
+        "Apt > grep==2.12-2.52.201409252038",
+        "Apt > gzip==1.5-1.1.25.201403170751",
+        "Apt > heimdal-clients==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > heimdal-servers==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > hostname==3.11.12.201403191637",
+        "Apt > ifenslave-2.6==1.1.0-20.10.201403201157",
+        "Apt > ifplugd==0.28-19.18.201403201224",
+        "Apt > ifupdown==0.7.8.20.201411071853",
+        "Apt > initramfs-tools==0.115~bpo70 1.35.201410091545",
+        "Apt > initscripts==2.88dsf-41.43.201408220944",
+        "Apt > insserv==1.14.0-5.7.201408200914",
+        "Apt > iproute==20120521-3.12.201403210302",
+        "Apt > iputils-ping==3:20101006-1.14.201403210353",
+        "Apt > isc-dhcp-client==4.2.2.dfsg.1-5 deb70u6.30.201507161139",
+        "Apt > isc-dhcp-common==4.2.2.dfsg.1-5 deb70u6.30.201507161139",
+        "Apt > iso-codes==3.41-1.7.201403210643",
+        "Apt > java-common==0.47.24.201403211637",
+        "Apt > jq==1.4-1~bpo70 1.2.201509171836",
+        "Apt > kbd==1.15.3-9.6.201410171447",
+        "Apt > klibc-utils==2.0.1-3.1.13.201403231612",
+        "Apt > kmod==9-3.2.201403231734",
+        "Apt > krb5-config==2.3.10.201403231057",
+        "Apt > ldap-utils==2.4.42 dfsg-2.210.201511060842",
+        "Apt > less==444-4.11.201403241723",
+        "Apt > libacl1==2.2.51-8.58.201403111425",
+        "Apt > libapt-inst1.5==0.9.7.9.70.201502041050",
+        "Apt > libapt-pkg4.12==0.9.7.9.70.201502041050",
+        "Apt > libasn1-8-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libattr1==1:2.4.46-8.16.201403131837",
+        "Apt > libavahi-client3==0.6.31-2.53.201403140051",
+        "Apt > libavahi-common-data==0.6.31-2.53.201403140051",
+        "Apt > libavahi-common3==0.6.31-2.53.201403140051",
+        "Apt > libbind9-80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libblkid1==2.20.1-5.3.65.201409291741",
+        "Apt > libbsd0==0.4.2-1.6.201403111601",
+        "Apt > libbz2-1.0==1.0.6-4.26.201403151802",
+        "Apt > libc-bin==2.13-38.25.201508281630",
+        "Apt > libc6==2.13-38.25.201508281630",
+        "Apt > libcap2==1:2.22-1.2.12.201403111916",
+        "Apt > libclass-isa-perl==0.36-3.2.201403120816",
+        "Apt > libcomerr2==1.42.5-1.1.43.201510151724",
+        "Apt > libcrack2==2.8.19-3.32.201403181307",
+        "Apt > libcrypt-openssl-random-perl==0.04-1.5.201403122242",
+        "Apt > libcrypt-passwdmd5-perl==1.3-10.11.201403122247",
+        "Apt > libcups2==1.5.3-5.99.201510221331",
+        "Apt > libcurl3==7.26.0-1.63.201510202222",
+        "Apt > libcurl3-gnutls==7.26.0-1.63.201510202222",
+        "Apt > libdaemon0==0.14-2.15.201403130117",
+        "Apt > libdb3==3.2.9 dfsg-0.1.15.201408181608",
+        "Apt > libdb5.1==5.1.29-5.11.201403190530",
+        "Apt > libdbus-1-3==1.6.8-1.63.201502030801",
+        "Apt > libdns88==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libedit2==2.11-20080614-5.15.201403190206",
+        "Apt > libexpat1==2.1.0-1.23.201403221700",
+        "Apt > libfile-copy-recursive-perl==0.38-1.4.201403191200",
+        "Apt > libfreetype6==2.4.9-1.1.64.201505051823",
+        "Apt > libgcc1==1:4.7.2-5.9.201403121731",
+        "Apt > libgcrypt11==1.5.0-5.19.201509011656",
+        "Apt > libgdbm3==1.8.3-11.18.201403130142",
+        "Apt > libgeoip1==1.4.8 dfsg-3.7.201403131017",
+        "Apt > libgmp10==2:5.0.5 dfsg-2.16.201403141524",
+        "Apt > libgnutls26==2.12.20-8.29.201509111022",
+        "Apt > libgpg-error0==1.10-3.1.16.201403200930",
+        "Apt > libgpm2==1.20.4-6.17.201403160048",
+        "Apt > libgssapi-krb5-2==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libgssapi3-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhcrypto4-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhdb9-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libheimbase1-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libheimntlm0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libhx509-5-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libicu48==4.8.1.1-12.25.201508281703",
+        "Apt > libidn11==1.25-2.18.201403210736",
+        "Apt > libisc84==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libisccc80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libisccfg82==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > libjpeg8==8d-1.6.201407141822",
+        "Apt > libk5crypto3==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libkadm5clnt7-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkadm5srv8-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkafs0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkeyutils1==1.5.5-3.9.201410221649",
+        "Apt > libklibc==2.0.1-3.1.13.201403231612",
+        "Apt > libkmod2==9-3.2.201403231734",
+        "Apt > libkrb5-26-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libkrb5-3==1.10.1 dfsg-5.57.201503101742",
+        "Apt > libkrb5support0==1.10.1 dfsg-5.57.201503101742",
+        "Apt > liblcms1==1.19.dfsg-1.2.16.201403241427",
+        "Apt > libldap-2.4-2==2.4.42 dfsg-2.210.201511060842",
+        "Apt > libldb1==2:1.1.21-1.60.201508182112",
+        "Apt > liblocale-gettext-perl==1.05-7.13.201403221826",
+        "Apt > liblockfile-bin==1.09-5.23.201403221909",
+        "Apt > liblockfile1==1.09-5.23.201403221909",
+        "Apt > liblwres80==1:9.8.4.dfsg.P1-6 nmu2.114.201508061539",
+        "Apt > liblzma5==5.1.1alpha 20120614-2.10.201403161502",
+        "Apt > libmagic1==5.11-2.36.201508290031",
+        "Apt > libmount1==2.20.1-5.3.65.201409291741",
+        "Apt > libncurses5==5.9-10.17.201403180024",
+        "Apt > libncursesw5==5.9-10.17.201403180024",
+        "Apt > libnih-dbus1==1.0.3-4.1.15.201403250726",
+        "Apt > libnih1==1.0.3-4.1.15.201403250726",
+        "Apt > libnss-extrausers==0.6-3.12.201409252135",
+        "Apt > libnss-ldap==264-2.5.55.201409262223",
+        "Apt > libntdb1==1.0-2~bpo70 1.2.201403182058",
+        "Apt > libotp0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libp11-kit0==0.12-3.4.201408201944",
+        "Apt > libpam-cracklib==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-heimdal==4.6-1.22.201403250545",
+        "Apt > libpam-ldap==184-8.6.23.201403250550",
+        "Apt > libpam-modules==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-modules-bin==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-runtime==1.1.3-7.1.45.201411171506",
+        "Apt > libpam-univentionmailcyrus==7.0.1-1.37.201511032305",
+        "Apt > libpam0g==1.1.3-7.1.45.201411171506",
+        "Apt > libpcre3==1:8.30-5.32.201403250306",
+        "Apt > libperl4-corelibs-perl==0.003-1.3.201403251348",
+        "Apt > libpopt0==1.16-7.15.201403261929",
+        "Apt > libprocps0==1:3.3.3-3.27.201409262204",
+        "Apt > libpython2.7==2.7.3-6.5.201406301216",
+        "Apt > libreadline5==5.2 dfsg-2.17.201403160111",
+        "Apt > libreadline6==6.2 dfsg-0.1.7.201403160114",
+        "Apt > libroken18-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > librtmp0==2.4 20111222.git4e06e21-1.7.201403170006",
+        "Apt > libsasl2-2==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libsasl2-modules==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libsasl2-modules-gssapi-heimdal==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > libselinux1==2.1.9-5.19.201403270606",
+        "Apt > libsemanage-common==2.1.6-6.7.201403270616",
+        "Apt > libsemanage1==2.1.6-6.7.201403270616",
+        "Apt > libsepol1==2.1.4-3.16.201403270646",
+        "Apt > libsl0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libslang2==2.2.4-15.15.201403200138",
+        "Apt > libsmbclient==2:4.3.1-1.797.201510201909",
+        "Apt > libsqlite3-0==3.7.13-1.23.201403202219",
+        "Apt > libss2==1.42.5-1.1.43.201510151724",
+        "Apt > libssh2-1==1.4.2-1.1.10.201509011748",
+        "Apt > libssl1.0.0==1.0.2d-1.104.201510141521",
+        "Apt > libstdc++6==4.7.2-5.9.201403121731",
+        "Apt > libswitch-perl==2.16-2.2.201403271552",
+        "Apt > libtalloc2==2.1.4-1.40.201510201856",
+        "Apt > libtasn1-3==2.13-2.19.201509111011",
+        "Apt > libtdb1==1.3.7-1.52.201508182050",
+        "Apt > libtevent0==0.9.25-1.31.201508182059",
+        "Apt > libtext-charwidth-perl==0.04-7.13.201403111256",
+        "Apt > libtext-iconv-perl==1.7-5.14.201403111344",
+        "Apt > libtext-wrapi18n-perl==0.06-7.13.201403111612",
+        "Apt > libtinfo5==5.9-10.17.201403180024",
+        "Apt > libudev0==175-7.2.46.201403112156",
+        "Apt > libunivention-config0==11.0.0-1.491.201509272107",
+        "Apt > libunivention-debug1==8.0.1-1.94.201511032313",
+        "Apt > libunivention-policy0==7.0.1-1.130.201511032334",
+        "Apt > libusb-0.1-4==2:0.1.12-20 nmu1.15.201403120102",
+        "Apt > libustr-1.0-1==1.0.4-3.7.201403121026",
+        "Apt > libuuid1==2.20.1-5.3.65.201409291741",
+        "Apt > libwbclient0==2:4.3.1-1.797.201510201909",
+        "Apt > libwind0-heimdal==1.6~git20120403 dfsg1-2.238.201510232020",
+        "Apt > libwrap0==7.6.q-24.15.201403250736",
+        "Apt > libx11-6==2:1.5.0-1.40.201504151215",
+        "Apt > libx11-data==2:1.5.0-1.40.201504151215",
+        "Apt > libxau6==1:1.0.7-1.16.201403121135",
+        "Apt > libxcb1==1.8.1-2.31.201403121157",
+        "Apt > libxdmcp6==1:1.1.1-1.13.201403121219",
+        "Apt > libxext6==2:1.3.1-2.23.201504151335",
+        "Apt > libxi6==2:1.6.1-1.24.201504151346",
+        "Apt > libxml2==2.8.0 dfsg1-7.50.201504082023",
+        "Apt > libxmuu1==2:1.1.1-1.18.201403131221",
+        "Apt > libxrender1==1:0.9.7-1.24.201504151343",
+        "Apt > libxtst6==2:1.2.1-1.18.201403122157",
+        "Apt > locales==2.13-38.25.201508281630",
+        "Apt > lockfile-progs==0.1.17.15.201509161633",
+        "Apt > login==1:4.1.5.1-1.33.201403191045",
+        "Apt > logrotate==3.8.1-4.15.201403131723",
+        "Apt > lsb-base==4.1 Debian8.49.201410071206",
+        "Apt > lsb-release==4.1 Debian8.49.201410071206",
+        "Apt > lsof==4.86 dfsg-1.14.201403131951",
+        "Apt > makedev==2.3.1-92.20.201403141204",
+        "Apt > makepasswd==1.10-8.12.201403141216",
+        "Apt > mawk==1.3.3-17.15.201403150332",
+        "Apt > mime-support==3.52-1.16.201502021407",
+        "Apt > mount==2.20.1-5.3.65.201409291741",
+        "Apt > mountall==2.46.4.201403161604",
+        "Apt > multiarch-support==2.13-38.25.201508281630",
+        "Apt > ncurses-base==5.9-10.17.201403180024",
+        "Apt > ncurses-bin==5.9-10.17.201403180024",
+        "Apt > net-tools==1.60-24.2.15.201403180257",
+        "Apt > netbase==5.0.16.201411071848",
+        "Apt > netcat-openbsd==1.105-7.6.201403180345",
+        "Apt > netcat-traditional==1.10-40.16.201403180343",
+        "Apt > nscd==2.13-38.25.201508281630",
+        "Apt > openbsd-inetd==0.20091229-2.10.201403200731",
+        "Apt > openssh-blacklist==0.4.2.14.201403211015",
+        "Apt > openssh-client==1:6.0p1-4.51.201510261316",
+        "Apt > openssl==1.0.2d-1.104.201510141521",
+        "Apt > openssl-blacklist==0.5-3.19.201403211036",
+        "Apt > oracle-java8-installer==8u92 8u91arm-2~really8u91~webupd8~0",
+        "Apt > oracle-java8-set-default==8u92 8u91arm-2~really8u91~webupd8~0",
+        "Apt > pam-runasroot==7.0.1-1.607.201511032304",
+        "Apt > passwd==1:4.1.5.1-1.33.201403191045",
+        "Apt > perl==5.14.2-21.75.201410222020",
+        "Apt > perl-base==5.14.2-21.75.201410222020",
+        "Apt > perl-modules==5.14.2-21.75.201410222020",
+        "Apt > plymouth==0.8.5.1-5.15.201410201741",
+        "Apt > postfix==2.9.6-2.48.201403262056",
+        "Apt > postfix-ldap==2.9.6-2.48.201403262056",
+        "Apt > procps==1:3.3.3-3.27.201409262204",
+        "Apt > psmisc==22.19-1.16.201403111431",
+        "Apt > pwgen==2.06-1.8.201403111848",
+        "Apt > python==2.7.3-4.24.201403122023",
+        "Apt > python-apt==0.8.8.2.39.201403121500",
+        "Apt > python-apt-common==0.8.8.2.39.201403121500",
+        "Apt > python-chardet==2.0.1-2.5.201403161550",
+        "Apt > python-cracklib==2.8.19-3.32.201403181307",
+        "Apt > python-crypto==2.6-4.14.201403131039",
+        "Apt > python-debian==0.1.21.10.201403122009",
+        "Apt > python-dns==2.3.6-1.23.201403122252",
+        "Apt > python-imaging==1.1.7-4.14.201411010827",
+        "Apt > python-ipaddr==2.1.10-1.5.201403130439",
+        "Apt > python-ldap==2.4.16-0.1.35.201409101437",
+        "Apt > python-ldb==2:1.1.21-1.60.201508182112",
+        "Apt > python-m2crypto==0.21.1-2.15.201403140705",
+        "Apt > python-magic==5.11-2.36.201508290031",
+        "Apt > python-minimal==2.7.3-4.24.201403122023",
+        "Apt > python-netifaces==0.8-1.7.201403180450",
+        "Apt > python-ntdb==1.0-2~bpo70 1.2.201403182058",
+        "Apt > python-samba==2:4.3.1-1.797.201510201909",
+        "Apt > python-smbpasswd==1.0.1-1.2.4.201403131919",
+        "Apt > python-support==1.0.15.18.201403132013",
+        "Apt > python-talloc==2.1.4-1.40.201510201856",
+        "Apt > python-tdb==1.3.7-1.52.201508182050",
+        "Apt > python-univention==9.0.1-1.158.201511032337",
+        "Apt > python-univention-appcenter==5.0.17-7.61.201511102356",
+        "Apt > python-univention-config-registry==11.0.0-1.491.201509272107",
+        "Apt > python-univention-debug==8.0.1-1.94.201511032313",
+        "Apt > python-univention-directory-manager==11.0.2-4.1351.201510211938",
+        "Apt > python-univention-directory-manager-cli==11.0.2-4.1351.201510211938",
+        "Apt > python-univention-heimdal==6.0.1-1.55.201511032338",
+        "Apt > python-univention-lib==5.0.0-12.318.201510231647",
+        "Apt > python2.7==2.7.3-6.5.201406301216",
+        "Apt > python2.7-minimal==2.7.3-6.5.201406301216",
+        "Apt > readline-common==6.2 dfsg-0.1.7.201403160114",
+        "Apt > rsync==3.0.9-4.51.201410071143",
+        "Apt > rsyslog==5.8.11-3.15.201411010833",
+        "Apt > runit==2.1.1-6.2.24.201408181752",
+        "Apt > samba-common==2:4.3.1-1.797.201510201909",
+        "Apt > samba-common-bin==2:4.3.1-1.797.201510201909",
+        "Apt > samba-libs==2:4.3.1-1.797.201510201909",
+        "Apt > sasl2-bin==2.1.25.dfsg1-6.56.201410011120",
+        "Apt > sed==4.2.1-10.21.201403190453",
+        "Apt > sensible-utils==0.0.7.6.201403190628",
+        "Apt > shell-univention-lib==5.0.0-12.318.201510231647",
+        "Apt > smbclient==2:4.3.1-1.797.201510201909",
+        "Apt > ssl-cert==1.0.32.17.201403210311",
+        "Apt > sysv-rc==2.88dsf-41.43.201408220944",
+        "Apt > sysvinit==2.88dsf-41.43.201408220944",
+        "Apt > sysvinit-utils==2.88dsf-41.43.201408220944",
+        "Apt > tar==1.26 dfsg-0.1.37.201403250428",
+        "Apt > tcpd==7.6.q-24.15.201403250736",
+        "Apt > tofrodos==1.7.9.debian.1-1.12.201403260657",
+        "Apt > tzdata==2015d-0.36.201506170934",
+        "Apt > ucf==3.0025 nmu3.17.201403112040",
+        "Apt > udev==175-7.2.46.201403112156",
+        "Apt > univention-appcenter==5.0.17-7.61.201511102356",
+        "Apt > univention-archive-key==6.0.1-1.16.201511032308",
+        "Apt > univention-base-files==5.0.0-8.205.201510081706",
+        "Apt > univention-base-packages==5.0.0-8.205.201510081706",
+        "Apt > univention-config==11.0.0-1.491.201509272107",
+        "Apt > univention-config-registry==11.0.0-1.491.201509272107",
+        "Apt > univention-container-role-common==11.0.1-8.230.201510141128",
+        "Apt > univention-container-role-server-common==11.0.1-8.230.201510141128",
+        "Apt > univention-directory-listener==10.0.0-2.282.201509231400",
+        "Apt > univention-directory-manager-tools==11.0.2-4.1351.201510211938",
+        "Apt > univention-directory-policy==7.0.1-1.56.201511032354",
+        "Apt > univention-docker-container-mode==1.0.11-1.55.201511051213",
+        "Apt > univention-errata-level==4.0.0-1.974.201509110656",
+        "Apt > univention-heimdal-common==9.0.1-1.158.201511032320",
+        "Apt > univention-heimdal-member==9.0.1-1.158.201511032320",
+        "Apt > univention-ifplugd==8.0.1-1.112.201511032329",
+        "Apt > univention-ipcalc==7.0.1-1.32.201511032324",
+        "Apt > univention-join==8.0.1-1.510.201510171628",
+        "Apt > univention-ldap-client==12.1.4-1.784.201511111517",
+        "Apt > univention-mail-postfix==10.0.0-6.270.201511051213",
+        "Apt > univention-network-common==8.0.1-1.112.201511032329",
+        "Apt > univention-pam==9.0.0-1.263.201511031418",
+        "Apt > univention-policy-tools==7.0.1-1.130.201511032334",
+        "Apt > univention-runit==7.0.1-1.41.201511032341",
+        "Apt > univention-server-member==11.0.1-8.230.201510141128",
+        "Apt > univention-skel==8.0.1-1.41.201511032342",
+        "Apt > univention-ssh==7.0.0-2.49.201508301610",
+        "Apt > univention-ssl==10.0.0-9.166.201510081709",
+        "Apt > univention-system-setup==9.0.2-8.923.201510211224",
+        "Apt > univention-updater==11.0.4-5.1425.201511111401",
+        "Apt > update-inetd==4.43.13.201403120624",
+        "Apt > util-linux==2.20.1-5.3.65.201409291741",
+        "Apt > vim==2:7.3.547-7.56.201403122145",
+        "Apt > vim-common==2:7.3.547-7.56.201403122145",
+        "Apt > vim-runtime==2:7.3.547-7.56.201403122145",
+        "Apt > vlan==1.9-3.6.201403130236",
+        "Apt > wamerican==7.1-1.17.201403182304",
+        "Apt > wget==1.13.4-3.25.201502021513",
+        "Apt > whois==5.1.1.12.201403132234",
+        "Apt > x11-common==1:7.7 3.60.201409251322",
+        "Apt > xauth==1:1.0.7-1.8.201403142323",
+        "Apt > xfsprogs==3.1.7.21.201403151732",
+        "Apt > xz-utils==5.1.1alpha 20120614-2.10.201403161502",
+        "Apt > zlib1g==1:1.2.7.dfsg-13.37.201403170601",
+        "Pip > M2Crypto==0.21.1",
+        "Pip > M2Crypto==0.21.1",
+        "Pip > chardet==2.0.1",
+        "Pip > chardet==2.0.1",
+        "Pip > cracklib==2.8.19",
+        "Pip > cracklib==2.8.19",
+        "Pip > ipaddr==2.1.10",
+        "Pip > ipaddr==2.1.10"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

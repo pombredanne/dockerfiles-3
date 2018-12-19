@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "ubuntu:xenial",
+    "name": "tetatetit/zimbra",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.113 nmu3ubuntu4",
+        "Apt > apt==1.2.24",
+        "Apt > apt-transport-https==1.2.24",
+        "Apt > apt-utils==1.2.24",
+        "Apt > base-files==9.4ubuntu4.5",
+        "Apt > base-passwd==3.5.39",
+        "Apt > bash==4.3-14ubuntu1.2",
+        "Apt > bind9==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9-doc==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9-host==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9utils==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bsdutils==1:2.27.1-6ubuntu3.3",
+        "Apt > ca-certificates==20160104ubuntu1",
+        "Apt > coreutils==8.25-2ubuntu3~16.04",
+        "Apt > cron==3.0pl1-128ubuntu2",
+        "Apt > dash==0.5.8-2.1ubuntu2",
+        "Apt > debconf==1.5.58ubuntu1",
+        "Apt > debianutils==4.7",
+        "Apt > dh-python==2.20151103ubuntu1.1",
+        "Apt > dialog==1.3-20160209-1",
+        "Apt > diffutils==1:3.3-3",
+        "Apt > distro-info-data==0.28ubuntu0.3",
+        "Apt > dnsutils==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > dpkg==1.18.4ubuntu1.2",
+        "Apt > e2fslibs==1.42.13-1ubuntu1",
+        "Apt > e2fsprogs==1.42.13-1ubuntu1",
+        "Apt > file==1:5.25-2ubuntu1",
+        "Apt > findutils==4.6.0 git+20160126-2",
+        "Apt > gcc-5-base==5.4.0-6ubuntu1~16.04.4",
+        "Apt > gcc-6-base==6.0.1-0ubuntu1",
+        "Apt > geoip-database==20160408-1",
+        "Apt > gnupg==1.4.20-1ubuntu3.1",
+        "Apt > gpgv==1.4.20-1ubuntu3.1",
+        "Apt > grep==2.25-1~16.04.1",
+        "Apt > gzip==1.6-4ubuntu1",
+        "Apt > hostname==3.16ubuntu2",
+        "Apt > ifupdown==0.8.10ubuntu1.2",
+        "Apt > init==1.29ubuntu4",
+        "Apt > init-system-helpers==1.29ubuntu4",
+        "Apt > initscripts==2.88dsf-59.3ubuntu2",
+        "Apt > insserv==1.14.0-5ubuntu3",
+        "Apt > iproute2==4.3.0-1ubuntu3.16.04.1",
+        "Apt > isc-dhcp-client==4.3.3-5ubuntu12.7",
+        "Apt > isc-dhcp-common==4.3.3-5ubuntu12.7",
+        "Apt > krb5-locales==1.13.2 dfsg-5ubuntu2",
+        "Apt > libacl1==2.2.52-3",
+        "Apt > libaio1==0.3.110-2",
+        "Apt > libapparmor1==2.10.95-0ubuntu2.7",
+        "Apt > libapt-inst2.0==1.2.24",
+        "Apt > libapt-pkg5.0==1.2.24",
+        "Apt > libasn1-8-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libasound2==1.1.0-0ubuntu1",
+        "Apt > libasound2-data==1.1.0-0ubuntu1",
+        "Apt > libatm1==1:2.5.1-1.5",
+        "Apt > libattr1==1:2.4.47-2",
+        "Apt > libaudit-common==1:2.4.5-1ubuntu2",
+        "Apt > libaudit1==1:2.4.5-1ubuntu2",
+        "Apt > libbind9-140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libblkid1==2.27.1-6ubuntu3.3",
+        "Apt > libbsd0==0.8.2-1",
+        "Apt > libbz2-1.0==1.0.6-8",
+        "Apt > libc-bin==2.23-0ubuntu9",
+        "Apt > libc6==2.23-0ubuntu9",
+        "Apt > libcap2==1:2.24-12",
+        "Apt > libcap2-bin==1:2.24-12",
+        "Apt > libcomerr2==1.42.13-1ubuntu1",
+        "Apt > libcryptsetup4==2:1.6.6-5ubuntu2.1",
+        "Apt > libcurl3-gnutls==7.47.0-1ubuntu2.2",
+        "Apt > libdb5.3==5.3.28-11",
+        "Apt > libdebconfclient0==0.198ubuntu1",
+        "Apt > libdevmapper1.02.1==2:1.02.110-1ubuntu10",
+        "Apt > libdns-export162==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libdns162==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libedit2==3.1-20150325-1ubuntu2",
+        "Apt > libestr0==0.1.10-1",
+        "Apt > libexpat1==2.1.0-7ubuntu0.16.04.3",
+        "Apt > libfdisk1==2.27.1-6ubuntu3.3",
+        "Apt > libffi6==3.2.1-4",
+        "Apt > libfreetype6==2.6.1-0.1ubuntu2.3",
+        "Apt > libgcc1==1:6.0.1-0ubuntu1",
+        "Apt > libgcrypt20==1.6.5-2ubuntu0.3",
+        "Apt > libgdbm3==1.8.3-13.1",
+        "Apt > libgeoip1==1.6.9-1",
+        "Apt > libglib2.0-0==2.48.2-0ubuntu1",
+        "Apt > libglib2.0-data==2.48.2-0ubuntu1",
+        "Apt > libgmp10==2:6.1.0 dfsg-2",
+        "Apt > libgnutls30==3.4.10-4ubuntu1.3",
+        "Apt > libgpg-error0==1.21-2ubuntu1",
+        "Apt > libgpm2==1.20.4-6.1",
+        "Apt > libgssapi-krb5-2==1.13.2 dfsg-5ubuntu2",
+        "Apt > libgssapi3-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libhcrypto4-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libheimbase1-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libheimntlm0-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libhogweed4==3.2-1ubuntu0.16.04.1",
+        "Apt > libhx509-5-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libicu55==55.1-7ubuntu0.2",
+        "Apt > libidn11==1.32-3ubuntu1.1",
+        "Apt > libirs141==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisc-export160==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisc160==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisccc140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisccfg140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libjson-c2==0.11-4ubuntu2",
+        "Apt > libk5crypto3==1.13.2 dfsg-5ubuntu2",
+        "Apt > libkeyutils1==1.5.9-8ubuntu1",
+        "Apt > libkmod2==22-1ubuntu5",
+        "Apt > libkrb5-26-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libkrb5-3==1.13.2 dfsg-5ubuntu2",
+        "Apt > libkrb5support0==1.13.2 dfsg-5ubuntu2",
+        "Apt > libldap-2.4-2==2.4.42 dfsg-2ubuntu3.2",
+        "Apt > liblwres141==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > liblz4-1==0.0~r131-2ubuntu2",
+        "Apt > liblzma5==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > libmagic1==1:5.25-2ubuntu1",
+        "Apt > libmnl0==1.0.3-5",
+        "Apt > libmount1==2.27.1-6ubuntu3.3",
+        "Apt > libmpdec2==2.4.2-1",
+        "Apt > libncurses5==6.0 20160213-1ubuntu1",
+        "Apt > libncursesw5==6.0 20160213-1ubuntu1",
+        "Apt > libnettle6==3.2-1ubuntu0.16.04.1",
+        "Apt > libp11-kit0==0.23.2-5~ubuntu16.04.1",
+        "Apt > libpam-modules==1.1.8-3.2ubuntu2",
+        "Apt > libpam-modules-bin==1.1.8-3.2ubuntu2",
+        "Apt > libpam-runtime==1.1.8-3.2ubuntu2",
+        "Apt > libpam0g==1.1.8-3.2ubuntu2",
+        "Apt > libpcre3==2:8.38-3.1",
+        "Apt > libperl5.22==5.22.1-9",
+        "Apt > libpng12-0==1.2.54-1ubuntu1",
+        "Apt > libpopt0==1.16-10",
+        "Apt > libprocps4==2:3.3.10-4ubuntu2.3",
+        "Apt > libpython-stdlib==2.7.11-1",
+        "Apt > libpython2.7-minimal==2.7.12-1ubuntu0~16.04.1",
+        "Apt > libpython2.7-stdlib==2.7.12-1ubuntu0~16.04.1",
+        "Apt > libpython3-stdlib==3.5.1-3",
+        "Apt > libpython3.5==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libpython3.5-minimal==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libpython3.5-stdlib==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libreadline6==6.3-8ubuntu2",
+        "Apt > libroken18-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > librtmp1==2.4 20151223.gitfa8646d-1ubuntu0.1",
+        "Apt > libsasl2-2==2.1.26.dfsg1-14build1",
+        "Apt > libsasl2-modules==2.1.26.dfsg1-14build1",
+        "Apt > libsasl2-modules-db==2.1.26.dfsg1-14build1",
+        "Apt > libseccomp2==2.2.3-3ubuntu3",
+        "Apt > libselinux1==2.4-3build2",
+        "Apt > libsemanage-common==2.3-1build3",
+        "Apt > libsemanage1==2.3-1build3",
+        "Apt > libsensors4==1:3.4.0-2",
+        "Apt > libsepol1==2.4-2",
+        "Apt > libslang2==2.3.0-2ubuntu1",
+        "Apt > libsmartcols1==2.27.1-6ubuntu3.3",
+        "Apt > libsocket6-perl==0.25-1build2",
+        "Apt > libsqlite3-0==3.11.0-1ubuntu1",
+        "Apt > libss2==1.42.13-1ubuntu1",
+        "Apt > libssh2-1==1.5.0-2ubuntu0.1",
+        "Apt > libssl1.0.0==1.0.2g-1ubuntu4.8",
+        "Apt > libstdc++6==5.4.0-6ubuntu1~16.04.4",
+        "Apt > libsystemd0==229-4ubuntu19",
+        "Apt > libtasn1-6==4.7-3ubuntu0.16.04.2",
+        "Apt > libtinfo5==6.0 20160213-1ubuntu1",
+        "Apt > libudev1==229-4ubuntu19",
+        "Apt > libusb-0.1-4==2:0.1.12-28",
+        "Apt > libustr-1.0-1==1.0.4-5",
+        "Apt > libuuid1==2.27.1-6ubuntu3.3",
+        "Apt > libwind0-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libwrap0==7.6.q-25",
+        "Apt > libx11-6==2:1.6.3-1ubuntu2",
+        "Apt > libx11-data==2:1.6.3-1ubuntu2",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxcb1==1.11.1-1ubuntu1",
+        "Apt > libxdmcp6==1:1.1.2-1.1",
+        "Apt > libxext6==2:1.3.3-1",
+        "Apt > libxi6==2:1.7.6-1",
+        "Apt > libxml2==2.9.3 dfsg1-1ubuntu0.2",
+        "Apt > libxmuu1==2:1.1.2-2",
+        "Apt > libxrender1==1:0.9.9-0ubuntu1",
+        "Apt > libxtables11==1.6.0-2ubuntu3",
+        "Apt > libxtst6==2:1.2.2-1",
+        "Apt > login==1:4.2-3.1ubuntu5.3",
+        "Apt > logrotate==3.8.7-2ubuntu2.16.04.2",
+        "Apt > lsb-base==9.20160110ubuntu0.2",
+        "Apt > lsb-release==9.20160110ubuntu0.2",
+        "Apt > makedev==2.3.1-93ubuntu2~ubuntu16.04.1",
+        "Apt > mawk==1.3.3-17ubuntu2",
+        "Apt > mc==3:4.8.15-2",
+        "Apt > mc-data==3:4.8.15-2",
+        "Apt > mime-support==3.59ubuntu1",
+        "Apt > mount==2.27.1-6ubuntu3.3",
+        "Apt > multiarch-support==2.23-0ubuntu9",
+        "Apt > ncurses-base==6.0 20160213-1ubuntu1",
+        "Apt > ncurses-bin==6.0 20160213-1ubuntu1",
+        "Apt > ncurses-term==6.0 20160213-1ubuntu1",
+        "Apt > net-tools==1.60-26ubuntu1",
+        "Apt > netbase==5.3",
+        "Apt > netcat-openbsd==1.105-7ubuntu1",
+        "Apt > openssh-client==1:7.2p2-4ubuntu2.2",
+        "Apt > openssh-server==1:7.2p2-4ubuntu2.2",
+        "Apt > openssh-sftp-server==1:7.2p2-4ubuntu2.2",
+        "Apt > openssl==1.0.2g-1ubuntu4.8",
+        "Apt > passwd==1:4.2-3.1ubuntu5.3",
+        "Apt > pax==1:20151013-1",
+        "Apt > perl==5.22.1-9",
+        "Apt > perl-base==5.22.1-9",
+        "Apt > perl-modules-5.22==5.22.1-9",
+        "Apt > procps==2:3.3.10-4ubuntu2.3",
+        "Apt > python==2.7.11-1",
+        "Apt > python-minimal==2.7.11-1",
+        "Apt > python2.7==2.7.12-1ubuntu0~16.04.1",
+        "Apt > python2.7-minimal==2.7.12-1ubuntu0~16.04.1",
+        "Apt > python3==3.5.1-3",
+        "Apt > python3-chardet==2.3.0-2",
+        "Apt > python3-minimal==3.5.1-3",
+        "Apt > python3-pkg-resources==20.7.0-1",
+        "Apt > python3-requests==2.9.1-3",
+        "Apt > python3-six==1.10.0-3",
+        "Apt > python3-urllib3==1.13.1-2ubuntu0.16.04.1",
+        "Apt > python3.5==3.5.2-2ubuntu0~16.04.1",
+        "Apt > python3.5-minimal==3.5.2-2ubuntu0~16.04.1",
+        "Apt > readline-common==6.3-8ubuntu2",
+        "Apt > rename==0.20-4",
+        "Apt > resolvconf==1.78ubuntu4",
+        "Apt > rsyslog==8.16.0-1ubuntu3",
+        "Apt > sed==4.2.2-7",
+        "Apt > sensible-utils==0.0.9",
+        "Apt > sgml-base==1.26 nmu4ubuntu1",
+        "Apt > shared-mime-info==1.5-2ubuntu0.1",
+        "Apt > sqlite3==3.11.0-1ubuntu1",
+        "Apt > ssh-import-id==5.5-0ubuntu1",
+        "Apt > sudo==1.8.16-0ubuntu1.5",
+        "Apt > sysstat==11.2.0-1ubuntu0.1",
+        "Apt > systemd==229-4ubuntu19",
+        "Apt > systemd-sysv==229-4ubuntu19",
+        "Apt > sysv-rc==2.88dsf-59.3ubuntu2",
+        "Apt > sysvinit-utils==2.88dsf-59.3ubuntu2",
+        "Apt > tar==1.28-2.1ubuntu0.1",
+        "Apt > tcpd==7.6.q-25",
+        "Apt > ubuntu-keyring==2012.05.19",
+        "Apt > ucf==3.0036",
+        "Apt > unzip==6.0-20ubuntu1",
+        "Apt > util-linux==2.27.1-6ubuntu3.3",
+        "Apt > vim==2:7.4.1689-3ubuntu1.2",
+        "Apt > vim-common==2:7.4.1689-3ubuntu1.2",
+        "Apt > vim-runtime==2:7.4.1689-3ubuntu1.2",
+        "Apt > wget==1.17.1-1ubuntu1.2",
+        "Apt > x11-common==1:7.7 13ubuntu3",
+        "Apt > xauth==1:1.0.9-1ubuntu2",
+        "Apt > xdg-user-dirs==0.15-2ubuntu6",
+        "Apt > xml-core==0.13 nmu2",
+        "Apt > xz-utils==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > zimbra-altermime==0.3.20100505-1zimbra8.7b1.16.04",
+        "Apt > zimbra-amavis-logwatch==1.51.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-amavisd==2.10.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apache==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-apache-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apache-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apr-lib==1.5.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apr-util-lib==1.5.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell==0.60.6.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-ar==1.2.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-da==1.4.42.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-de==20030222.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-en==7.1.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-es==1.11.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-fr==0.50.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-hi==0.02.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-hu==0.99.4.2.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-it==2.2.20050523.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-lib==0.60.6.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-nl==0.50.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-pl==6.0.20061121.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-pt-br==20090702.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-ru==0.99f7.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-sv==0.51.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-zimbra==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-base==1.0.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-bdb-lib==5.2.42-1zimbra8.7b1.16.04",
+        "Apt > zimbra-chat==1.0.6-1zimbra8.7b1.u16",
+        "Apt > zimbra-clamav==0.99.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-clamav-db==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-clamav-lib==0.99.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cluebringer==2.1.0.0.cf484f1b93cf9965886cc89d33bdeee9c26426cb-1zimbra8.7b1.16.04",
+        "Apt > zimbra-core==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-core-components==1.0.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-curl==7.49.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-curl-lib==7.49.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cyrus-sasl==2.1.26-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cyrus-sasl-lib==2.1.26-1zimbra8.7b1.16.04",
+        "Apt > zimbra-drive==1.0.6-1zimbra8.7b1.u16",
+        "Apt > zimbra-freetype-lib==2.6.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-heimdal-lib==1.5.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-httpd==2.4.20-1zimbra8.7b1.16.04",
+        "Apt > zimbra-ldap==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-ldap-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-ldap-components==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libart-lib==2.3.21-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libbsd-lib==0.7.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libevent-lib==2.0.22-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libltdl-lib==2.2.6b-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libpng-lib==1.6.23-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libsodium-lib==1.0.6-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libxml2-lib==2.9.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-lmdb==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-lmdb-lib==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-logger==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-mariadb==10.1.25-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mariadb-lib==10.1.25-1zimbra8.7b1.16.04",
+        "Apt > zimbra-memcached==1:1.4.37-2.u16",
+        "Apt > zimbra-memcached-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mta==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-mta-base==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mta-components==1.0.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-net-snmp==5.7.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-net-snmp-lib==5.7.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-nginx==1.7.1-1zimbra8.7b7.16.04",
+        "Apt > zimbra-opendkim==2.10.3-1zimbra8.7b2.16.04",
+        "Apt > zimbra-opendkim-lib==2.10.3-1zimbra8.7b2.16.04",
+        "Apt > zimbra-openjdk==1.8.0u144b01-1zimbra8.7b4.16.04",
+        "Apt > zimbra-openjdk-cacerts==1.0.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-openldap-client==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openldap-lib==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openldap-server==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openssl==1.0.2l-1zimbra8.7b2.16.04",
+        "Apt > zimbra-openssl-lib==1.0.2l-1zimbra8.7b2.16.04",
+        "Apt > zimbra-os-requirements==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-osl==1.0.9-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl==1.0.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-archive-zip==1.53-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-berkeleydb==0.55-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-bit-vector==7.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-cache-fastmmap==1.43-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-canary-stability==2006-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-carp-clan==6.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-class-inspector==1.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-compress-raw-bzip2==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-compress-raw-zlib==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-config-inifiles==2.86-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-asn1==0.27-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-binhex==1.124-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-tnef==0.18-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-uulib==1.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-openssl-random==0.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-openssl-rsa==0.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-saltedhash==0.09-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-data-uuid==1.221-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-date-calc==6.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-date-manip==6.51-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-db-file==1.835-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbd-mysql==4.033-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbd-sqlite==1.48-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbi==1.634-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-digest-hmac==1.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-digest-sha1==2.13-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-email-date-format==1.005-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-encode-detect==1.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-encode-locale==1.05-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-error==0.17024-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-exporter-tiny==0.042-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-grep==0.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-libmagic==1.15-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-listing==6.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-tail==1.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-filesys-df==0.92-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-geography-countries==2009041301-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-html-parser==3.71-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-cookies==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-daemon==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-date==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-message==6.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-negotiate==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-innotop==1.9.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-compress==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-html==1.001-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-sessiondata==1.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-inet6==2.72-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-ip==0.37-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-ssl==2.020-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-stringy==2.111-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-ip-country==2.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-json-pp==2.27300-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-libwww==6.13-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-list-moreutils==0.413-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-lwp-mediatypes==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-lwp-protocol-https==6.06-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mail-dkim==0.40-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mail-spamassassin==3.4.1-1zimbra8.7b2.16.04",
+        "Apt > zimbra-perl-mail-spf==2.9.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mailtools==2.14-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-math-bigint==1.999708-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-lite==3.030-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-tools==5.507-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-types==2.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mozilla-ca==20150826-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-cidr==0.18-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-cidr-lite==0.21-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-dns==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-dns-resolver-programmable==0.003-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-http==6.09-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ldap==0.65-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ldapapi==3.0.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-libidn==0.12-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-server==2.008-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ssleay==1.72-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-netaddr-ip==4.078-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-parent==0.234-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-proc-processtable==0.53-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-soap-lite==1.19-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-socket==2.020-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-socket-linux==0.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-swatchdog==3.2.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-task-weaken==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-term-readkey==2.33-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-timedate==2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-unix-getrusage==0.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-unix-syslog==1.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-uri==1.69-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-www-robotrules==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-namespacesupport==1.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-parser==2.44-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-parser-lite==0.721-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax==0.99-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax-base==1.08-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax-expat==0.51-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-simple==2.20-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-zmq-constants==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-zmq-libzmq3==1.19-1zimbra8.7b1.16.04",
+        "Apt > zimbra-pflogsumm==1.1.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-php==5.6.31-1zimbra8.7b2.16.04",
+        "Apt > zimbra-postfix==3.1.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-postfix-logwatch==1.40.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-prepflog==0.4.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-proxy==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-proxy-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-proxy-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rrdtool==1.2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rrdtool-lib==1.2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rsync==3.1.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-snmp==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-snmp-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-snmp-components==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spamassassin-rules==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spell==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-spell-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spell-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-store==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-store-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-store-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-tcmalloc-lib==2.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-zeromq-lib==4.1.4-1zimbra8.7b1.16.04",
+        "Apt > zlib1g==1:1.2.8.dfsg-2ubuntu4.1"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "entrypoint": null,
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "ubuntu:xenial",
+    "name": "tetatetit/zimbra",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.113 nmu3ubuntu4",
+        "Apt > apt==1.2.24",
+        "Apt > apt-transport-https==1.2.24",
+        "Apt > apt-utils==1.2.24",
+        "Apt > base-files==9.4ubuntu4.5",
+        "Apt > base-passwd==3.5.39",
+        "Apt > bash==4.3-14ubuntu1.2",
+        "Apt > bind9==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9-doc==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9-host==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bind9utils==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > bsdutils==1:2.27.1-6ubuntu3.3",
+        "Apt > ca-certificates==20160104ubuntu1",
+        "Apt > coreutils==8.25-2ubuntu3~16.04",
+        "Apt > cron==3.0pl1-128ubuntu2",
+        "Apt > dash==0.5.8-2.1ubuntu2",
+        "Apt > debconf==1.5.58ubuntu1",
+        "Apt > debianutils==4.7",
+        "Apt > dh-python==2.20151103ubuntu1.1",
+        "Apt > dialog==1.3-20160209-1",
+        "Apt > diffutils==1:3.3-3",
+        "Apt > distro-info-data==0.28ubuntu0.3",
+        "Apt > dnsutils==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > dpkg==1.18.4ubuntu1.2",
+        "Apt > e2fslibs==1.42.13-1ubuntu1",
+        "Apt > e2fsprogs==1.42.13-1ubuntu1",
+        "Apt > file==1:5.25-2ubuntu1",
+        "Apt > findutils==4.6.0 git+20160126-2",
+        "Apt > gcc-5-base==5.4.0-6ubuntu1~16.04.4",
+        "Apt > gcc-6-base==6.0.1-0ubuntu1",
+        "Apt > geoip-database==20160408-1",
+        "Apt > gnupg==1.4.20-1ubuntu3.1",
+        "Apt > gpgv==1.4.20-1ubuntu3.1",
+        "Apt > grep==2.25-1~16.04.1",
+        "Apt > gzip==1.6-4ubuntu1",
+        "Apt > hostname==3.16ubuntu2",
+        "Apt > ifupdown==0.8.10ubuntu1.2",
+        "Apt > init==1.29ubuntu4",
+        "Apt > init-system-helpers==1.29ubuntu4",
+        "Apt > initscripts==2.88dsf-59.3ubuntu2",
+        "Apt > insserv==1.14.0-5ubuntu3",
+        "Apt > iproute2==4.3.0-1ubuntu3.16.04.1",
+        "Apt > isc-dhcp-client==4.3.3-5ubuntu12.7",
+        "Apt > isc-dhcp-common==4.3.3-5ubuntu12.7",
+        "Apt > krb5-locales==1.13.2 dfsg-5ubuntu2",
+        "Apt > libacl1==2.2.52-3",
+        "Apt > libaio1==0.3.110-2",
+        "Apt > libapparmor1==2.10.95-0ubuntu2.7",
+        "Apt > libapt-inst2.0==1.2.24",
+        "Apt > libapt-pkg5.0==1.2.24",
+        "Apt > libasn1-8-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libasound2==1.1.0-0ubuntu1",
+        "Apt > libasound2-data==1.1.0-0ubuntu1",
+        "Apt > libatm1==1:2.5.1-1.5",
+        "Apt > libattr1==1:2.4.47-2",
+        "Apt > libaudit-common==1:2.4.5-1ubuntu2",
+        "Apt > libaudit1==1:2.4.5-1ubuntu2",
+        "Apt > libbind9-140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libblkid1==2.27.1-6ubuntu3.3",
+        "Apt > libbsd0==0.8.2-1",
+        "Apt > libbz2-1.0==1.0.6-8",
+        "Apt > libc-bin==2.23-0ubuntu9",
+        "Apt > libc6==2.23-0ubuntu9",
+        "Apt > libcap2==1:2.24-12",
+        "Apt > libcap2-bin==1:2.24-12",
+        "Apt > libcomerr2==1.42.13-1ubuntu1",
+        "Apt > libcryptsetup4==2:1.6.6-5ubuntu2.1",
+        "Apt > libcurl3-gnutls==7.47.0-1ubuntu2.2",
+        "Apt > libdb5.3==5.3.28-11",
+        "Apt > libdebconfclient0==0.198ubuntu1",
+        "Apt > libdevmapper1.02.1==2:1.02.110-1ubuntu10",
+        "Apt > libdns-export162==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libdns162==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libedit2==3.1-20150325-1ubuntu2",
+        "Apt > libestr0==0.1.10-1",
+        "Apt > libexpat1==2.1.0-7ubuntu0.16.04.3",
+        "Apt > libfdisk1==2.27.1-6ubuntu3.3",
+        "Apt > libffi6==3.2.1-4",
+        "Apt > libfreetype6==2.6.1-0.1ubuntu2.3",
+        "Apt > libgcc1==1:6.0.1-0ubuntu1",
+        "Apt > libgcrypt20==1.6.5-2ubuntu0.3",
+        "Apt > libgdbm3==1.8.3-13.1",
+        "Apt > libgeoip1==1.6.9-1",
+        "Apt > libglib2.0-0==2.48.2-0ubuntu1",
+        "Apt > libglib2.0-data==2.48.2-0ubuntu1",
+        "Apt > libgmp10==2:6.1.0 dfsg-2",
+        "Apt > libgnutls30==3.4.10-4ubuntu1.3",
+        "Apt > libgpg-error0==1.21-2ubuntu1",
+        "Apt > libgpm2==1.20.4-6.1",
+        "Apt > libgssapi-krb5-2==1.13.2 dfsg-5ubuntu2",
+        "Apt > libgssapi3-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libhcrypto4-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libheimbase1-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libheimntlm0-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libhogweed4==3.2-1ubuntu0.16.04.1",
+        "Apt > libhx509-5-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libicu55==55.1-7ubuntu0.2",
+        "Apt > libidn11==1.32-3ubuntu1.1",
+        "Apt > libirs141==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisc-export160==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisc160==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisccc140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libisccfg140==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > libjson-c2==0.11-4ubuntu2",
+        "Apt > libk5crypto3==1.13.2 dfsg-5ubuntu2",
+        "Apt > libkeyutils1==1.5.9-8ubuntu1",
+        "Apt > libkmod2==22-1ubuntu5",
+        "Apt > libkrb5-26-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libkrb5-3==1.13.2 dfsg-5ubuntu2",
+        "Apt > libkrb5support0==1.13.2 dfsg-5ubuntu2",
+        "Apt > libldap-2.4-2==2.4.42 dfsg-2ubuntu3.2",
+        "Apt > liblwres141==1:9.10.3.dfsg.P4-8ubuntu1.7",
+        "Apt > liblz4-1==0.0~r131-2ubuntu2",
+        "Apt > liblzma5==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > libmagic1==1:5.25-2ubuntu1",
+        "Apt > libmnl0==1.0.3-5",
+        "Apt > libmount1==2.27.1-6ubuntu3.3",
+        "Apt > libmpdec2==2.4.2-1",
+        "Apt > libncurses5==6.0 20160213-1ubuntu1",
+        "Apt > libncursesw5==6.0 20160213-1ubuntu1",
+        "Apt > libnettle6==3.2-1ubuntu0.16.04.1",
+        "Apt > libp11-kit0==0.23.2-5~ubuntu16.04.1",
+        "Apt > libpam-modules==1.1.8-3.2ubuntu2",
+        "Apt > libpam-modules-bin==1.1.8-3.2ubuntu2",
+        "Apt > libpam-runtime==1.1.8-3.2ubuntu2",
+        "Apt > libpam0g==1.1.8-3.2ubuntu2",
+        "Apt > libpcre3==2:8.38-3.1",
+        "Apt > libperl5.22==5.22.1-9",
+        "Apt > libpng12-0==1.2.54-1ubuntu1",
+        "Apt > libpopt0==1.16-10",
+        "Apt > libprocps4==2:3.3.10-4ubuntu2.3",
+        "Apt > libpython-stdlib==2.7.11-1",
+        "Apt > libpython2.7-minimal==2.7.12-1ubuntu0~16.04.1",
+        "Apt > libpython2.7-stdlib==2.7.12-1ubuntu0~16.04.1",
+        "Apt > libpython3-stdlib==3.5.1-3",
+        "Apt > libpython3.5==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libpython3.5-minimal==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libpython3.5-stdlib==3.5.2-2ubuntu0~16.04.1",
+        "Apt > libreadline6==6.3-8ubuntu2",
+        "Apt > libroken18-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > librtmp1==2.4 20151223.gitfa8646d-1ubuntu0.1",
+        "Apt > libsasl2-2==2.1.26.dfsg1-14build1",
+        "Apt > libsasl2-modules==2.1.26.dfsg1-14build1",
+        "Apt > libsasl2-modules-db==2.1.26.dfsg1-14build1",
+        "Apt > libseccomp2==2.2.3-3ubuntu3",
+        "Apt > libselinux1==2.4-3build2",
+        "Apt > libsemanage-common==2.3-1build3",
+        "Apt > libsemanage1==2.3-1build3",
+        "Apt > libsensors4==1:3.4.0-2",
+        "Apt > libsepol1==2.4-2",
+        "Apt > libslang2==2.3.0-2ubuntu1",
+        "Apt > libsmartcols1==2.27.1-6ubuntu3.3",
+        "Apt > libsocket6-perl==0.25-1build2",
+        "Apt > libsqlite3-0==3.11.0-1ubuntu1",
+        "Apt > libss2==1.42.13-1ubuntu1",
+        "Apt > libssh2-1==1.5.0-2ubuntu0.1",
+        "Apt > libssl1.0.0==1.0.2g-1ubuntu4.8",
+        "Apt > libstdc++6==5.4.0-6ubuntu1~16.04.4",
+        "Apt > libsystemd0==229-4ubuntu19",
+        "Apt > libtasn1-6==4.7-3ubuntu0.16.04.2",
+        "Apt > libtinfo5==6.0 20160213-1ubuntu1",
+        "Apt > libudev1==229-4ubuntu19",
+        "Apt > libusb-0.1-4==2:0.1.12-28",
+        "Apt > libustr-1.0-1==1.0.4-5",
+        "Apt > libuuid1==2.27.1-6ubuntu3.3",
+        "Apt > libwind0-heimdal==1.7~git20150920 dfsg-4ubuntu1.16.04.1",
+        "Apt > libwrap0==7.6.q-25",
+        "Apt > libx11-6==2:1.6.3-1ubuntu2",
+        "Apt > libx11-data==2:1.6.3-1ubuntu2",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxcb1==1.11.1-1ubuntu1",
+        "Apt > libxdmcp6==1:1.1.2-1.1",
+        "Apt > libxext6==2:1.3.3-1",
+        "Apt > libxi6==2:1.7.6-1",
+        "Apt > libxml2==2.9.3 dfsg1-1ubuntu0.2",
+        "Apt > libxmuu1==2:1.1.2-2",
+        "Apt > libxrender1==1:0.9.9-0ubuntu1",
+        "Apt > libxtables11==1.6.0-2ubuntu3",
+        "Apt > libxtst6==2:1.2.2-1",
+        "Apt > login==1:4.2-3.1ubuntu5.3",
+        "Apt > logrotate==3.8.7-2ubuntu2.16.04.2",
+        "Apt > lsb-base==9.20160110ubuntu0.2",
+        "Apt > lsb-release==9.20160110ubuntu0.2",
+        "Apt > makedev==2.3.1-93ubuntu2~ubuntu16.04.1",
+        "Apt > mawk==1.3.3-17ubuntu2",
+        "Apt > mc==3:4.8.15-2",
+        "Apt > mc-data==3:4.8.15-2",
+        "Apt > mime-support==3.59ubuntu1",
+        "Apt > mount==2.27.1-6ubuntu3.3",
+        "Apt > multiarch-support==2.23-0ubuntu9",
+        "Apt > ncurses-base==6.0 20160213-1ubuntu1",
+        "Apt > ncurses-bin==6.0 20160213-1ubuntu1",
+        "Apt > ncurses-term==6.0 20160213-1ubuntu1",
+        "Apt > net-tools==1.60-26ubuntu1",
+        "Apt > netbase==5.3",
+        "Apt > netcat-openbsd==1.105-7ubuntu1",
+        "Apt > openssh-client==1:7.2p2-4ubuntu2.2",
+        "Apt > openssh-server==1:7.2p2-4ubuntu2.2",
+        "Apt > openssh-sftp-server==1:7.2p2-4ubuntu2.2",
+        "Apt > openssl==1.0.2g-1ubuntu4.8",
+        "Apt > passwd==1:4.2-3.1ubuntu5.3",
+        "Apt > pax==1:20151013-1",
+        "Apt > perl==5.22.1-9",
+        "Apt > perl-base==5.22.1-9",
+        "Apt > perl-modules-5.22==5.22.1-9",
+        "Apt > procps==2:3.3.10-4ubuntu2.3",
+        "Apt > python==2.7.11-1",
+        "Apt > python-minimal==2.7.11-1",
+        "Apt > python2.7==2.7.12-1ubuntu0~16.04.1",
+        "Apt > python2.7-minimal==2.7.12-1ubuntu0~16.04.1",
+        "Apt > python3==3.5.1-3",
+        "Apt > python3-chardet==2.3.0-2",
+        "Apt > python3-minimal==3.5.1-3",
+        "Apt > python3-pkg-resources==20.7.0-1",
+        "Apt > python3-requests==2.9.1-3",
+        "Apt > python3-six==1.10.0-3",
+        "Apt > python3-urllib3==1.13.1-2ubuntu0.16.04.1",
+        "Apt > python3.5==3.5.2-2ubuntu0~16.04.1",
+        "Apt > python3.5-minimal==3.5.2-2ubuntu0~16.04.1",
+        "Apt > readline-common==6.3-8ubuntu2",
+        "Apt > rename==0.20-4",
+        "Apt > resolvconf==1.78ubuntu4",
+        "Apt > rsyslog==8.16.0-1ubuntu3",
+        "Apt > sed==4.2.2-7",
+        "Apt > sensible-utils==0.0.9",
+        "Apt > sgml-base==1.26 nmu4ubuntu1",
+        "Apt > shared-mime-info==1.5-2ubuntu0.1",
+        "Apt > sqlite3==3.11.0-1ubuntu1",
+        "Apt > ssh-import-id==5.5-0ubuntu1",
+        "Apt > sudo==1.8.16-0ubuntu1.5",
+        "Apt > sysstat==11.2.0-1ubuntu0.1",
+        "Apt > systemd==229-4ubuntu19",
+        "Apt > systemd-sysv==229-4ubuntu19",
+        "Apt > sysv-rc==2.88dsf-59.3ubuntu2",
+        "Apt > sysvinit-utils==2.88dsf-59.3ubuntu2",
+        "Apt > tar==1.28-2.1ubuntu0.1",
+        "Apt > tcpd==7.6.q-25",
+        "Apt > ubuntu-keyring==2012.05.19",
+        "Apt > ucf==3.0036",
+        "Apt > unzip==6.0-20ubuntu1",
+        "Apt > util-linux==2.27.1-6ubuntu3.3",
+        "Apt > vim==2:7.4.1689-3ubuntu1.2",
+        "Apt > vim-common==2:7.4.1689-3ubuntu1.2",
+        "Apt > vim-runtime==2:7.4.1689-3ubuntu1.2",
+        "Apt > wget==1.17.1-1ubuntu1.2",
+        "Apt > x11-common==1:7.7 13ubuntu3",
+        "Apt > xauth==1:1.0.9-1ubuntu2",
+        "Apt > xdg-user-dirs==0.15-2ubuntu6",
+        "Apt > xml-core==0.13 nmu2",
+        "Apt > xz-utils==5.1.1alpha 20120614-2ubuntu2",
+        "Apt > zimbra-altermime==0.3.20100505-1zimbra8.7b1.16.04",
+        "Apt > zimbra-amavis-logwatch==1.51.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-amavisd==2.10.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apache==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-apache-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apache-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apr-lib==1.5.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-apr-util-lib==1.5.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell==0.60.6.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-ar==1.2.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-da==1.4.42.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-de==20030222.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-en==7.1.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-es==1.11.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-fr==0.50.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-hi==0.02.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-hu==0.99.4.2.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-it==2.2.20050523.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-lib==0.60.6.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-nl==0.50.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-pl==6.0.20061121.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-pt-br==20090702.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-ru==0.99f7.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-sv==0.51.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-aspell-zimbra==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-base==1.0.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-bdb-lib==5.2.42-1zimbra8.7b1.16.04",
+        "Apt > zimbra-chat==1.0.6-1zimbra8.7b1.u16",
+        "Apt > zimbra-clamav==0.99.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-clamav-db==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-clamav-lib==0.99.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cluebringer==2.1.0.0.cf484f1b93cf9965886cc89d33bdeee9c26426cb-1zimbra8.7b1.16.04",
+        "Apt > zimbra-core==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-core-components==1.0.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-curl==7.49.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-curl-lib==7.49.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cyrus-sasl==2.1.26-1zimbra8.7b1.16.04",
+        "Apt > zimbra-cyrus-sasl-lib==2.1.26-1zimbra8.7b1.16.04",
+        "Apt > zimbra-drive==1.0.6-1zimbra8.7b1.u16",
+        "Apt > zimbra-freetype-lib==2.6.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-heimdal-lib==1.5.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-httpd==2.4.20-1zimbra8.7b1.16.04",
+        "Apt > zimbra-ldap==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-ldap-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-ldap-components==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libart-lib==2.3.21-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libbsd-lib==0.7.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libevent-lib==2.0.22-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libltdl-lib==2.2.6b-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libpng-lib==1.6.23-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libsodium-lib==1.0.6-1zimbra8.7b1.16.04",
+        "Apt > zimbra-libxml2-lib==2.9.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-lmdb==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-lmdb-lib==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-logger==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-mariadb==10.1.25-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mariadb-lib==10.1.25-1zimbra8.7b1.16.04",
+        "Apt > zimbra-memcached==1:1.4.37-2.u16",
+        "Apt > zimbra-memcached-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mta==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-mta-base==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-mta-components==1.0.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-net-snmp==5.7.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-net-snmp-lib==5.7.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-nginx==1.7.1-1zimbra8.7b7.16.04",
+        "Apt > zimbra-opendkim==2.10.3-1zimbra8.7b2.16.04",
+        "Apt > zimbra-opendkim-lib==2.10.3-1zimbra8.7b2.16.04",
+        "Apt > zimbra-openjdk==1.8.0u144b01-1zimbra8.7b4.16.04",
+        "Apt > zimbra-openjdk-cacerts==1.0.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-openldap-client==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openldap-lib==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openldap-server==2.4.44-1zimbra8.7b8.16.04",
+        "Apt > zimbra-openssl==1.0.2l-1zimbra8.7b2.16.04",
+        "Apt > zimbra-openssl-lib==1.0.2l-1zimbra8.7b2.16.04",
+        "Apt > zimbra-os-requirements==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-osl==1.0.9-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl==1.0.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-archive-zip==1.53-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-berkeleydb==0.55-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-bit-vector==7.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-cache-fastmmap==1.43-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-canary-stability==2006-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-carp-clan==6.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-class-inspector==1.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-compress-raw-bzip2==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-compress-raw-zlib==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-config-inifiles==2.86-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-asn1==0.27-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-binhex==1.124-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-tnef==0.18-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-convert-uulib==1.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-openssl-random==0.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-openssl-rsa==0.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-crypt-saltedhash==0.09-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-data-uuid==1.221-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-date-calc==6.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-date-manip==6.51-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-db-file==1.835-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbd-mysql==4.033-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbd-sqlite==1.48-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-dbi==1.634-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-digest-hmac==1.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-digest-sha1==2.13-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-email-date-format==1.005-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-encode-detect==1.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-encode-locale==1.05-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-error==0.17024-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-exporter-tiny==0.042-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-grep==0.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-libmagic==1.15-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-listing==6.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-file-tail==1.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-filesys-df==0.92-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-geography-countries==2009041301-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-html-parser==3.71-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-cookies==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-daemon==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-date==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-message==6.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-http-negotiate==6.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-innotop==1.9.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-compress==2.069-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-html==1.001-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-sessiondata==1.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-inet6==2.72-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-ip==0.37-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-socket-ssl==2.020-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-io-stringy==2.111-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-ip-country==2.28-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-json-pp==2.27300-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-libwww==6.13-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-list-moreutils==0.413-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-lwp-mediatypes==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-lwp-protocol-https==6.06-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mail-dkim==0.40-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mail-spamassassin==3.4.1-1zimbra8.7b2.16.04",
+        "Apt > zimbra-perl-mail-spf==2.9.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mailtools==2.14-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-math-bigint==1.999708-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-lite==3.030-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-tools==5.507-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mime-types==2.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-mozilla-ca==20150826-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-cidr==0.18-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-cidr-lite==0.21-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-dns==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-dns-resolver-programmable==0.003-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-http==6.09-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ldap==0.65-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ldapapi==3.0.3-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-libidn==0.12-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-server==2.008-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-net-ssleay==1.72-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-netaddr-ip==4.078-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-parent==0.234-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-proc-processtable==0.53-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-soap-lite==1.19-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-socket==2.020-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-socket-linux==0.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-swatchdog==3.2.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-task-weaken==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-term-readkey==2.33-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-timedate==2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-unix-getrusage==0.03-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-unix-syslog==1.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-uri==1.69-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-www-robotrules==6.02-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-namespacesupport==1.11-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-parser==2.44-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-parser-lite==0.721-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax==0.99-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax-base==1.08-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-sax-expat==0.51-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-xml-simple==2.20-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-zmq-constants==1.04-1zimbra8.7b1.16.04",
+        "Apt > zimbra-perl-zmq-libzmq3==1.19-1zimbra8.7b1.16.04",
+        "Apt > zimbra-pflogsumm==1.1.5-1zimbra8.7b1.16.04",
+        "Apt > zimbra-php==5.6.31-1zimbra8.7b2.16.04",
+        "Apt > zimbra-postfix==3.1.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-postfix-logwatch==1.40.01-1zimbra8.7b1.16.04",
+        "Apt > zimbra-prepflog==0.4.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-proxy==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-proxy-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-proxy-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rrdtool==1.2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rrdtool-lib==1.2.30-1zimbra8.7b1.16.04",
+        "Apt > zimbra-rsync==3.1.2-1zimbra8.7b1.16.04",
+        "Apt > zimbra-snmp==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-snmp-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-snmp-components==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spamassassin-rules==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spell==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-spell-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-spell-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-store==8.7.11.GA.1854.UBUNTU16.64",
+        "Apt > zimbra-store-base==1.0.0-1zimbra8.7b1.16.04",
+        "Apt > zimbra-store-components==1.0.1-1zimbra8.7b1.16.04",
+        "Apt > zimbra-tcmalloc-lib==2.4-1zimbra8.7b1.16.04",
+        "Apt > zimbra-zeromq-lib==4.1.4-1zimbra8.7b1.16.04",
+        "Apt > zlib1g==1:1.2.8.dfsg-2ubuntu4.1"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

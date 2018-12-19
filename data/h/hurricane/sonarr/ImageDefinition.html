@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "environment": [
+        "LANG=\"en_US.UTF-8\"",
+        "s6_overlay_version=\"1.18.1.5\"",
+        "APP_NAME=\"sonarr\""
+    ],
+    "entrypoint": [
+        "[\"/init\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "opensuse/amd64:tumbleweed",
+    "name": "hurricane/sonarr",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.115",
+        "Apt > apt==1.4.8",
+        "Apt > base-files==9.9 deb9u5",
+        "Apt > base-passwd==3.5.43",
+        "Apt > bash==4.4-5",
+        "Apt > binfmt-support==2.1.6-2",
+        "Apt > binutils==2.28-5",
+        "Apt > bsdutils==1:2.29.2-1 deb9u1",
+        "Apt > ca-certificates==20161130 nmu1+deb9u1",
+        "Apt > ca-certificates-mono==4.6.2.7 dfsg-1",
+        "Apt > cli-common==0.9 nmu1",
+        "Apt > coreutils==8.26-3",
+        "Apt > curl==7.52.1-5 deb9u7",
+        "Apt > dash==0.5.8-2.4",
+        "Apt > debconf==1.5.61",
+        "Apt > debian-archive-keyring==2017.5",
+        "Apt > debianutils==4.8.1.1",
+        "Apt > diffutils==1:3.5-3",
+        "Apt > dpkg==1.18.25",
+        "Apt > e2fslibs==1.43.4-2",
+        "Apt > e2fsprogs==1.43.4-2",
+        "Apt > findutils==4.6.0 git+20161106-2",
+        "Apt > fontconfig-config==2.11.0-6.7",
+        "Apt > fonts-dejavu-core==2.37-1",
+        "Apt > gcc-6-base==6.3.0-18 deb9u1",
+        "Apt > gpgv==2.1.18-8~deb9u2",
+        "Apt > grep==2.27-2",
+        "Apt > gzip==1.6-5 b1",
+        "Apt > hostname==3.18 b1",
+        "Apt > init-system-helpers==1.48",
+        "Apt > iproute2==4.9.0-1 deb9u1",
+        "Apt > iputils-ping==3:20161105-1",
+        "Apt > krb5-locales==1.15-1 deb9u1",
+        "Apt > libacl1==2.2.52-3 b1",
+        "Apt > libapt-pkg5.0==1.4.8",
+        "Apt > libattr1==1:2.4.47-2 b2",
+        "Apt > libaudit-common==1:2.6.7-2",
+        "Apt > libaudit1==1:2.6.7-2",
+        "Apt > libblkid1==2.29.2-1 deb9u1",
+        "Apt > libbsd0==0.8.3-1",
+        "Apt > libbz2-1.0==1.0.6-8.1",
+        "Apt > libc-bin==2.24-11 deb9u3",
+        "Apt > libc-l10n==2.24-11 deb9u3",
+        "Apt > libc6==2.24-11 deb9u3",
+        "Apt > libcairo2==1.14.8-1",
+        "Apt > libcap-ng0==0.7.7-3 b1",
+        "Apt > libcap2==1:2.25-1",
+        "Apt > libcomerr2==1.43.4-2",
+        "Apt > libcurl3==7.52.1-5 deb9u7",
+        "Apt > libcurl3-gnutls==7.52.1-5 deb9u7",
+        "Apt > libdb5.3==5.3.28-12 deb9u1",
+        "Apt > libdebconfclient0==0.227",
+        "Apt > libelf1==0.168-1",
+        "Apt > libexif12==0.6.21-2 b2",
+        "Apt > libexpat1==2.2.0-2 deb9u1",
+        "Apt > libfdisk1==2.29.2-1 deb9u1",
+        "Apt > libffi6==3.2.1-6",
+        "Apt > libfontconfig1==2.11.0-6.7 b1",
+        "Apt > libfreetype6==2.6.3-3.2",
+        "Apt > libgcc1==1:6.3.0-18 deb9u1",
+        "Apt > libgcrypt20==1.7.6-2 deb9u3",
+        "Apt > libgdbm3==1.8.3-14",
+        "Apt > libgdiplus==4.2-1 b1",
+        "Apt > libgif7==5.1.4-0.4",
+        "Apt > libglib2.0-0==2.50.3-2",
+        "Apt > libglib2.0-data==2.50.3-2",
+        "Apt > libgmp10==2:6.1.2 dfsg-1",
+        "Apt > libgnutls30==3.5.8-5 deb9u3",
+        "Apt > libgpg-error0==1.26-2",
+        "Apt > libgssapi-krb5-2==1.15-1 deb9u1",
+        "Apt > libhogweed4==3.3-1 b2",
+        "Apt > libicu57==57.1-6 deb9u2",
+        "Apt > libidn11==1.33-1",
+        "Apt > libidn2-0==0.16-1 deb9u1",
+        "Apt > libjbig0==2.1-3.1 b2",
+        "Apt > libjpeg62-turbo==1:1.5.1-2",
+        "Apt > libk5crypto3==1.15-1 deb9u1",
+        "Apt > libkeyutils1==1.5.9-9",
+        "Apt > libkrb5-3==1.15-1 deb9u1",
+        "Apt > libkrb5support0==1.15-1 deb9u1",
+        "Apt > libldap-2.4-2==2.4.44 dfsg-5+deb9u2",
+        "Apt > libldap-common==2.4.44 dfsg-5+deb9u2",
+        "Apt > liblz4-1==0.0~r131-2 b1",
+        "Apt > liblzma5==5.2.2-1.2 b1",
+        "Apt > libmediainfo0v5==0.7.91-1",
+        "Apt > libmms0==0.6.4-2",
+        "Apt > libmnl0==1.0.4-2",
+        "Apt > libmono-accessibility4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cairo4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cecil-private-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cil-dev==4.6.2.7 dfsg-1",
+        "Apt > libmono-codecontracts4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-compilerservices-symbolwriter4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-corlib4.5-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cscompmgd0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-csharp4.0c-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-custommarshalers4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-data-tds4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-db2-1.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-debugger-soft4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-cjk4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-mideast4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-other4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-rare4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-west4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n4.0-all==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-ldap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-management4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-messaging-rabbitmq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-messaging4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-engine4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-framework4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-tasks-v4.0-4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-utilities-v4.0-4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-csharp4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-visualc10.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-web-infrastructure1.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-oracle4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-parallel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-peapi4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-posix4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-rabbitmq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-relaxng4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-security4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-sharpzip4.84-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-simd4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-smdiagnostics0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-sqlite4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-componentmodel-composition4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-componentmodel-dataannotations4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-configuration-install4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-configuration4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-core4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-datasetextensions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-entity4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-linq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-services-client4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-services4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-deployment4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-drawing-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-drawing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-dynamic4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-enterpriseservices4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-identitymodel-selectors4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-identitymodel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-io-compression-filesystem4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-io-compression4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-json-microsoft4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-json4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-ldap-protocols4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-ldap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-management4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-messaging4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http-formatting4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http-webrequest4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-numerics-vectors4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-numerics4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-core2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-debugger2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-experimental2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-interfaces2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-linq2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-observable-aliases0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-platformservices2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-providers2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-runtime-remoting2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-windows-forms2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-windows-threading2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reflection-context4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-caching4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-durableinstancing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-interopservices-runtimeinformation4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-serialization-formatters-soap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-serialization4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-security4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-activation4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-discovery4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-internals0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-routing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-web4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-serviceprocess4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-threading-tasks-dataflow4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-transactions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-abstractions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-applicationservices4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-dynamicdata4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-extensions-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-extensions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http-selfhost4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http-webhost4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-mobile4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-mvc3.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-razor2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-regularexpressions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-routing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-services4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages-deployment2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages-razor2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows-forms-datavisualization4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows-forms4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-activities4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-componentmodel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-runtime4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xaml4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml-linq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml-serialization4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-tasklets4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-webbrowser4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-webmatrix-data4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-windowsbase4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-xbuild-tasks4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmount1==2.29.2-1 deb9u1",
+        "Apt > libncursesw5==6.0 20161126-1+deb9u2",
+        "Apt > libnettle6==3.3-1 b2",
+        "Apt > libnghttp2-14==1.18.1-1",
+        "Apt > libnunit-cil-dev==2.6.4 dfsg-1",
+        "Apt > libnunit-console-runner2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-core-interfaces2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-core2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-framework2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-mocks2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-util2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libp11-kit0==0.23.3-2",
+        "Apt > libpam-modules==1.1.8-3.6",
+        "Apt > libpam-modules-bin==1.1.8-3.6",
+        "Apt > libpam-runtime==1.1.8-3.6",
+        "Apt > libpam0g==1.1.8-3.6",
+        "Apt > libpcre3==2:8.39-3",
+        "Apt > libperl5.24==5.24.1-3 deb9u4",
+        "Apt > libpipeline1==1.4.1-2",
+        "Apt > libpixman-1-0==0.34.0-1",
+        "Apt > libpng16-16==1.6.28-1",
+        "Apt > libpsl5==0.17.0-3",
+        "Apt > libreadline7==7.0-3",
+        "Apt > librtmp1==2.4 20151223.gitfa8646d.1-1+b1",
+        "Apt > libsasl2-2==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libsasl2-modules==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libsasl2-modules-db==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libselinux1==2.6-3 b3",
+        "Apt > libsemanage-common==2.6-2",
+        "Apt > libsemanage1==2.6-2",
+        "Apt > libsepol1==2.6-2",
+        "Apt > libsmartcols1==2.29.2-1 deb9u1",
+        "Apt > libsqlite3-0==3.16.2-5 deb9u1",
+        "Apt > libss2==1.43.4-2",
+        "Apt > libssh2-1==1.7.0-1",
+        "Apt > libssl1.0.2==1.0.2l-2 deb9u3",
+        "Apt > libssl1.1==1.1.0f-3 deb9u2",
+        "Apt > libstdc++6==6.3.0-18 deb9u1",
+        "Apt > libsystemd0==232-25 deb9u4",
+        "Apt > libtasn1-6==4.10-1.1 deb9u1",
+        "Apt > libtiff5==4.0.8-2 deb9u2",
+        "Apt > libtinfo5==6.0 20161126-1+deb9u2",
+        "Apt > libtinyxml2-4==4.0.1-1",
+        "Apt > libudev1==232-25 deb9u4",
+        "Apt > libunistring0==0.9.6 really0.9.3-0.1",
+        "Apt > libustr-1.0-1==1.0.4-6",
+        "Apt > libuuid1==2.29.2-1 deb9u1",
+        "Apt > libx11-6==2:1.6.4-3",
+        "Apt > libx11-data==2:1.6.4-3",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxcb-render0==1.12-1",
+        "Apt > libxcb-shm0==1.12-1",
+        "Apt > libxcb1==1.12-1",
+        "Apt > libxdmcp6==1:1.1.2-3",
+        "Apt > libxext6==2:1.3.3-1 b2",
+        "Apt > libxml2==2.9.4 dfsg1-2.2+deb9u2",
+        "Apt > libxrender1==1:0.9.10-1",
+        "Apt > libzen0v5==0.4.34-1",
+        "Apt > locales==2.24-11 deb9u3",
+        "Apt > login==1:4.4-4.1",
+        "Apt > lsb-base==9.20161125",
+        "Apt > mawk==1.3.3-17 b3",
+        "Apt > mediainfo==0.7.91-1",
+        "Apt > mono-4.0-gac==4.6.2.7 dfsg-1",
+        "Apt > mono-gac==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime-common==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime-sgen==4.6.2.7 dfsg-1",
+        "Apt > mount==2.29.2-1 deb9u1",
+        "Apt > multiarch-support==2.24-11 deb9u3",
+        "Apt > ncurses-base==6.0 20161126-1+deb9u2",
+        "Apt > ncurses-bin==6.0 20161126-1+deb9u2",
+        "Apt > netbase==5.4",
+        "Apt > openssl==1.1.0f-3 deb9u2",
+        "Apt > passwd==1:4.4-4.1",
+        "Apt > perl==5.24.1-3 deb9u4",
+        "Apt > perl-base==5.24.1-3 deb9u4",
+        "Apt > perl-modules-5.24==5.24.1-3 deb9u4",
+        "Apt > publicsuffix==20180218.2049-0 deb9u1",
+        "Apt > readline-common==7.0-3",
+        "Apt > rename==0.20-4",
+        "Apt > sed==4.4-1",
+        "Apt > sensible-utils==0.0.9 deb9u1",
+        "Apt > sgml-base==1.29",
+        "Apt > shared-mime-info==1.8-1 deb9u1",
+        "Apt > sqlite3==3.16.2-5 deb9u1",
+        "Apt > sudo==1.8.19p1-2.1",
+        "Apt > sysvinit-utils==2.88dsf-59.9",
+        "Apt > tar==1.29b-1.1",
+        "Apt > tzdata==2018g-0 deb9u1",
+        "Apt > ucf==3.0036",
+        "Apt > unzip==6.0-21",
+        "Apt > util-linux==2.29.2-1 deb9u1",
+        "Apt > xdg-user-dirs==0.15-2 b1",
+        "Apt > xml-core==0.17",
+        "Apt > zip==3.0-11 b1",
+        "Apt > zlib1g==1:1.2.8.dfsg-5"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "environment": [
+        "LANG=\"en_US.UTF-8\"",
+        "s6_overlay_version=\"1.18.1.5\"",
+        "APP_NAME=\"sonarr\""
+    ],
+    "entrypoint": [
+        "[\"/init\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "opensuse/amd64:tumbleweed",
+    "name": "hurricane/sonarr",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.115",
+        "Apt > apt==1.4.8",
+        "Apt > base-files==9.9 deb9u5",
+        "Apt > base-passwd==3.5.43",
+        "Apt > bash==4.4-5",
+        "Apt > binfmt-support==2.1.6-2",
+        "Apt > binutils==2.28-5",
+        "Apt > bsdutils==1:2.29.2-1 deb9u1",
+        "Apt > ca-certificates==20161130 nmu1+deb9u1",
+        "Apt > ca-certificates-mono==4.6.2.7 dfsg-1",
+        "Apt > cli-common==0.9 nmu1",
+        "Apt > coreutils==8.26-3",
+        "Apt > curl==7.52.1-5 deb9u7",
+        "Apt > dash==0.5.8-2.4",
+        "Apt > debconf==1.5.61",
+        "Apt > debian-archive-keyring==2017.5",
+        "Apt > debianutils==4.8.1.1",
+        "Apt > diffutils==1:3.5-3",
+        "Apt > dpkg==1.18.25",
+        "Apt > e2fslibs==1.43.4-2",
+        "Apt > e2fsprogs==1.43.4-2",
+        "Apt > findutils==4.6.0 git+20161106-2",
+        "Apt > fontconfig-config==2.11.0-6.7",
+        "Apt > fonts-dejavu-core==2.37-1",
+        "Apt > gcc-6-base==6.3.0-18 deb9u1",
+        "Apt > gpgv==2.1.18-8~deb9u2",
+        "Apt > grep==2.27-2",
+        "Apt > gzip==1.6-5 b1",
+        "Apt > hostname==3.18 b1",
+        "Apt > init-system-helpers==1.48",
+        "Apt > iproute2==4.9.0-1 deb9u1",
+        "Apt > iputils-ping==3:20161105-1",
+        "Apt > krb5-locales==1.15-1 deb9u1",
+        "Apt > libacl1==2.2.52-3 b1",
+        "Apt > libapt-pkg5.0==1.4.8",
+        "Apt > libattr1==1:2.4.47-2 b2",
+        "Apt > libaudit-common==1:2.6.7-2",
+        "Apt > libaudit1==1:2.6.7-2",
+        "Apt > libblkid1==2.29.2-1 deb9u1",
+        "Apt > libbsd0==0.8.3-1",
+        "Apt > libbz2-1.0==1.0.6-8.1",
+        "Apt > libc-bin==2.24-11 deb9u3",
+        "Apt > libc-l10n==2.24-11 deb9u3",
+        "Apt > libc6==2.24-11 deb9u3",
+        "Apt > libcairo2==1.14.8-1",
+        "Apt > libcap-ng0==0.7.7-3 b1",
+        "Apt > libcap2==1:2.25-1",
+        "Apt > libcomerr2==1.43.4-2",
+        "Apt > libcurl3==7.52.1-5 deb9u7",
+        "Apt > libcurl3-gnutls==7.52.1-5 deb9u7",
+        "Apt > libdb5.3==5.3.28-12 deb9u1",
+        "Apt > libdebconfclient0==0.227",
+        "Apt > libelf1==0.168-1",
+        "Apt > libexif12==0.6.21-2 b2",
+        "Apt > libexpat1==2.2.0-2 deb9u1",
+        "Apt > libfdisk1==2.29.2-1 deb9u1",
+        "Apt > libffi6==3.2.1-6",
+        "Apt > libfontconfig1==2.11.0-6.7 b1",
+        "Apt > libfreetype6==2.6.3-3.2",
+        "Apt > libgcc1==1:6.3.0-18 deb9u1",
+        "Apt > libgcrypt20==1.7.6-2 deb9u3",
+        "Apt > libgdbm3==1.8.3-14",
+        "Apt > libgdiplus==4.2-1 b1",
+        "Apt > libgif7==5.1.4-0.4",
+        "Apt > libglib2.0-0==2.50.3-2",
+        "Apt > libglib2.0-data==2.50.3-2",
+        "Apt > libgmp10==2:6.1.2 dfsg-1",
+        "Apt > libgnutls30==3.5.8-5 deb9u3",
+        "Apt > libgpg-error0==1.26-2",
+        "Apt > libgssapi-krb5-2==1.15-1 deb9u1",
+        "Apt > libhogweed4==3.3-1 b2",
+        "Apt > libicu57==57.1-6 deb9u2",
+        "Apt > libidn11==1.33-1",
+        "Apt > libidn2-0==0.16-1 deb9u1",
+        "Apt > libjbig0==2.1-3.1 b2",
+        "Apt > libjpeg62-turbo==1:1.5.1-2",
+        "Apt > libk5crypto3==1.15-1 deb9u1",
+        "Apt > libkeyutils1==1.5.9-9",
+        "Apt > libkrb5-3==1.15-1 deb9u1",
+        "Apt > libkrb5support0==1.15-1 deb9u1",
+        "Apt > libldap-2.4-2==2.4.44 dfsg-5+deb9u2",
+        "Apt > libldap-common==2.4.44 dfsg-5+deb9u2",
+        "Apt > liblz4-1==0.0~r131-2 b1",
+        "Apt > liblzma5==5.2.2-1.2 b1",
+        "Apt > libmediainfo0v5==0.7.91-1",
+        "Apt > libmms0==0.6.4-2",
+        "Apt > libmnl0==1.0.4-2",
+        "Apt > libmono-accessibility4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cairo4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cecil-private-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cil-dev==4.6.2.7 dfsg-1",
+        "Apt > libmono-codecontracts4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-compilerservices-symbolwriter4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-corlib4.5-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-cscompmgd0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-csharp4.0c-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-custommarshalers4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-data-tds4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-db2-1.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-debugger-soft4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-cjk4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-mideast4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-other4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-rare4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n-west4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n4.0-all==4.6.2.7 dfsg-1",
+        "Apt > libmono-i18n4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-ldap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-management4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-messaging-rabbitmq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-messaging4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-engine4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-framework4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-tasks-v4.0-4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build-utilities-v4.0-4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-build4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-csharp4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-visualc10.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-microsoft-web-infrastructure1.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-oracle4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-parallel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-peapi4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-posix4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-rabbitmq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-relaxng4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-security4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-sharpzip4.84-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-simd4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-smdiagnostics0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-sqlite4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-componentmodel-composition4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-componentmodel-dataannotations4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-configuration-install4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-configuration4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-core4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-datasetextensions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-entity4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-linq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-services-client4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data-services4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-data4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-deployment4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-drawing-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-drawing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-dynamic4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-enterpriseservices4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-identitymodel-selectors4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-identitymodel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-io-compression-filesystem4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-io-compression4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-json-microsoft4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-json4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-ldap-protocols4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-ldap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-management4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-messaging4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http-formatting4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http-webrequest4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-net4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-numerics-vectors4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-numerics4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-core2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-debugger2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-experimental2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-interfaces2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-linq2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-observable-aliases0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-platformservices2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-providers2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-runtime-remoting2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-windows-forms2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reactive-windows-threading2.2-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-reflection-context4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-caching4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-durableinstancing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-interopservices-runtimeinformation4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-serialization-formatters-soap4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime-serialization4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-runtime4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-security4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-activation4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-discovery4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-internals0.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-routing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel-web4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-servicemodel4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-serviceprocess4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-threading-tasks-dataflow4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-transactions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-abstractions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-applicationservices4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-dynamicdata4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-extensions-design4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-extensions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http-selfhost4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http-webhost4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-http4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-mobile4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-mvc3.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-razor2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-regularexpressions4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-routing4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-services4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages-deployment2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages-razor2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web-webpages2.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-web4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows-forms-datavisualization4.0a-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows-forms4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-windows4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-activities4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-componentmodel4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-workflow-runtime4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xaml4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml-linq4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml-serialization4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system-xml4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-system4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-tasklets4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-webbrowser4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-webmatrix-data4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-windowsbase4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmono-xbuild-tasks4.0-cil==4.6.2.7 dfsg-1",
+        "Apt > libmount1==2.29.2-1 deb9u1",
+        "Apt > libncursesw5==6.0 20161126-1+deb9u2",
+        "Apt > libnettle6==3.3-1 b2",
+        "Apt > libnghttp2-14==1.18.1-1",
+        "Apt > libnunit-cil-dev==2.6.4 dfsg-1",
+        "Apt > libnunit-console-runner2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-core-interfaces2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-core2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-framework2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-mocks2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libnunit-util2.6.3-cil==2.6.4 dfsg-1",
+        "Apt > libp11-kit0==0.23.3-2",
+        "Apt > libpam-modules==1.1.8-3.6",
+        "Apt > libpam-modules-bin==1.1.8-3.6",
+        "Apt > libpam-runtime==1.1.8-3.6",
+        "Apt > libpam0g==1.1.8-3.6",
+        "Apt > libpcre3==2:8.39-3",
+        "Apt > libperl5.24==5.24.1-3 deb9u4",
+        "Apt > libpipeline1==1.4.1-2",
+        "Apt > libpixman-1-0==0.34.0-1",
+        "Apt > libpng16-16==1.6.28-1",
+        "Apt > libpsl5==0.17.0-3",
+        "Apt > libreadline7==7.0-3",
+        "Apt > librtmp1==2.4 20151223.gitfa8646d.1-1+b1",
+        "Apt > libsasl2-2==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libsasl2-modules==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libsasl2-modules-db==2.1.27~101-g0780600 dfsg-3",
+        "Apt > libselinux1==2.6-3 b3",
+        "Apt > libsemanage-common==2.6-2",
+        "Apt > libsemanage1==2.6-2",
+        "Apt > libsepol1==2.6-2",
+        "Apt > libsmartcols1==2.29.2-1 deb9u1",
+        "Apt > libsqlite3-0==3.16.2-5 deb9u1",
+        "Apt > libss2==1.43.4-2",
+        "Apt > libssh2-1==1.7.0-1",
+        "Apt > libssl1.0.2==1.0.2l-2 deb9u3",
+        "Apt > libssl1.1==1.1.0f-3 deb9u2",
+        "Apt > libstdc++6==6.3.0-18 deb9u1",
+        "Apt > libsystemd0==232-25 deb9u4",
+        "Apt > libtasn1-6==4.10-1.1 deb9u1",
+        "Apt > libtiff5==4.0.8-2 deb9u2",
+        "Apt > libtinfo5==6.0 20161126-1+deb9u2",
+        "Apt > libtinyxml2-4==4.0.1-1",
+        "Apt > libudev1==232-25 deb9u4",
+        "Apt > libunistring0==0.9.6 really0.9.3-0.1",
+        "Apt > libustr-1.0-1==1.0.4-6",
+        "Apt > libuuid1==2.29.2-1 deb9u1",
+        "Apt > libx11-6==2:1.6.4-3",
+        "Apt > libx11-data==2:1.6.4-3",
+        "Apt > libxau6==1:1.0.8-1",
+        "Apt > libxcb-render0==1.12-1",
+        "Apt > libxcb-shm0==1.12-1",
+        "Apt > libxcb1==1.12-1",
+        "Apt > libxdmcp6==1:1.1.2-3",
+        "Apt > libxext6==2:1.3.3-1 b2",
+        "Apt > libxml2==2.9.4 dfsg1-2.2+deb9u2",
+        "Apt > libxrender1==1:0.9.10-1",
+        "Apt > libzen0v5==0.4.34-1",
+        "Apt > locales==2.24-11 deb9u3",
+        "Apt > login==1:4.4-4.1",
+        "Apt > lsb-base==9.20161125",
+        "Apt > mawk==1.3.3-17 b3",
+        "Apt > mediainfo==0.7.91-1",
+        "Apt > mono-4.0-gac==4.6.2.7 dfsg-1",
+        "Apt > mono-gac==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime-common==4.6.2.7 dfsg-1",
+        "Apt > mono-runtime-sgen==4.6.2.7 dfsg-1",
+        "Apt > mount==2.29.2-1 deb9u1",
+        "Apt > multiarch-support==2.24-11 deb9u3",
+        "Apt > ncurses-base==6.0 20161126-1+deb9u2",
+        "Apt > ncurses-bin==6.0 20161126-1+deb9u2",
+        "Apt > netbase==5.4",
+        "Apt > openssl==1.1.0f-3 deb9u2",
+        "Apt > passwd==1:4.4-4.1",
+        "Apt > perl==5.24.1-3 deb9u4",
+        "Apt > perl-base==5.24.1-3 deb9u4",
+        "Apt > perl-modules-5.24==5.24.1-3 deb9u4",
+        "Apt > publicsuffix==20180218.2049-0 deb9u1",
+        "Apt > readline-common==7.0-3",
+        "Apt > rename==0.20-4",
+        "Apt > sed==4.4-1",
+        "Apt > sensible-utils==0.0.9 deb9u1",
+        "Apt > sgml-base==1.29",
+        "Apt > shared-mime-info==1.8-1 deb9u1",
+        "Apt > sqlite3==3.16.2-5 deb9u1",
+        "Apt > sudo==1.8.19p1-2.1",
+        "Apt > sysvinit-utils==2.88dsf-59.9",
+        "Apt > tar==1.29b-1.1",
+        "Apt > tzdata==2018g-0 deb9u1",
+        "Apt > ucf==3.0036",
+        "Apt > unzip==6.0-21",
+        "Apt > util-linux==2.29.2-1 deb9u1",
+        "Apt > xdg-user-dirs==0.15-2 b1",
+        "Apt > xml-core==0.17",
+        "Apt > zip==3.0-11 b1",
+        "Apt > zlib1g==1:1.2.8.dfsg-5"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>

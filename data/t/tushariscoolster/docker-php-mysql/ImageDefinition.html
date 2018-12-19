@@ -1,0 +1,872 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+    <meta charset="UTF-8">
+    <title>Schema.org Metadata Json</title>
+<style>
+body {
+	background: #e16a3f;
+}
+
+.code-editor:before,
+.code-editor:after,
+.code-editor span.control:before,
+.code-editor span.after:after {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	content: '';
+	position: absolute;
+	z-index: 1;
+	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor {
+	box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	-o-box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	margin: 40px auto 0 auto;
+   	width: 750px; 
+   	text-align: left;
+   	background-color: #473431;
+   	border-radius: 0 0 5px 5px;
+   	overflow: auto;
+   	-webkit-transition: all .5s ease-in-out;
+    -moz-transition: wall .5s ease-in-out;
+    -o-transition: all .5s ease-in-out;
+    transition: all .5s ease-in-out;
+}
+
+.code-editor:before {
+	content: 'Schema.org Metadata';
+	font-family: 'Consolas';
+	color: #222;
+	padding-top: 6px; 
+	text-align: center;
+	top: 25px;
+	width: 750px;
+	height: 30px;
+	background-color: #fafafa;
+	border-radius: 5px 5px 0 0;
+	-moz-border-radius: 5px 5px 0 0;
+	-o-border-radius: 5px 5px 0 0;
+	-webkit-border-radius: 5px 5px 0 0;
+}
+
+.code-editor span.control:before {
+	content: '';
+	top: 34px;
+	z-index: 2;
+	padding: 6px;
+	border-radius: 20px;
+	-moz-border-radius: 20px;
+	-o-border-radius: 20px;
+	-webkit-border-radius: 20px;
+}
+
+.code-editor span.control:nth-child(1):before {
+	margin-left: 15px;
+	background-color: #df6963;
+	
+}
+
+.code-editor span.control:nth-child(2):before {
+	margin-left: 35px;
+	background-color: #f5e18a;
+	
+}
+
+.code-editor span.control:nth-child(3):before {
+	margin-left: 55px;
+	background-color: #97c38a;
+}
+
+/* -- iPad Screen -- */
+@media only screen and (min-width: 480px) and (max-width: 768px) {
+	.code-editor {
+   		width: 500px; 
+	}
+
+	.code-editor:before {
+		width: 500px;
+	}
+}
+
+/* -- iPhone Screen -- */
+@media only screen and (max-width: 479px) {
+	.code-editor {
+		width: 300px;
+	}	
+
+	.code-editor:before {
+		width: 300px;
+	}
+}
+
+/**
+ * prism.js tomorrow night eighties for JavaScript, CoffeeScript, CSS and HTML
+ * Based on https://github.com/chriskempson/tomorrow-theme
+ * @author Rose Pritchard
+ */
+
+code[class*="language-"],
+pre[class*="language-"] {
+  color: #ccc;
+  font-family: Consolas, Monaco, 'Andale Mono', monospace;
+  direction: ltr;
+  text-align: left;
+  white-space: pre;
+  word-spacing: normal;
+
+  -moz-tab-size: 4;
+  -o-tab-size: 4;
+  tab-size: 4;
+
+  -webkit-hyphens: none;
+  -moz-hyphens: none;
+  -ms-hyphens: none;
+  hyphens: none;
+
+}
+
+/* Code blocks */
+pre[class*="language-"] {
+  padding: 1em;
+  margin: 0em 0;
+  height: 500px;
+  overflow: auto;
+}
+
+:not(pre) > code[class*="language-"],
+pre[class*="language-"] {
+  background: #473431;
+}
+
+/* Inline code */
+:not(pre) > code[class*="language-"] {
+  padding: .1em;
+  border-radius: .3em;
+  -moz-border-radius: .3em;
+  -o-border-radius: .3em;
+  -webkit-border-radius: .3em;
+}
+
+.token.comment,
+.token.block-comment,
+.token.prolog,
+.token.doctype,
+.token.cdata {
+  color: #999;
+}
+
+.token.punctuation {
+  color: #ccc;
+}
+
+
+.token.tag,
+.token.attr-name,
+.token.namespace {
+  color: #e2777a;
+}
+
+.token.function-name {
+  color: #6196cc;
+}
+
+
+.token.boolean,
+.token.number,
+.token.function {
+  color: #f08d49;
+}
+
+.token.property,
+.token.class-name,
+.token.constant,
+.token.symbol {
+  color: #f8c555;
+}
+
+.token.selector,
+.token.important,
+.token.atrule,
+.token.keyword,
+.token.builtin {
+  color: #cc99cd;
+}
+
+.token.string,
+.token.attr-value,
+.token.regex,
+.token.variable {
+  color: #7ec699;
+}
+
+.token.operator,
+.token.entity,
+.token.url
+{
+  color: #67cdcc;
+}
+
+
+.token.important {
+  font-weight: bold;
+}
+
+.token.entity {
+  cursor: help;
+}
+
+pre.line-numbers {
+	position: relative;
+	padding-left: 3.8em;
+	counter-reset: linenumber;
+	padding-bottom: 1px;
+}
+
+pre.line-numbers > code {
+	position: relative;
+}
+
+.line-numbers .line-numbers-rows {
+	position: absolute;
+	pointer-events: none;
+	top: 0;
+
+	font-size: 100%;
+	left: -13em;
+	width: 3em; /* works for line-numbers below 1000 lines */
+	letter-spacing: -1px;
+	background-color: #322422;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+
+}
+
+.line-numbers-rows > span {
+	pointer-events: none;
+	display: block;
+	counter-increment: linenumber;
+}
+
+.line-numbers-rows > span:before {
+	content: counter(linenumber);
+	color: #999;
+	display: block;
+	padding-right: 0.8em;
+	text-align: right;
+}
+</style>
+</head>
+
+<body>
+<div class="code-editor">	
+    <span class="control"></span>
+    <span class="control"></span>
+    <span class="control"></span>
+    <pre class="line-numbers">
+    <code class="language-json">
+{
+    "environment": [
+        "DOCUMENT_ROOT=/var/www/app/html",
+        "ENVIRONMENT=dev",
+        "COMPOSER_ALLOW_SUPERUSER=1"
+    ],
+    "entrypoint": [
+        "[\"/bin/bash\", \"/run.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "pblaszczyk/debian-lenny",
+    "name": "tushariscoolster/docker-php-mysql",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.110",
+        "Apt > apache2==2.2.9-10 lenny12",
+        "Apt > apache2-mpm-prefork==2.2.9-10 lenny12",
+        "Apt > apache2-utils==2.2.9-10 lenny12",
+        "Apt > apache2.2-common==2.2.9-10 lenny12",
+        "Apt > apt==0.7.20.2 lenny2",
+        "Apt > apt-utils==0.7.20.2 lenny2",
+        "Apt > aptitude==0.4.11.11-1~lenny2",
+        "Apt > base-files==5lenny11",
+        "Apt > base-passwd==3.5.20",
+        "Apt > bash==3.2-4",
+        "Apt > bsdmainutils==6.1.10",
+        "Apt > bsdutils==1:2.13.1.1-1",
+        "Apt > ca-certificates==20080809",
+        "Apt > coreutils==6.10-6",
+        "Apt > cpio==2.9-13lenny1",
+        "Apt > cron==3.0pl1-105",
+        "Apt > curl==7.18.2-8lenny6",
+        "Apt > debconf==1.5.24",
+        "Apt > debconf-i18n==1.5.24",
+        "Apt > debian-archive-keyring==2010.08.28~lenny1",
+        "Apt > debianutils==2.30",
+        "Apt > defoma==0.11.10-0.2",
+        "Apt > dhcp3-client==3.1.1-6 lenny6",
+        "Apt > dhcp3-common==3.1.1-6 lenny6",
+        "Apt > diff==2.8.1-12",
+        "Apt > djvulibre-desktop==3.5.20-8 lenny1",
+        "Apt > dmidecode==2.9-1",
+        "Apt > dpkg==1.14.31",
+        "Apt > e2fslibs==1.41.3-1",
+        "Apt > e2fsprogs==1.41.3-1",
+        "Apt > ed==0.7-3",
+        "Apt > file==4.26-1",
+        "Apt > findutils==4.4.0-2",
+        "Apt > fontconfig==2.6.0-3",
+        "Apt > fontconfig-config==2.6.0-3",
+        "Apt > gcc-4.2-base==4.2.4-6",
+        "Apt > gcc-4.3-base==4.3.2-1.1",
+        "Apt > ghostscript==8.62.dfsg.1-3.2lenny5",
+        "Apt > git==4.9.4-1",
+        "Apt > gnuit==4.9.4-1",
+        "Apt > gnupg==1.4.9-3 lenny1",
+        "Apt > gpgv==1.4.9-3 lenny1",
+        "Apt > grep==2.5.3~dfsg-6",
+        "Apt > groff-base==1.18.1.1-21",
+        "Apt > gs-common==8.62.dfsg.1-3.2lenny5",
+        "Apt > gsfonts==1:8.11 urwcyr1.0.7~pre44-3",
+        "Apt > gzip==1.3.12-6 lenny1",
+        "Apt > hicolor-icon-theme==0.10-1",
+        "Apt > hostname==2.95",
+        "Apt > ifupdown==0.6.8 nmu1",
+        "Apt > info==4.11.dfsg.1-4",
+        "Apt > initscripts==2.86.ds1-61",
+        "Apt > iproute==20080725-2",
+        "Apt > iptables==1.4.2-6",
+        "Apt > iputils-ping==3:20071127-1 lenny1",
+        "Apt > libacl1==2.2.47-2",
+        "Apt > libapache2-mod-php5==5.2.6.dfsg.1-1 lenny16",
+        "Apt > libapr1==1.2.12-5 lenny5",
+        "Apt > libaprutil1==1.2.12 dfsg-8+lenny5",
+        "Apt > libatk1.0-0==1.22.0-1",
+        "Apt > libatk1.0-data==1.22.0-1",
+        "Apt > libattr1==1:2.4.43-2",
+        "Apt > libblkid1==1.41.3-1",
+        "Apt > libbz2-1.0==1.0.5-1 lenny1",
+        "Apt > libc-client2007b==7:2007b~dfsg-4 lenny3",
+        "Apt > libc6==2.7-18lenny7",
+        "Apt > libcairo2==1.6.4-7",
+        "Apt > libcomerr2==1.41.3-1",
+        "Apt > libconsole==1:0.2.3dbs-65.1",
+        "Apt > libcroco3==0.6.1-2",
+        "Apt > libcups2==1.3.8-1 lenny10",
+        "Apt > libcupsimage2==1.3.8-1 lenny10",
+        "Apt > libcurl3==7.18.2-8lenny6",
+        "Apt > libcwidget3==0.5.12-4",
+        "Apt > libdatrie0==0.1.3-2",
+        "Apt > libdb4.5==4.5.20-13",
+        "Apt > libdb4.6==4.6.21-11",
+        "Apt > libdevmapper1.02.1==2:1.02.27-4",
+        "Apt > libdirectfb-1.0-0==1.0.1-11",
+        "Apt > libdjvulibre21==3.5.20-8 lenny1",
+        "Apt > libept0==0.5.22",
+        "Apt > libexpat1==2.0.1-4 lenny3",
+        "Apt > libfontconfig1==2.6.0-3",
+        "Apt > libfontenc1==1:1.0.4-3",
+        "Apt > libfreetype6==2.3.7-2 lenny8",
+        "Apt > libgcc1==1:4.3.2-1.1",
+        "Apt > libgcrypt11==1.4.1-1",
+        "Apt > libgd2-xpm==2.0.36~rc1~dfsg-3 lenny1",
+        "Apt > libgdbm3==1.8.3-3",
+        "Apt > libglib2.0-0==2.16.6-3",
+        "Apt > libglib2.0-data==2.16.6-3",
+        "Apt > libgnutls26==2.4.2-6 lenny2",
+        "Apt > libgpg-error0==1.4-2",
+        "Apt > libgpm2==1.20.4-3.1",
+        "Apt > libgraphviz4==2.20.2-3",
+        "Apt > libgs8==8.62.dfsg.1-3.2lenny5",
+        "Apt > libgsf-1-114==1.14.8-1lenny2",
+        "Apt > libgsf-1-common==1.14.8-1lenny2",
+        "Apt > libgtk2.0-0==2.12.12-1~lenny2",
+        "Apt > libgtk2.0-bin==2.12.12-1~lenny2",
+        "Apt > libgtk2.0-common==2.12.12-1~lenny2",
+        "Apt > libice6==2:1.0.4-1",
+        "Apt > libidn11==1.8 20080606-1",
+        "Apt > libilmbase6==1.0.1-2 nmu2",
+        "Apt > libjasper1==1.900.1-5.1 lenny2",
+        "Apt > libjpeg62==6b-14",
+        "Apt > libkeyutils1==1.2-9",
+        "Apt > libkrb53==1.6.dfsg.4~beta1-5lenny7",
+        "Apt > liblcms1==1.17.dfsg-1 lenny2",
+        "Apt > libldap-2.4-2==2.4.11-1 lenny2.1",
+        "Apt > liblocale-gettext-perl==1.05-4",
+        "Apt > libltdl3==1.5.26-4 lenny1",
+        "Apt > libmagic1==4.26-1",
+        "Apt > libmagick10==7:6.3.7.9.dfsg2-1~lenny4",
+        "Apt > libmcrypt4==2.5.7-5",
+        "Apt > libmysqlclient15off==5.0.51a-24 lenny5",
+        "Apt > libncurses5==5.7 20081213-1",
+        "Apt > libncursesw5==5.7 20081213-1",
+        "Apt > libnewt0.52==0.52.2-11.3 lenny1",
+        "Apt > libopenexr6==1.6.1-3 lenny3",
+        "Apt > libpam-modules==1.0.1-5 lenny1",
+        "Apt > libpam-runtime==1.0.1-5 lenny1",
+        "Apt > libpam0g==1.0.1-5 lenny1",
+        "Apt > libpango1.0-0==1.20.5-6",
+        "Apt > libpango1.0-common==1.20.5-6",
+        "Apt > libpaper-utils==1.1.23 nmu1",
+        "Apt > libpaper1==1.1.23 nmu1",
+        "Apt > libpcre3==7.6-2.1",
+        "Apt > libpixman-1-0==0.10.0-2",
+        "Apt > libpng12-0==1.2.27-2 lenny5",
+        "Apt > libpopt0==1.14-4",
+        "Apt > libpq5==8.3.17-0lenny1",
+        "Apt > libreadline5==5.2-3.1",
+        "Apt > librsvg2-2==2.22.2-2lenny1",
+        "Apt > libsasl2-2==2.1.22.dfsg1-23 lenny1",
+        "Apt > libselinux1==2.0.65-5",
+        "Apt > libsepol1==2.0.30-2",
+        "Apt > libsigc++-2.0-0c2a==2.0.18-2",
+        "Apt > libslang2==2.1.3-3",
+        "Apt > libsm6==2:1.0.3-2",
+        "Apt > libsqlite0==2.8.17-4",
+        "Apt > libsqlite3-0==3.5.9-6",
+        "Apt > libss2==1.41.3-1",
+        "Apt > libssh2-1==0.18-1",
+        "Apt > libssl0.9.8==0.9.8g-15 lenny16",
+        "Apt > libstdc++6==4.3.2-1.1",
+        "Apt > libsysfs2==2.1.0-5",
+        "Apt > libt1-5==5.1.2-3 lenny1",
+        "Apt > libtasn1-3==1.4-1",
+        "Apt > libtext-charwidth-perl==0.04-5 b1",
+        "Apt > libtext-iconv-perl==1.7-1 b1",
+        "Apt > libtext-wrapi18n-perl==0.06-6",
+        "Apt > libthai-data==0.1.9-4 lenny1",
+        "Apt > libthai0==0.1.9-4 lenny1",
+        "Apt > libtidy-0.99-0==20080116cvs-2",
+        "Apt > libtiff4==3.8.2-11.5",
+        "Apt > libts-0.0-0==1.0-4",
+        "Apt > libusb-0.1-4==2:0.1.12-13",
+        "Apt > libuuid1==1.41.3-1",
+        "Apt > libwmf0.2-7==0.2.8.4-6 lenny1",
+        "Apt > libwrap0==7.6.q-16",
+        "Apt > libx11-6==2:1.1.5-2",
+        "Apt > libx11-data==2:1.1.5-2",
+        "Apt > libxapian15==1.0.7-4",
+        "Apt > libxau6==1:1.0.3-3",
+        "Apt > libxcb-render-util0==0.2.1 git1-1",
+        "Apt > libxcb-render0==1.1-1.2",
+        "Apt > libxcb-xlib0==1.1-1.2",
+        "Apt > libxcb1==1.1-1.2",
+        "Apt > libxcomposite1==1:0.4.0-3",
+        "Apt > libxcursor1==1:1.1.9-1",
+        "Apt > libxdamage1==1:1.1.1-4",
+        "Apt > libxdmcp6==1:1.0.2-3",
+        "Apt > libxext6==2:1.0.4-2",
+        "Apt > libxfixes3==1:4.0.3-2",
+        "Apt > libxfont1==1:1.3.3-2",
+        "Apt > libxft2==2.1.12-3",
+        "Apt > libxi6==2:1.1.4-1",
+        "Apt > libxinerama1==2:1.0.3-2",
+        "Apt > libxml2==2.6.32.dfsg-5 lenny5",
+        "Apt > libxpm4==1:3.5.7-1",
+        "Apt > libxrandr2==2:1.2.3-1",
+        "Apt > libxrender1==1:0.9.4-2",
+        "Apt > libxt6==1:1.0.5-3",
+        "Apt > locales==2.7-18lenny7",
+        "Apt > login==1:4.1.1-6 lenny1",
+        "Apt > logrotate==3.7.1-5",
+        "Apt > lsb-base==3.2-20",
+        "Apt > lzma==4.43-14",
+        "Apt > makedev==2.3.1-88",
+        "Apt > man-db==2.5.2-5",
+        "Apt > manpages==3.05-1",
+        "Apt > mawk==1.3.3-11.1",
+        "Apt > mime-support==3.44-1",
+        "Apt > mktemp==1.5-9",
+        "Apt > mlock==7:2007b~dfsg-4 lenny3",
+        "Apt > module-init-tools==3.4-1",
+        "Apt > mount==2.13.1.1-1",
+        "Apt > mysql-common==5.0.51a-24 lenny5",
+        "Apt > nano==2.0.7-5",
+        "Apt > ncurses-base==5.7 20081213-1",
+        "Apt > ncurses-bin==5.7 20081213-1",
+        "Apt > net-tools==1.60-22",
+        "Apt > netbase==4.34",
+        "Apt > netcat-traditional==1.10-38",
+        "Apt > openssl==0.9.8g-15 lenny16",
+        "Apt > openssl-blacklist==0.4.2",
+        "Apt > passwd==1:4.1.1-6 lenny1",
+        "Apt > perl==5.10.0-19lenny5",
+        "Apt > perl-base==5.10.0-19lenny5",
+        "Apt > perl-modules==5.10.0-19lenny5",
+        "Apt > php-apc==3.0.19-2",
+        "Apt > php-pear==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-cli==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-common==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-curl==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-gd==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-imagick==2.1.1RC1-1",
+        "Apt > php5-imap==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-mcrypt==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-mysql==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-sqlite==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-tidy==5.2.6.dfsg.1-1 lenny16",
+        "Apt > procps==1:3.2.7-11",
+        "Apt > psfontmgr==0.11.10-0.2",
+        "Apt > psmisc==22.6-1",
+        "Apt > python==2.5.2-3",
+        "Apt > python-minimal==2.5.2-3",
+        "Apt > python2.5==2.5.2-15 lenny1",
+        "Apt > python2.5-minimal==2.5.2-15 lenny1",
+        "Apt > readline-common==5.2-3.1",
+        "Apt > rsyslog==3.18.6-4",
+        "Apt > sed==4.1.5-6",
+        "Apt > sgml-base==1.26",
+        "Apt > ssl-cert==1.0.23",
+        "Apt > sysv-rc==2.86.ds1-61",
+        "Apt > sysvinit==2.86.ds1-61",
+        "Apt > sysvinit-utils==2.86.ds1-61",
+        "Apt > tar==1.20-1 lenny1",
+        "Apt > tasksel==2.78",
+        "Apt > tasksel-data==2.78",
+        "Apt > tcpd==7.6.q-16",
+        "Apt > traceroute==2.0.11-2",
+        "Apt > ttf-dejavu==2.25-3",
+        "Apt > ttf-dejavu-core==2.25-3",
+        "Apt > ttf-dejavu-extra==2.25-3",
+        "Apt > tzdata==2011k-0lenny1",
+        "Apt > ucf==3.0016",
+        "Apt > update-inetd==4.31",
+        "Apt > util-linux==2.13.1.1-1",
+        "Apt > vim==1:7.1.314-3 lenny2",
+        "Apt > vim-common==1:7.1.314-3 lenny2",
+        "Apt > vim-runtime==1:7.1.314-3 lenny2",
+        "Apt > vim-tiny==1:7.1.314-3 lenny2",
+        "Apt > wget==1.11.4-2 lenny2",
+        "Apt > whiptail==0.52.2-11.3 lenny1",
+        "Apt > x-ttcidfont-conf==31",
+        "Apt > x11-common==1:7.3 20",
+        "Apt > xfonts-encodings==1:1.0.2-3",
+        "Apt > xfonts-utils==1:7.4 1",
+        "Apt > xml-core==0.12",
+        "Apt > zlib1g==1:1.2.3.3.dfsg-12"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</code></pre>
+</div>
+<script type="application/ld+json">
+{
+    "environment": [
+        "DOCUMENT_ROOT=/var/www/app/html",
+        "ENVIRONMENT=dev",
+        "COMPOSER_ALLOW_SUPERUSER=1"
+    ],
+    "entrypoint": [
+        "[\"/bin/bash\", \"/run.sh\"]"
+    ],
+    "creator": {
+        "name": "@vsoch",
+        "contactPoint": {
+            "@type": "ContactPoint"
+        },
+        "@type": "Person"
+    },
+    "version": "0.0.1",
+    "description": "A Dockerfile build recipe",
+    "ContainerImage": "pblaszczyk/debian-lenny",
+    "name": "tushariscoolster/docker-php-mysql",
+    "thumbnailUrl": "https://vsoch.github.io/datasets/assets/img/avocado.png",
+    "sameAs": "ImageDefinition",
+    "about": "This is a Dockerfile provided by the Dinosaur Dataset collection.",
+    "codeRepository": "https://www.github.com/openschemas/dockerfiles",
+    "runtime": "Docker",
+    "softwareRequirements": [
+        "Apt > adduser==3.110",
+        "Apt > apache2==2.2.9-10 lenny12",
+        "Apt > apache2-mpm-prefork==2.2.9-10 lenny12",
+        "Apt > apache2-utils==2.2.9-10 lenny12",
+        "Apt > apache2.2-common==2.2.9-10 lenny12",
+        "Apt > apt==0.7.20.2 lenny2",
+        "Apt > apt-utils==0.7.20.2 lenny2",
+        "Apt > aptitude==0.4.11.11-1~lenny2",
+        "Apt > base-files==5lenny11",
+        "Apt > base-passwd==3.5.20",
+        "Apt > bash==3.2-4",
+        "Apt > bsdmainutils==6.1.10",
+        "Apt > bsdutils==1:2.13.1.1-1",
+        "Apt > ca-certificates==20080809",
+        "Apt > coreutils==6.10-6",
+        "Apt > cpio==2.9-13lenny1",
+        "Apt > cron==3.0pl1-105",
+        "Apt > curl==7.18.2-8lenny6",
+        "Apt > debconf==1.5.24",
+        "Apt > debconf-i18n==1.5.24",
+        "Apt > debian-archive-keyring==2010.08.28~lenny1",
+        "Apt > debianutils==2.30",
+        "Apt > defoma==0.11.10-0.2",
+        "Apt > dhcp3-client==3.1.1-6 lenny6",
+        "Apt > dhcp3-common==3.1.1-6 lenny6",
+        "Apt > diff==2.8.1-12",
+        "Apt > djvulibre-desktop==3.5.20-8 lenny1",
+        "Apt > dmidecode==2.9-1",
+        "Apt > dpkg==1.14.31",
+        "Apt > e2fslibs==1.41.3-1",
+        "Apt > e2fsprogs==1.41.3-1",
+        "Apt > ed==0.7-3",
+        "Apt > file==4.26-1",
+        "Apt > findutils==4.4.0-2",
+        "Apt > fontconfig==2.6.0-3",
+        "Apt > fontconfig-config==2.6.0-3",
+        "Apt > gcc-4.2-base==4.2.4-6",
+        "Apt > gcc-4.3-base==4.3.2-1.1",
+        "Apt > ghostscript==8.62.dfsg.1-3.2lenny5",
+        "Apt > git==4.9.4-1",
+        "Apt > gnuit==4.9.4-1",
+        "Apt > gnupg==1.4.9-3 lenny1",
+        "Apt > gpgv==1.4.9-3 lenny1",
+        "Apt > grep==2.5.3~dfsg-6",
+        "Apt > groff-base==1.18.1.1-21",
+        "Apt > gs-common==8.62.dfsg.1-3.2lenny5",
+        "Apt > gsfonts==1:8.11 urwcyr1.0.7~pre44-3",
+        "Apt > gzip==1.3.12-6 lenny1",
+        "Apt > hicolor-icon-theme==0.10-1",
+        "Apt > hostname==2.95",
+        "Apt > ifupdown==0.6.8 nmu1",
+        "Apt > info==4.11.dfsg.1-4",
+        "Apt > initscripts==2.86.ds1-61",
+        "Apt > iproute==20080725-2",
+        "Apt > iptables==1.4.2-6",
+        "Apt > iputils-ping==3:20071127-1 lenny1",
+        "Apt > libacl1==2.2.47-2",
+        "Apt > libapache2-mod-php5==5.2.6.dfsg.1-1 lenny16",
+        "Apt > libapr1==1.2.12-5 lenny5",
+        "Apt > libaprutil1==1.2.12 dfsg-8+lenny5",
+        "Apt > libatk1.0-0==1.22.0-1",
+        "Apt > libatk1.0-data==1.22.0-1",
+        "Apt > libattr1==1:2.4.43-2",
+        "Apt > libblkid1==1.41.3-1",
+        "Apt > libbz2-1.0==1.0.5-1 lenny1",
+        "Apt > libc-client2007b==7:2007b~dfsg-4 lenny3",
+        "Apt > libc6==2.7-18lenny7",
+        "Apt > libcairo2==1.6.4-7",
+        "Apt > libcomerr2==1.41.3-1",
+        "Apt > libconsole==1:0.2.3dbs-65.1",
+        "Apt > libcroco3==0.6.1-2",
+        "Apt > libcups2==1.3.8-1 lenny10",
+        "Apt > libcupsimage2==1.3.8-1 lenny10",
+        "Apt > libcurl3==7.18.2-8lenny6",
+        "Apt > libcwidget3==0.5.12-4",
+        "Apt > libdatrie0==0.1.3-2",
+        "Apt > libdb4.5==4.5.20-13",
+        "Apt > libdb4.6==4.6.21-11",
+        "Apt > libdevmapper1.02.1==2:1.02.27-4",
+        "Apt > libdirectfb-1.0-0==1.0.1-11",
+        "Apt > libdjvulibre21==3.5.20-8 lenny1",
+        "Apt > libept0==0.5.22",
+        "Apt > libexpat1==2.0.1-4 lenny3",
+        "Apt > libfontconfig1==2.6.0-3",
+        "Apt > libfontenc1==1:1.0.4-3",
+        "Apt > libfreetype6==2.3.7-2 lenny8",
+        "Apt > libgcc1==1:4.3.2-1.1",
+        "Apt > libgcrypt11==1.4.1-1",
+        "Apt > libgd2-xpm==2.0.36~rc1~dfsg-3 lenny1",
+        "Apt > libgdbm3==1.8.3-3",
+        "Apt > libglib2.0-0==2.16.6-3",
+        "Apt > libglib2.0-data==2.16.6-3",
+        "Apt > libgnutls26==2.4.2-6 lenny2",
+        "Apt > libgpg-error0==1.4-2",
+        "Apt > libgpm2==1.20.4-3.1",
+        "Apt > libgraphviz4==2.20.2-3",
+        "Apt > libgs8==8.62.dfsg.1-3.2lenny5",
+        "Apt > libgsf-1-114==1.14.8-1lenny2",
+        "Apt > libgsf-1-common==1.14.8-1lenny2",
+        "Apt > libgtk2.0-0==2.12.12-1~lenny2",
+        "Apt > libgtk2.0-bin==2.12.12-1~lenny2",
+        "Apt > libgtk2.0-common==2.12.12-1~lenny2",
+        "Apt > libice6==2:1.0.4-1",
+        "Apt > libidn11==1.8 20080606-1",
+        "Apt > libilmbase6==1.0.1-2 nmu2",
+        "Apt > libjasper1==1.900.1-5.1 lenny2",
+        "Apt > libjpeg62==6b-14",
+        "Apt > libkeyutils1==1.2-9",
+        "Apt > libkrb53==1.6.dfsg.4~beta1-5lenny7",
+        "Apt > liblcms1==1.17.dfsg-1 lenny2",
+        "Apt > libldap-2.4-2==2.4.11-1 lenny2.1",
+        "Apt > liblocale-gettext-perl==1.05-4",
+        "Apt > libltdl3==1.5.26-4 lenny1",
+        "Apt > libmagic1==4.26-1",
+        "Apt > libmagick10==7:6.3.7.9.dfsg2-1~lenny4",
+        "Apt > libmcrypt4==2.5.7-5",
+        "Apt > libmysqlclient15off==5.0.51a-24 lenny5",
+        "Apt > libncurses5==5.7 20081213-1",
+        "Apt > libncursesw5==5.7 20081213-1",
+        "Apt > libnewt0.52==0.52.2-11.3 lenny1",
+        "Apt > libopenexr6==1.6.1-3 lenny3",
+        "Apt > libpam-modules==1.0.1-5 lenny1",
+        "Apt > libpam-runtime==1.0.1-5 lenny1",
+        "Apt > libpam0g==1.0.1-5 lenny1",
+        "Apt > libpango1.0-0==1.20.5-6",
+        "Apt > libpango1.0-common==1.20.5-6",
+        "Apt > libpaper-utils==1.1.23 nmu1",
+        "Apt > libpaper1==1.1.23 nmu1",
+        "Apt > libpcre3==7.6-2.1",
+        "Apt > libpixman-1-0==0.10.0-2",
+        "Apt > libpng12-0==1.2.27-2 lenny5",
+        "Apt > libpopt0==1.14-4",
+        "Apt > libpq5==8.3.17-0lenny1",
+        "Apt > libreadline5==5.2-3.1",
+        "Apt > librsvg2-2==2.22.2-2lenny1",
+        "Apt > libsasl2-2==2.1.22.dfsg1-23 lenny1",
+        "Apt > libselinux1==2.0.65-5",
+        "Apt > libsepol1==2.0.30-2",
+        "Apt > libsigc++-2.0-0c2a==2.0.18-2",
+        "Apt > libslang2==2.1.3-3",
+        "Apt > libsm6==2:1.0.3-2",
+        "Apt > libsqlite0==2.8.17-4",
+        "Apt > libsqlite3-0==3.5.9-6",
+        "Apt > libss2==1.41.3-1",
+        "Apt > libssh2-1==0.18-1",
+        "Apt > libssl0.9.8==0.9.8g-15 lenny16",
+        "Apt > libstdc++6==4.3.2-1.1",
+        "Apt > libsysfs2==2.1.0-5",
+        "Apt > libt1-5==5.1.2-3 lenny1",
+        "Apt > libtasn1-3==1.4-1",
+        "Apt > libtext-charwidth-perl==0.04-5 b1",
+        "Apt > libtext-iconv-perl==1.7-1 b1",
+        "Apt > libtext-wrapi18n-perl==0.06-6",
+        "Apt > libthai-data==0.1.9-4 lenny1",
+        "Apt > libthai0==0.1.9-4 lenny1",
+        "Apt > libtidy-0.99-0==20080116cvs-2",
+        "Apt > libtiff4==3.8.2-11.5",
+        "Apt > libts-0.0-0==1.0-4",
+        "Apt > libusb-0.1-4==2:0.1.12-13",
+        "Apt > libuuid1==1.41.3-1",
+        "Apt > libwmf0.2-7==0.2.8.4-6 lenny1",
+        "Apt > libwrap0==7.6.q-16",
+        "Apt > libx11-6==2:1.1.5-2",
+        "Apt > libx11-data==2:1.1.5-2",
+        "Apt > libxapian15==1.0.7-4",
+        "Apt > libxau6==1:1.0.3-3",
+        "Apt > libxcb-render-util0==0.2.1 git1-1",
+        "Apt > libxcb-render0==1.1-1.2",
+        "Apt > libxcb-xlib0==1.1-1.2",
+        "Apt > libxcb1==1.1-1.2",
+        "Apt > libxcomposite1==1:0.4.0-3",
+        "Apt > libxcursor1==1:1.1.9-1",
+        "Apt > libxdamage1==1:1.1.1-4",
+        "Apt > libxdmcp6==1:1.0.2-3",
+        "Apt > libxext6==2:1.0.4-2",
+        "Apt > libxfixes3==1:4.0.3-2",
+        "Apt > libxfont1==1:1.3.3-2",
+        "Apt > libxft2==2.1.12-3",
+        "Apt > libxi6==2:1.1.4-1",
+        "Apt > libxinerama1==2:1.0.3-2",
+        "Apt > libxml2==2.6.32.dfsg-5 lenny5",
+        "Apt > libxpm4==1:3.5.7-1",
+        "Apt > libxrandr2==2:1.2.3-1",
+        "Apt > libxrender1==1:0.9.4-2",
+        "Apt > libxt6==1:1.0.5-3",
+        "Apt > locales==2.7-18lenny7",
+        "Apt > login==1:4.1.1-6 lenny1",
+        "Apt > logrotate==3.7.1-5",
+        "Apt > lsb-base==3.2-20",
+        "Apt > lzma==4.43-14",
+        "Apt > makedev==2.3.1-88",
+        "Apt > man-db==2.5.2-5",
+        "Apt > manpages==3.05-1",
+        "Apt > mawk==1.3.3-11.1",
+        "Apt > mime-support==3.44-1",
+        "Apt > mktemp==1.5-9",
+        "Apt > mlock==7:2007b~dfsg-4 lenny3",
+        "Apt > module-init-tools==3.4-1",
+        "Apt > mount==2.13.1.1-1",
+        "Apt > mysql-common==5.0.51a-24 lenny5",
+        "Apt > nano==2.0.7-5",
+        "Apt > ncurses-base==5.7 20081213-1",
+        "Apt > ncurses-bin==5.7 20081213-1",
+        "Apt > net-tools==1.60-22",
+        "Apt > netbase==4.34",
+        "Apt > netcat-traditional==1.10-38",
+        "Apt > openssl==0.9.8g-15 lenny16",
+        "Apt > openssl-blacklist==0.4.2",
+        "Apt > passwd==1:4.1.1-6 lenny1",
+        "Apt > perl==5.10.0-19lenny5",
+        "Apt > perl-base==5.10.0-19lenny5",
+        "Apt > perl-modules==5.10.0-19lenny5",
+        "Apt > php-apc==3.0.19-2",
+        "Apt > php-pear==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-cli==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-common==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-curl==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-gd==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-imagick==2.1.1RC1-1",
+        "Apt > php5-imap==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-mcrypt==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-mysql==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-sqlite==5.2.6.dfsg.1-1 lenny16",
+        "Apt > php5-tidy==5.2.6.dfsg.1-1 lenny16",
+        "Apt > procps==1:3.2.7-11",
+        "Apt > psfontmgr==0.11.10-0.2",
+        "Apt > psmisc==22.6-1",
+        "Apt > python==2.5.2-3",
+        "Apt > python-minimal==2.5.2-3",
+        "Apt > python2.5==2.5.2-15 lenny1",
+        "Apt > python2.5-minimal==2.5.2-15 lenny1",
+        "Apt > readline-common==5.2-3.1",
+        "Apt > rsyslog==3.18.6-4",
+        "Apt > sed==4.1.5-6",
+        "Apt > sgml-base==1.26",
+        "Apt > ssl-cert==1.0.23",
+        "Apt > sysv-rc==2.86.ds1-61",
+        "Apt > sysvinit==2.86.ds1-61",
+        "Apt > sysvinit-utils==2.86.ds1-61",
+        "Apt > tar==1.20-1 lenny1",
+        "Apt > tasksel==2.78",
+        "Apt > tasksel-data==2.78",
+        "Apt > tcpd==7.6.q-16",
+        "Apt > traceroute==2.0.11-2",
+        "Apt > ttf-dejavu==2.25-3",
+        "Apt > ttf-dejavu-core==2.25-3",
+        "Apt > ttf-dejavu-extra==2.25-3",
+        "Apt > tzdata==2011k-0lenny1",
+        "Apt > ucf==3.0016",
+        "Apt > update-inetd==4.31",
+        "Apt > util-linux==2.13.1.1-1",
+        "Apt > vim==1:7.1.314-3 lenny2",
+        "Apt > vim-common==1:7.1.314-3 lenny2",
+        "Apt > vim-runtime==1:7.1.314-3 lenny2",
+        "Apt > vim-tiny==1:7.1.314-3 lenny2",
+        "Apt > wget==1.11.4-2 lenny2",
+        "Apt > whiptail==0.52.2-11.3 lenny1",
+        "Apt > x-ttcidfont-conf==31",
+        "Apt > x11-common==1:7.3 20",
+        "Apt > xfonts-encodings==1:1.0.2-3",
+        "Apt > xfonts-utils==1:7.4 1",
+        "Apt > xml-core==0.12",
+        "Apt > zlib1g==1:1.2.3.3.dfsg-12"
+    ],
+    "@context": "http://www.schema.org",
+    "@type": "ImageDefinition"
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.15.0/prism.js"></script>
+</body>
+</html>
