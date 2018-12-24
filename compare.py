@@ -70,6 +70,10 @@ df = pandas.read_pickle('feature-set-df-42k.pkl')
 df.shape
 # (42055, 4687)
 
+# Make it sparse
+sdf = df.to_sparse()
+sdf.to_pickle('feature-set-df-42k-sparse.pkl')
+
 # Finally, let's make a crude list of labels to color container by (guessed) OS / base image
 # This is run on my local machine where the data files are
 from spython.main.parse import DockerRecipe
@@ -101,7 +105,6 @@ labels = {'notag': fromheaders_notag,
           'original': df.index.tolist() }
 
 pickle.dump(labels, open('df-labels-42k.pkl', 'wb'))
-
 
 
 ################################################################################
@@ -150,20 +153,21 @@ for diff in diffs:
         pass
     
 
-len(list(recursive_find('container-diff', '*.json')))
-# Out of the total of 54593 containers, 42055 have Pip packages
-
-# Note that on the first go we only read about 6K of these.
+df = pandas.read_pickle('feature-set-df-apt.pkl')
 df[df.isna()==True] = 0
-df.to_csv('feature-set-df-42k.csv')
-df.to_pickle('feature-set-df-42k.pkl')
+df.to_pickle('feature-set-df-apt.pkl')
 
-df = pandas.read_pickle('feature-set-df-42k.pkl')
+# Make it sparse
+sdf = df.to_sparse()
+sdf.to_pickle('feature-set-df-apt-sparse.pkl')
+
+# How big is it?
 df.shape
-# (42055, 4687)
+# (12000, 28226)
 
 # Finally, let's make a crude list of labels to color container by (guessed) OS / base image
 # This is run on my local machine where the data files are
+df = pandas.read_pickle('feature-set-df-apt-sparse.pkl')
 from spython.main.parse import DockerRecipe
 
 fromheaders = []
@@ -192,4 +196,4 @@ labels = {'notag': fromheaders_notag,
           'fromheaders': fromheaders,
           'original': df.index.tolist() }
 
-pickle.dump(labels, open('df-labels-42k.pkl', 'wb'))
+pickle.dump(labels, open('df-labels-apt.pkl', 'wb'))
